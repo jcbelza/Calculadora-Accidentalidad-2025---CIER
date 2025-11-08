@@ -73,7 +73,7 @@
     <div class="container mx-auto max-w-5xl bg-white rounded-xl shadow-2xl overflow-hidden my-10">
         <!-- HEADER / BANNER -->
         <div class="bg-gradient-to-br from-cier-blue to-cier-purple text-white p-10 text-center">
-            <h1 class="text-3xl font-extrabold mb-2">📊 Calculadora de Accidentalidad CIER 2025</h1>
+            <h1 class="text-3xl font-extrabold mb-2">📊 Calculadora de Accidentalidad CIER 2025 para Personal Propio</h1>
             <p class="text-xl font-light opacity-90">Empresas de Distribución & Integradas con importante participación de la Distribución</p>
             <div class="mt-4 inline-block bg-white bg-opacity-20 px-4 py-1 rounded-full text-sm font-medium">Personal Propio | 42 Empresas | 17 Países</div>
         </div>
@@ -127,23 +127,23 @@
                     </div>
                 </div>
                 <div class="bg-warning-light border-l-4 border-yellow-500 p-4 mt-6 text-sm text-yellow-800 rounded-md">
-                    <strong class="text-yellow-900">¿Qué es TFCPSI?</strong> La Tasa de Frecuencia de Accidentes con Pérdida de Días es el número de accidentados por cada millón de horas trabajadas. **Mientras más bajo, mejor.**
+                    <strong class="text-yellow-900">¿Qué es TFCPSI?</strong> La Tasa de Frecuencia de Accidentes con Pérdida de Días Sin In Itinere es el número de accidentados por cada millón de horas trabajadas. **Mientras más bajo, mejor.**
                 </div>
             </section>
 
             <!-- FORMULARIO DE INGRESO DE DATOS -->
             <section class="mb-12">
                 <h2 class="text-2xl font-bold text-gray-800 mb-6">
-                    <span class="text-cier-blue">📝</span> Ingrese los Datos de su Empresa
+                    <span class="text-cier-blue">📝</span> Ingrese los Datos de su Empresa de los últimos 12 Meses, para compararse.
                 </h2>
                 
-                <!-- Entrada de Datos Pasados (Últimos 12 Meses) -->
+                <!-- Entrada de Datos Históricos de personal propio (Últimos 12 Meses disponibles) -->
                 <div class="p-6 bg-gray-100 rounded-lg border border-gray-200">
-                    <h3 class="text-xl font-semibold text-gray-700 mb-4">Datos Históricos (Últimos 12 Meses Pasados)</h3>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-4">Datos Históricos (Últimos 12 Meses)</h3>
 
                     <div class="mb-6">
-                        <label for="nacpdsi" class="block text-gray-700 font-medium mb-2">NACPDSI - Número de Accidentados con Pérdida de Días:</label>
-                        <span class="block text-sm text-gray-500 mb-2">Cantidad de trabajadores accidentados (sin *in itinere*) correspondientes a los **Últimos 12 Meses Pasados**.</span>
+                        <label for="nacpdsi" class="block text-gray-700 font-medium mb-2">NACPDSI - Número de Accidentados con Pérdida de Días Sin In Itinere:</label>
+                        <span class="block text-sm text-gray-500 mb-2">Cantidad de trabajadores  propios accidentados (sin *in itinere*) correspondientes a los **Últimos 12 Meses**.</span>
                         <input type="number" id="nacpdsi" placeholder="Ejemplo: 3" min="0" step="1" oninput="calcularTFCPSI()" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-cier-blue">
                     </div>
 
@@ -691,3 +691,4 @@
     </script>
 </body>
 </html>
+

@@ -1,7 +1,7 @@
 <!--
 Calculadora de Accidentalidad CIER 2025
 Rediseño profesional con Tailwind CSS.
-Implementa paleta de color sobria: Azul, Blanco y Verde.
+Implementa paleta de color sobria: Azul, Blanco y Verde, y lógica de clasificación basada en percentiles (cuartiles).
 -->
 <html lang="es">
 <head>
@@ -16,12 +16,12 @@ Implementa paleta de color sobria: Azul, Blanco y Verde.
                 extend: {
                     colors: {
                         // Paleta Sobria: Azul y Blanco como base, Verde como acento
-                        'cier-blue': '#22577A', // Azul corporativo oscuro
+                        'cier-blue': '#22577A', // Azul corporativo profundo
                         'cier-light-blue': '#C8E6F0', // Azul muy claro para fondo del body
                         'success-dark': '#38A169', // Verde oscuro para éxito
-                        'success-light': '#D4EDDA',
-                        'warning-light': '#FFF3CD',
-                        'danger-light': '#F8D7DA',
+                        'success-light': '#D4EDDA', // Fondo verde claro
+                        'warning-light': '#FFF3CD', // Fondo amarillo claro para advertencias
+                        'danger-light': '#F8D7DA', // Fondo rojo claro para necesidad de mejora
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -63,13 +63,13 @@ Implementa paleta de color sobria: Azul, Blanco y Verde.
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Gradientes para clasificación */
+        /* Gradientes y colores de clasificación basados en la paleta Azul/Blanco/Verde */
         .bg-excelente { background-color: #38A169; } /* Verde Fuerte */
-        .bg-bueno { background-color: #68D391; }
+        .bg-bueno { background-color: #68D391; } /* Verde Medio */
         .bg-regular { background-color: #FFC107; } /* Amarillo */
         .bg-mejorar { background-color: #DC3545; } /* Rojo */
         
-        /* Ajuste de color en la barra de progreso */
+        /* Ajuste de color en la barra de progreso: de Verde a Rojo */
         .progreso-fill {
             background-image: linear-gradient(90deg, #38A169 0%, #68D391 25%, #FFC107 50%, #ff9800 75%, #dc3545 100%);
             transition: width 0.8s ease;
@@ -81,14 +81,14 @@ Implementa paleta de color sobria: Azul, Blanco y Verde.
     <!-- CONTENEDOR PRINCIPAL Y DE LOGO -->
     <div class="relative mx-auto max-w-5xl">
         
-        <!-- LOGO - POSICIONADO ABSOLUTO -->
+        <!-- LOGO - POSICIONADO ABSOLUTO (Logo.png debe estar en el mismo directorio) -->
         <img src="Logo.png" alt="Logo CIER" class="absolute left-1/2 -translate-x-1/2 top-[-60px] w-[150px] z-20">
         
         <!-- Contenedor blanco/gris de la App -->
         <div class="container bg-white rounded-xl shadow-2xl overflow-hidden my-10">
-            <!-- HEADER / BANNER - AHORA AZUL PLANO Y PROFUNDO -->
+            <!-- HEADER / BANNER - AZUL CORPORATIVO -->
             <div class="bg-cier-blue text-white p-10 text-center">
-                <h1 class="text-3xl font-extrabold mb-2">📊 Calculadora de Accidentalidad CIER para Personal Propio - con datos estadísticos de 2025</h1>
+                <h1 class="text-3xl font-extrabold mb-2">📊 Calculadora de Accidentalidad CIER 2025</h1>
                 <p class="text-xl font-light opacity-90">Empresas de Distribución & Integradas con importante participación de la Distribución</p>
                 <div class="mt-4 inline-block bg-white bg-opacity-20 px-4 py-1 rounded-full text-sm font-medium">Personal Propio | 42 Empresas | 17 Países</div>
             </div>
@@ -192,7 +192,53 @@ Implementa paleta de color sobria: Azul, Blanco y Verde.
 
                 <!-- SECCIÓN DE RESULTADOS DINÁMICA -->
                 <div class="resultados hidden fade-in" id="resultados">
-                    <!-- Los resultados se generarán dinámicamente con JavaScript -->
+                    <!-- Contenido dinámico del resultado -->
+
+                    <!-- EXPLICACIÓN DIDÁCTICA DEL CRITERIO DE CLASIFICACIÓN (Percentiles) -->
+                    <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-success-dark">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                            <span class="text-success-dark mr-2">⭐</span> Criterio de Clasificación: El Poder del Percentil
+                        </h2>
+                        <p class="text-gray-600 mb-6">La accidentalidad es asimétrica, por eso no usamos el promedio simple (que puede ser engañoso). Su clasificación se basa en su **Percentil**, que indica qué tan bien se desempeña su empresa comparada con las 42 empresas del sector.</p>
+
+                        <!-- CUADRO EXPLICATIVO DIDÁCTICO -->
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200 rounded-lg overflow-hidden">
+                                <thead class="bg-cier-blue text-white">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Clasificación</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Rango de Percentil</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Significado Práctico</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr class="bg-success-light">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-success-dark">EXCELENTE</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">Menor o igual al 25%</td>
+                                        <td class="px-6 py-4 text-sm text-gray-600">Su TFCPSI es mejor que el 75% del sector (Líder).</td>
+                                    </tr>
+                                    <tr class="bg-gray-50">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-700">BUENO</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">Entre 25% y 50%</td>
+                                        <td class="px-6 py-4 text-sm text-gray-600">Su desempeño está en la mitad superior, pero necesita mejorar para ser líder.</td>
+                                    </tr>
+                                    <tr class="bg-warning-light">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-yellow-800">REGULAR</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">Entre 50% y 75%</td>
+                                        <td class="px-6 py-4 text-sm text-gray-600">Se encuentra en la mitad inferior del sector. La Mediana es su primera meta.</td>
+                                    </tr>
+                                    <tr class="bg-danger-light">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-red-800">NECESITA MEJORAR</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">Mayor al 75%</td>
+                                        <td class="px-6 py-4 text-sm text-gray-600">Está en el cuartil de mayor riesgo. Se requieren acciones de mejora urgentes.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                    
+                    <!-- Aquí se insertan dinámicamente los demás resultados (Principal, Posición, Predicción, etc.) -->
+
                 </div>
             </div>
 
@@ -389,7 +435,11 @@ Implementa paleta de color sobria: Azul, Blanco y Verde.
             const resultado = analizarTFCPSI(tfcpsi, stats);
             
             // Generar HTML de resultados
-            let html = generarResultadoPrincipal(tfcpsi, resultado);
+            // 1. Inicia con el cuadro explicativo
+            let html = generarSeccionExplicacion();
+            
+            // 2. Continúa con el resultado principal y las demás secciones
+            html += generarResultadoPrincipal(tfcpsi, resultado);
             html += generarSeccionPosicion(resultado);
             html += generarSeccionComparacion(tfcpsi, resultado);
             html += generarSeccionPrediccion(tfcpsi, hhtFuturas);
@@ -414,6 +464,53 @@ Implementa paleta de color sobria: Azul, Blanco y Verde.
         // ============================================
         // GENERAR SECCIONES HTML (CON TAILWIND)
         // ============================================
+
+        function generarSeccionExplicacion() {
+            return `
+                <!-- EXPLICACIÓN DIDÁCTICA DEL CRITERIO DE CLASIFICACIÓN (Percentiles) -->
+                <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-success-dark">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                        <span class="text-success-dark mr-2">⭐</span> Criterio de Clasificación: El Poder del Percentil
+                    </h2>
+                    <p class="text-gray-600 mb-6">La accidentalidad es asimétrica, por eso no usamos el promedio simple (que puede ser engañoso). Su clasificación se basa en su **Percentil**, que indica qué tan bien se desempeña su empresa comparada con las 42 empresas del sector.</p>
+
+                    <!-- CUADRO EXPLICATIVO DIDÁCTICO -->
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200 rounded-lg overflow-hidden">
+                            <thead class="bg-cier-blue text-white">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Clasificación</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Rango de Percentil</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Significado Práctico</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr class="bg-success-light">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-success-dark">EXCELENTE</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">Menor o igual al 25%</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">Su TFCPSI es mejor que el 75% del sector (Líder).</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-700">BUENO</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">Entre 25% y 50%</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">Su desempeño está en la mitad superior, pero necesita mejorar para ser líder.</td>
+                                </tr>
+                                <tr class="bg-warning-light">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-yellow-800">REGULAR</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">Entre 50% y 75%</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">Se encuentra en la mitad inferior del sector. La Mediana es su primera meta.</td>
+                                </tr>
+                                <tr class="bg-danger-light">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-red-800">NECESITA MEJORAR</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">Mayor al 75%</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">Está en el cuartil de mayor riesgo. Se requieren acciones de mejora urgentes.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            `;
+        }
         
         function generarResultadoPrincipal(tfcpsi, resultado) {
             return `
@@ -438,7 +535,7 @@ Implementa paleta de color sobria: Azul, Blanco y Verde.
                     </h2>
                     
                     <div class="bg-warning-light border-l-4 border-yellow-500 p-3 mb-6 text-sm text-yellow-800 rounded-md">
-                        <strong class="text-yellow-900">Guía de Percentil:</strong> Un percentil más bajo significa mejor desempeño. El 40% indica que el 40% de las empresas tienen una tasa igual o menor a la tuya.
+                        <strong class="text-yellow-900">Guía de Percentil:</strong> Un percentil más bajo significa mejor desempeño. El ${resultado.percentil.toFixed(1)}% indica que el ${resultado.percentil.toFixed(1)}% de las empresas tienen una tasa igual o menor a la tuya.
                     </div>
                     
                     <div class="h-10 bg-gray-200 rounded-full overflow-hidden my-4 shadow-inner">
@@ -500,7 +597,7 @@ Implementa paleta de color sobria: Azul, Blanco y Verde.
                             <h3 class="text-lg font-semibold text-gray-700 mb-2">vs Top 25%</h3>
                             <div class="text-2xl font-bold ${tfcpsi <= percentilesGamma.p25 ? 'text-success-dark' : 'text-yellow-800'}">≤ ${percentilesGamma.p25.toFixed(2)}</div>
                             <p class="text-sm text-gray-600 mt-2">Meta de excelencia para el cuartil superior.</p>
-                            <p class="text-sm font-semibold mt-1">${tfcpsi <= percentilesGamma.p25 ? '¡Felicitaciones! Perteneces a los líderes.' : `Para entrar, necesitas reducir ${(tfcpsi - percentilesGamma.p25).toFixed(2)} puntos.`}</p>
+                            <p class="text-sm font-semibold mt-1">${tfcpsi <= percentilesGamma.p25 ? '¡Felicitaciones! Perteneces a los líderes.' : `Necesitas reducir ${(tfcpsi - percentilesGamma.p25).toFixed(2)} puntos.`}</p>
                         </div>
                     </div>
                 </section>
@@ -709,4 +806,3 @@ Implementa paleta de color sobria: Azul, Blanco y Verde.
     </script>
 </body>
 </html>
-

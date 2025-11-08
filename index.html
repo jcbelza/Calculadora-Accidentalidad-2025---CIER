@@ -7,7 +7,7 @@ Implementa paleta de color sobria: Azul, Blanco y Verde.
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora CIER 2025 - Distribución o Integradas con Importante Participación del Negocio de Distribución.</title>
+    <title>Calculadora CIER 2025 - Distribución & Integradas</title>
     <!-- Carga de Tailwind CSS CDN y configuración de colores -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -88,7 +88,7 @@ Implementa paleta de color sobria: Azul, Blanco y Verde.
         <div class="container bg-white rounded-xl shadow-2xl overflow-hidden my-10">
             <!-- HEADER / BANNER - AHORA AZUL PLANO Y PROFUNDO -->
             <div class="bg-cier-blue text-white p-10 text-center">
-                <h1 class="text-3xl font-extrabold mb-2">📊 Calculadora de Accidentalidad CIER 2025 para Personal Propio</h1>
+                <h1 class="text-3xl font-extrabold mb-2">📊 Calculadora de Accidentalidad CIER 2025</h1>
                 <p class="text-xl font-light opacity-90">Empresas de Distribución & Integradas con importante participación de la Distribución</p>
                 <div class="mt-4 inline-block bg-white bg-opacity-20 px-4 py-1 rounded-full text-sm font-medium">Personal Propio | 42 Empresas | 17 Países</div>
             </div>
@@ -117,7 +117,7 @@ Implementa paleta de color sobria: Azul, Blanco y Verde.
                 <!-- ESTADÍSTICAS DEL SECTOR (CORREGIDAS) -->
                 <section class="mb-12">
                     <h2 class="text-2xl font-bold text-gray-800 mb-6">
-                        <span class="text-cier-blue">📊</span> Estadísticas del Sector para Personal Propio (TFCPSI)
+                        <span class="text-cier-blue">📊</span> Estadísticas del Sector (TFCPSI)
                     </h2>
                     <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
                         <div class="p-4 bg-gray-50 rounded-lg shadow-md border border-gray-200 text-center">
@@ -149,22 +149,22 @@ Implementa paleta de color sobria: Azul, Blanco y Verde.
                 <!-- FORMULARIO DE INGRESO DE DATOS -->
                 <section class="mb-12">
                     <h2 class="text-2xl font-bold text-gray-800 mb-6">
-                        <span class="text-cier-blue">📝</span> Para compararse, ingrese los Datos de su Empresa de los últimos 12 Meses - Personal Propio.
+                        <span class="text-cier-blue">📝</span> Ingrese los Datos de su Empresa
                     </h2>
                     
                     <!-- Entrada de Datos Pasados (Últimos 12 Meses) -->
                     <div class="p-6 bg-gray-100 rounded-lg border border-gray-200">
-                        <h3 class="text-xl font-semibold text-gray-700 mb-4">Datos Históricos (Últimos 12 Meses)</h3>
+                        <h3 class="text-xl font-semibold text-gray-700 mb-4">Datos Históricos (Últimos 12 Meses Pasados)</h3>
 
                         <div class="mb-6">
-                            <label for="nacpdsi" class="block text-gray-700 font-medium mb-2">NACPDSI - Número de Accidentados con Pérdida de Días Sin In Itinere:</label>
-                            <span class="block text-sm text-gray-500 mb-2">Cantidad de personal propio accidentados (sin *in itinere*) correspondientes a los **Últimos 12 Meses**.</span>
+                            <label for="nacpdsi" class="block text-gray-700 font-medium mb-2">NACPDSI - Número de Accidentados con Pérdida de Días:</label>
+                            <span class="block text-sm text-gray-500 mb-2">Cantidad de trabajadores accidentados (sin *in itinere*) correspondientes a los **Últimos 12 Meses Pasados**.</span>
                             <input type="number" id="nacpdsi" placeholder="Ejemplo: 3" min="0" step="1" oninput="calcularTFCPSI()" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-cier-blue">
                         </div>
 
                         <div class="mb-6">
                             <label for="hht" class="block text-gray-700 font-medium mb-2">HHT - Horas Hombre Trabajadas (Personal Propio):</label>
-                            <span class="block text-sm text-gray-500 mb-2">Total de horas trabajadas por su personal propio en el período de los **Últimos 12 Meses**.</span>
+                            <span class="block text-sm text-gray-500 mb-2">Total de horas trabajadas por su personal propio en el período de los **Últimos 12 Meses Pasados**.</span>
                             <input type="number" id="hht" placeholder="Ejemplo: 500000" min="1" step="1" oninput="calcularTFCPSI()" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-cier-blue">
                         </div>
 
@@ -175,10 +175,10 @@ Implementa paleta de color sobria: Azul, Blanco y Verde.
                             <p class="text-lg text-green-900 mt-2">Tu TFCPSI = <strong id="tfcpsi-calculado" class="text-xl"> - </strong></p>
                         </div>
 
-                        <h3 class="text-xl font-semibold text-gray-700 mt-8 mb-4">Proyección Personal Propio (Próximos 12 Meses)</h3>
+                        <h3 class="text-xl font-semibold text-gray-700 mt-8 mb-4">Proyección (Próximos 12 Meses)</h3>
                         <div class="mb-6">
-                            <label for="hht-futuras" class="block text-gray-700 font-medium mb-2">HHT Proyectadas Personal Propio (para los próximos 12 Meses):</label>
-                            <span class="block text-sm text-gray-500 mb-2">Total de Horas Hombre Trabajadas esperadas para los próximos ** 12 Meses**.</span>
+                            <label for="hht-futuras" class="block text-gray-700 font-medium mb-2">HHT Proyectadas (para el próximo período):</label>
+                            <span class="block text-sm text-gray-500 mb-2">Total de Horas Hombre Trabajadas esperadas para un **Período de 12 Meses Futuros**.</span>
                             <input type="number" id="hht-futuras" placeholder="Ejemplo: 550000" min="1" step="1" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-cier-blue">
                         </div>
                     </div>
@@ -332,22 +332,24 @@ Implementa paleta de color sobria: Azul, Blanco y Verde.
             const diferenciaPorcentaje = ((tfcpsi - stats.promedio) / stats.promedio) * 100;
             
             let clasificacion, colorClase, interpretacion;
-            if (zScore <= -0.5) { 
+            
+            // Lógica de clasificación revisada basada en percentiles
+            if (percentil <= 25) { 
                 clasificacion = "EXCELENTE";
                 colorClase = "excelente";
-                interpretacion = "Tu desempeño es significativamente mejor que el promedio del sector (TOP 30%)";
-            } else if (zScore <= 0.25) {
+                interpretacion = "Tu desempeño te sitúa entre el TOP 25% de las empresas del sector. Continúa con el liderazgo.";
+            } else if (percentil <= 50) {
                 clasificacion = "BUENO";
                 colorClase = "bueno";
-                interpretacion = "Tu desempeño está por encima/cerca del promedio del sector";
-            } else if (zScore <= 1.0) {
+                interpretacion = "Tu desempeño está en la mitad superior del sector. Tienes buen rendimiento y potencial de ascenso.";
+            } else if (percentil <= 75) {
                 clasificacion = "REGULAR";
                 colorClase = "regular";
-                interpretacion = "Tu desempeño está por encima del promedio y en el cuartil de mejora (P50 - P85)";
+                interpretacion = "Tu desempeño está en la mitad inferior del sector. Requiere un plan de acción para alcanzar la Mediana.";
             } else {
                 clasificacion = "NECESITA MEJORAR";
                 colorClase = "mejorar";
-                interpretacion = "Tu desempeño requiere acciones de mejora urgentes en seguridad (TOP 15% Peor)";
+                interpretacion = "Tu desempeño está en el cuartil de mayor accidentalidad. Requiere acciones de mejora urgentes.";
             }
             
             return { 

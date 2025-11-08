@@ -1,10 +1,12 @@
 <!--
 Calculadora de Accidentalidad CIER 2025
-Última versión con:
+Versión final con:
 1. Diseño profesional (Azul, Blanco, Verde).
 2. Lógica de clasificación TFCPSI basada en percentiles (cuartiles).
-3. Análisis de Tipología de Casos (Pareto) con porcentajes claros y sugerencias proactivas.
+3. Análisis de Tipología de Casos (Pareto) con checkboxes para selección móvil.
 4. Cuadro de criterios de clasificación optimizado para móvil.
+5. INTEGRACIÓN GEMINI API: Generador de Plan de Acción Estratégico.
+6. Corrección de secuencia de funciones para evitar ReferenceError.
 -->
 <html lang="es">
 <head>
@@ -20,7 +22,7 @@ Calculadora de Accidentalidad CIER 2025
                     colors: {
                         // Paleta Sobria: Azul y Blanco como base, Verde como acento
                         'cier-blue': '#22577A', // Azul corporativo profundo
-                        'cier-light-blue': '#C8E6F0', // Azul muy claro para fondo del body
+                        'cier-light-blue': '#E6F0F4', // Azul muy claro para fondo de acento
                         'success-dark': '#38A169', // Verde oscuro para éxito
                         'success-light': '#D4EDDA', // Fondo verde claro
                         'warning-light': '#FFF3CD', // Fondo amarillo claro para advertencias
@@ -42,7 +44,8 @@ Calculadora de Accidentalidad CIER 2025
             background-color: #C8E6F0; 
             min-height: 100vh;
             display: flex;
-            align-items: flex-start; /* Alinea al inicio para que el encabezado no se recorte */
+            /* Alinea al inicio para que el encabezado no se recorte */
+            align-items: flex-start; 
             justify-content: center;
             padding: 2rem;
         }
@@ -55,11 +58,6 @@ Calculadora de Accidentalidad CIER 2025
         }
         input[type="number"] {
             -moz-appearance: textfield;
-        }
-
-        /* Estilo para el selector múltiple */
-        #tipologia-selector {
-            height: 180px; /* Altura fija para mostrar varias opciones */
         }
         
         /* Animación para resultados */
@@ -84,7 +82,7 @@ Calculadora de Accidentalidad CIER 2025
             transition: width 0.8s ease;
         }
 
-        /* Estilo específico para las etiquetas en móvil */
+        /* Estilo específico para las etiquetas de las tablas en móvil */
         .mobile-label {
             display: block;
             font-weight: 600;
@@ -95,6 +93,21 @@ Calculadora de Accidentalidad CIER 2025
             .mobile-label {
                 display: none;
             }
+        }
+        
+        /* Estilo para la selección de tipología (Checkbox como Card) */
+        .tipologia-card {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tipologia-card:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        .tipologia-checkbox:checked + .tipologia-card {
+            border-color: #22577A; /* Azul corporativo cuando está marcado */
+            background-color: #E6F0F4; /* Fondo azul muy claro para marcado */
+            box-shadow: 0 0 0 3px #4A90E2; /* Anillo azul brillante */
         }
     </style>
 </head>
@@ -199,34 +212,83 @@ Calculadora de Accidentalidad CIER 2025
 
                         <h3 class="text-xl font-semibold text-gray-700 mt-8 mb-4">Proyección (Próximos 12 Meses)</h3>
                         <div class="mb-6">
-                            <label for="hht-futuras" class="block text-gray-700 font-medium mb-2">HHT Proyectadas (para el próximo período):</label>
+                            <label for="hht-futuras" class="block text-gray-700 font-medium mb-2">HHT - Horas Hombre Trabajadas Proyectadas (para el próximo período):</label>
                             <span class="block text-sm text-gray-500 mb-2">Total de Horas Hombre Trabajadas esperadas para un **Período de 12 Meses Futuros**.</span>
                             <input type="number" id="hht-futuras" placeholder="Ejemplo: 550000" min="1" step="1" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-cier-blue">
                         </div>
                     </div>
                     
-                    <!-- NUEVA SECCIÓN: ANÁLISIS DE CAUSAS RAÍZ -->
+                    <!-- NUEVA SECCIÓN: ANÁLISIS DE CAUSAS RAÍZ (CHECKBOXES PARA MÓVIL) -->
                     <div class="p-6 bg-gray-100 rounded-lg border border-gray-200 mt-8">
                         <h3 class="text-xl font-semibold text-gray-700 mb-4 flex items-center">
                             <span class="text-accent-blue mr-2">🔎</span> Análisis de Causas Raíz (Pareto)
                         </h3>
-                        <p class="block text-sm text-gray-500 mb-4">Seleccione las **3 a 5 tipologías de accidentes** que más le preocupan o que han afectado a su empresa en el último año. Usaremos estos datos para generar sugerencias específicas.</p>
+                        <p class="block text-sm text-gray-500 mb-4">Seleccione las **tipologías de accidentes** que más le preocupan o que han afectado a su empresa. (Toque para seleccionar/deseleccionar)</p>
                         
-                        <label for="tipologia-selector" class="block text-gray-700 font-medium mb-2">Seleccione las tipologías (mantenga Ctrl/Cmd para seleccionar varias):</label>
-                        <select id="tipologia-selector" multiple class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-cier-blue bg-white">
-                            <!-- Opciones basadas en los datos de Pareto proporcionados -->
-                            <option value="Caídas de personas a Nivel y/o Altura" data-percent="18.4">1. Caídas de personas a Nivel y/o Altura (18.4%)</option>
-                            <option value="Golpes por objetos" data-percent="17.7">2. Golpes por objetos (17.7%)</option>
-                            <option value="Esfuerzos excesivos" data-percent="16.2">3. Esfuerzos excesivos (16.2%)</option>
-                            <option value="Otras formas de accidentes" data-percent="12.5">4. Otras formas de accidentes (12.5%)</option>
-                            <option value="Choques Vehículo" data-percent="7.7">5. Choques Vehículo (7.7%)</option>
-                            <option value="Malas pisadas" data-percent="6.1">6. Malas pisadas (6.1%)</option>
-                            <option value="Golpe por caídas de objetos" data-percent="4.7">7. Golpe por caídas de objetos (4.7%)</option>
-                            <option value="Atrapamiento por un objeto o entre objetos" data-percent="4.2">8. Atrapamiento por un objeto o entre objetos (4.2%)</option>
-                            <option value="Contacto con electricidad" data-percent="3.5">9. Contacto con electricidad (3.5%)</option>
-                            <option value="Picadura de insectos, otros" data-percent="2.5">10. Picadura de insectos, otros (2.5%)</option>
-                            <!-- Se pueden añadir más si es necesario, pero nos enfocamos en el Pareto principal -->
-                        </select>
+                        <div id="tipologia-selector-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-96 overflow-y-auto pr-2">
+                            <!-- Opciones generadas dinámicamente o añadidas aquí -->
+                            
+                            <!-- Opción 1 -->
+                            <input type="checkbox" id="tipologia-1" name="tipologia" value="Caídas de personas a Nivel y/o Altura" data-percent="18.4" class="tipologia-checkbox hidden">
+                            <label for="tipologia-1" class="tipologia-card p-3 border-2 border-gray-300 rounded-lg shadow-sm block text-gray-700 text-sm font-medium">
+                                Caídas de personas a Nivel y/o Altura <span class="text-gray-500 font-normal float-right">(18.4%)</span>
+                            </label>
+                            
+                            <!-- Opción 2 -->
+                            <input type="checkbox" id="tipologia-2" name="tipologia" value="Golpes por objetos" data-percent="17.7" class="tipologia-checkbox hidden">
+                            <label for="tipologia-2" class="tipologia-card p-3 border-2 border-gray-300 rounded-lg shadow-sm block text-gray-700 text-sm font-medium">
+                                Golpes por objetos <span class="text-gray-500 font-normal float-right">(17.7%)</span>
+                            </label>
+
+                            <!-- Opción 3 -->
+                            <input type="checkbox" id="tipologia-3" name="tipologia" value="Esfuerzos excesivos" data-percent="16.2" class="tipologia-checkbox hidden">
+                            <label for="tipologia-3" class="tipologia-card p-3 border-2 border-gray-300 rounded-lg shadow-sm block text-gray-700 text-sm font-medium">
+                                Esfuerzos excesivos <span class="text-gray-500 font-normal float-right">(16.2%)</span>
+                            </label>
+
+                            <!-- Opción 4 -->
+                            <input type="checkbox" id="tipologia-4" name="tipologia" value="Otras formas de accidentes" data-percent="12.5" class="tipologia-checkbox hidden">
+                            <label for="tipologia-4" class="tipologia-card p-3 border-2 border-gray-300 rounded-lg shadow-sm block text-gray-700 text-sm font-medium">
+                                Otras formas de accidentes <span class="text-gray-500 font-normal float-right">(12.5%)</span>
+                            </label>
+                            
+                            <!-- Opción 5 -->
+                            <input type="checkbox" id="tipologia-5" name="tipologia" value="Choques Vehículo" data-percent="7.7" class="tipologia-checkbox hidden">
+                            <label for="tipologia-5" class="tipologia-card p-3 border-2 border-gray-300 rounded-lg shadow-sm block text-gray-700 text-sm font-medium">
+                                Choques Vehículo <span class="text-gray-500 font-normal float-right">(7.7%)</span>
+                            </label>
+
+                            <!-- Opción 6 -->
+                            <input type="checkbox" id="tipologia-6" name="tipologia" value="Malas pisadas" data-percent="6.1" class="tipologia-checkbox hidden">
+                            <label for="tipologia-6" class="tipologia-card p-3 border-2 border-gray-300 rounded-lg shadow-sm block text-gray-700 text-sm font-medium">
+                                Malas pisadas <span class="text-gray-500 font-normal float-right">(6.1%)</span>
+                            </label>
+
+                            <!-- Opción 7 -->
+                            <input type="checkbox" id="tipologia-7" name="tipologia" value="Golpe por caídas de objetos" data-percent="4.7" class="tipologia-checkbox hidden">
+                            <label for="tipologia-7" class="tipologia-card p-3 border-2 border-gray-300 rounded-lg shadow-sm block text-gray-700 text-sm font-medium">
+                                Golpe por caídas de objetos <span class="text-gray-500 font-normal float-right">(4.7%)</span>
+                            </label>
+                            
+                            <!-- Opción 8 -->
+                            <input type="checkbox" id="tipologia-8" name="tipologia" value="Atrapamiento por un objeto o entre objetos" data-percent="4.2" class="tipologia-checkbox hidden">
+                            <label for="tipologia-8" class="tipologia-card p-3 border-2 border-gray-300 rounded-lg shadow-sm block text-gray-700 text-sm font-medium">
+                                Atrapamiento por un objeto o entre objetos <span class="text-gray-500 font-normal float-right">(4.2%)</span>
+                            </label>
+                            
+                            <!-- Opción 9 -->
+                            <input type="checkbox" id="tipologia-9" name="tipologia" value="Contacto con electricidad" data-percent="3.5" class="tipologia-checkbox hidden">
+                            <label for="tipologia-9" class="tipologia-card p-3 border-2 border-gray-300 rounded-lg shadow-sm block text-gray-700 text-sm font-medium">
+                                Contacto con electricidad <span class="text-gray-500 font-normal float-right">(3.5%)</span>
+                            </label>
+                            
+                            <!-- Opción 10 -->
+                            <input type="checkbox" id="tipologia-10" name="tipologia" value="Picadura de insectos, otros" data-percent="2.5" class="tipologia-checkbox hidden">
+                            <label for="tipologia-10" class="tipologia-card p-3 border-2 border-gray-300 rounded-lg shadow-sm block text-gray-700 text-sm font-medium">
+                                Picadura de insectos, otros <span class="text-gray-500 font-normal float-right">(2.5%)</span>
+                            </label>
+                            
+                        </div>
                     </div>
 
                     
@@ -236,6 +298,32 @@ Calculadora de Accidentalidad CIER 2025
                         </button>
                     </div>
                 </section>
+                
+                <!-- NUEVA SECCIÓN DE HERRAMIENTAS LLM -->
+                <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-accent-blue">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                        <span class="text-accent-blue mr-2">🤖</span> Herramientas de Inteligencia Artificial (Gemini)
+                    </h2>
+                    <p class="text-gray-600 mb-4">Utilice el poder de la IA para generar contenido estratégico basado en su análisis de accidentalidad y sus focos de riesgo seleccionados.</p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 mt-4">
+                        <button onclick="generarPlanEstrategicoLLM()" id="btn-gemini-plan" class="w-full bg-success-dark text-white px-6 py-3 text-lg font-semibold rounded-lg shadow-md hover:shadow-xl transition duration-300 ease-in-out hover:bg-opacity-90">
+                            Generar Plan Estratégico (IA) ✨
+                        </button>
+                    </div>
+                </section>
+                
+                <!-- ÁREA DE RESULTADOS LLM -->
+                <div id="gemini-results" class="mb-12 hidden">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                        <span class="text-accent-blue mr-2">✨</span> Plan de Acción Generado por IA
+                    </h2>
+                    <!-- Panel de carga y salida -->
+                    <div id="gemini-loading" class="hidden"></div>
+                    <div id="gemini-output" class="p-6 bg-white rounded-xl shadow-lg border-l-4 border-success-dark">
+                        <!-- El plan de acción aparecerá aquí -->
+                    </div>
+                </div>
 
                 <!-- SECCIÓN DE RESULTADOS DINÁMICA -->
                 <div class="resultados hidden fade-in" id="resultados">
@@ -253,13 +341,110 @@ Calculadora de Accidentalidad CIER 2025
     </div>
 
     <script>
-        // Ocultar resultados al cargar para una experiencia limpia
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('resultados').classList.add('hidden');
-        });
-        
         // ============================================
-        // DATOS CIER 2025 - Distribución & Integradas
+        // SETUP DE GEMINI Y UTILIDADES
+        // ============================================
+        
+        const apiKey = ""; 
+        const apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent";
+        
+        function showLoading(elementId, show) {
+            const el = document.getElementById(elementId);
+            if (show) {
+                el.innerHTML = '<div class="flex items-center justify-center p-4"><svg class="animate-spin h-5 w-5 mr-3 text-cier-blue" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Generando Plan...</div>';
+                el.classList.remove('hidden');
+                document.getElementById('gemini-output').innerHTML = ''; // Limpia el resultado anterior
+            } else {
+                el.classList.add('hidden');
+            }
+        }
+        
+        async function callGeminiAPI(userQuery, systemPrompt, outputElementId, loadingElementId) {
+            showLoading(loadingElementId, true);
+            
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+            };
+
+            try {
+                let response;
+                for (let attempt = 0; attempt < 3; attempt++) {
+                    response = await fetch(`${apiUrl}?key=${apiKey}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        break; 
+                    }
+                    if (attempt < 2) {
+                        await new Promise(resolve => setTimeout(resolve, Math.pow(2, attempt) * 1000)); 
+                    } else {
+                        throw new Error('Máximo de reintentos alcanzado.');
+                    }
+                }
+
+                if (!response.ok) {
+                    throw new Error(`Error en la API: ${response.status}`);
+                }
+
+                const result = await response.json();
+                const text = result.candidates?.[0]?.content?.parts?.[0]?.text || "No se pudo generar el plan. Intente nuevamente.";
+                
+                // Formateo del texto de salida (Markdown a HTML básico)
+                document.getElementById(outputElementId).innerHTML = `<div class="prose max-w-none p-4">${text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>')}</div>`;
+                document.getElementById('gemini-results').classList.remove('hidden');
+
+            } catch (error) {
+                console.error("Error al llamar a Gemini API:", error);
+                document.getElementById(outputElementId).innerHTML = `<div class="text-red-600 p-3 bg-danger-light rounded-lg">Error: No se pudo generar el plan. Verifique su conexión o intente con menos riesgos.</div>`;
+                document.getElementById('gemini-results').classList.remove('hidden');
+            } finally {
+                showLoading(loadingElementId, false); 
+            }
+        }
+
+        async function generarPlanEstrategicoLLM() {
+            // 1. Obtener clasificación de rendimiento (requiere que el análisis se haya corrido)
+            const resultadosDiv = document.getElementById('resultados');
+            const tfcpsiInputEl = resultadosDiv.querySelector('.tfcpsi-valor');
+
+            if (resultadosDiv.classList.contains('hidden') || !tfcpsiInputEl) {
+                alert('Paso 1 requerido: Por favor, ejecute el "Análisis y Comparación" primero.');
+                return;
+            }
+
+            const clasificacionEl = resultadosDiv.querySelector('.clasificacion');
+            const clasificacion = clasificacionEl ? clasificacionEl.textContent.trim() : 'Desconocida';
+            const tfcpsiValor = tfcpsiInputEl.textContent.trim();
+
+            // 2. Obtener los riesgos seleccionados
+            const tipologiaCheckboxes = document.querySelectorAll('input[name="tipologia"]:checked');
+            const riesgosSeleccionados = Array.from(tipologiaCheckboxes).map(checkbox => checkbox.value);
+            
+            if (riesgosSeleccionados.length === 0) {
+                alert('Paso 2 requerido: Por favor, seleccione las tipologías de riesgo en el formulario (Análisis Pareto).');
+                return;
+            }
+
+            const riesgosList = riesgosSeleccionados.join(', ');
+            const planObjetivo = `Reducir la tasa TFCPSI, que actualmente es ${tfcpsiValor}, con clasificación ${clasificacion}.`;
+
+            const userQuery = `Nuestra TFCPSI es ${tfcpsiValor}. La clasificación es "${clasificacion}". El objetivo es: ${planObjetivo}. Los riesgos clave que nos preocupan son: ${riesgosList}. Genera un plan de acción estratégico de 3 puntos (Máximo 2 líneas por punto). Estructura el plan con el formato: 1. [ACCION], 2. [ACCION], 3. [ACCION].`;
+            
+            const systemPrompt = "Eres un Consultor Senior en Seguridad y Salud Ocupacional (SSO), experto en el sector eléctrico de Latinoamérica. Genera un plan de acción conciso, priorizado y enfocado en mitigar los riesgos específicos y mejorar la clasificación de desempeño de la empresa. Usa lenguaje formal y directo. La salida solo debe contener los 3 puntos de acción.";
+
+            // Muestra el panel de resultados LLM
+            document.getElementById('gemini-results').classList.remove('hidden');
+
+            await callGeminiAPI(userQuery, systemPrompt, 'gemini-output', 'gemini-loading');
+        }
+
+
+        // ============================================
+        // DATOS CIER 2025 Y CÁLCULOS ESTADÍSTICOS
         // ============================================
         
         const datosCIER = [
@@ -272,8 +457,7 @@ Calculadora de Accidentalidad CIER 2025
           0.74718823, 0.903252409, 0.420180602, 2.105733069, 7.499521184,
           0, 3.971058923, 7.092869826, 9.731084718, 0
         ];
-
-        // Datos del Pareto CIER (Tipología de Casos)
+        
         const datosPareto = {
             "Caídas de personas a Nivel y/o Altura": { percent: 18.4, riesgo: "Alto", sugerencias: ["Refuerzo en protocolos de trabajo en altura (arneses, líneas de vida).", "Inspección rigurosa de andamios, escaleras y plataformas.", "Capacitación específica en rescate en altura."]},
             "Golpes por objetos": { percent: 17.7, riesgo: "Alto", sugerencias: ["Uso obligatorio y permanente de Equipo de Protección Personal (EPP) de cabeza y manos.", "Mejora del orden y limpieza en áreas de trabajo.", "Análisis de riesgo en manejo de herramientas y materiales."]},
@@ -288,28 +472,17 @@ Calculadora de Accidentalidad CIER 2025
         };
 
         
-        // ============================================
-        // CÁLCULO DE ESTADÍSTICAS DEL SECTOR (RUNTIME)
-        // ============================================
-        
         function calcularEstadisticas(datos) {
             const n = datos.length;
             const datosOrdenados = [...datos].sort((a, b) => a - b);
-            
             const promedio = datos.reduce((a, b) => a + b, 0) / n;
-            
             const mediana = n % 2 === 0 
                 ? (datosOrdenados[n/2 - 1] + datosOrdenados[n/2]) / 2 
                 : datosOrdenados[Math.floor(n/2)];
-            
-            // Cálculo de varianza de población (dividido por n)
             const varianza = datos.reduce((sum, val) => sum + Math.pow(val - promedio, 2), 0) / n;
             const desviacion = Math.sqrt(varianza);
-            
             const minimo = Math.min(...datos);
             const maximo = Math.max(...datos);
-            
-            // Parámetros Gamma
             const shapeK = Math.pow(promedio, 2) / varianza;
             const scaleTheta = varianza / promedio;
             
@@ -317,10 +490,6 @@ Calculadora de Accidentalidad CIER 2025
         }
         
         const stats = calcularEstadisticas(datosCIER);
-        
-        // ============================================
-        // FUNCIÓN GAMMA - Percentiles
-        // ============================================
         
         function percentilGamma(p, shape, scale) {
             let z;
@@ -340,9 +509,9 @@ Calculadora de Accidentalidad CIER 2025
             p90: percentilGamma(0.90, stats.shapeK, stats.scaleTheta)
         };
         
-        // ============================================
-        // FUNCIONES DE ANÁLISIS
-        // ============================================
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
         
         function calcularTFCPSI() {
             const nacpdsi = parseFloat(document.getElementById('nacpdsi').value);
@@ -374,7 +543,6 @@ Calculadora de Accidentalidad CIER 2025
             
             let clasificacion, colorClase, interpretacion;
             
-            // Lógica de clasificación revisada basada en percentiles (cuartiles)
             if (percentil <= 25) { 
                 clasificacion = "EXCELENTE";
                 colorClase = "excelente";
@@ -400,31 +568,30 @@ Calculadora de Accidentalidad CIER 2025
             const nacpdsi = parseFloat(document.getElementById('nacpdsi').value);
             const hht = parseFloat(document.getElementById('hht').value);
             const hhtFuturas = parseFloat(document.getElementById('hht-futuras').value);
-            const tipologiaSelector = document.getElementById('tipologia-selector');
-
+            
             // Validación de datos TFCPSI
             if (isNaN(nacpdsi) || isNaN(hht) || hht <= 0 || isNaN(hhtFuturas) || hhtFuturas <= 0) {
-                alert('Por favor, ingresa NACPDSI, HHT y HHT Proyectadas válidos.');
+                alert('Paso 1 requerido: Por favor, ingresa NACPDSI, HHT y HHT Proyectadas válidos.');
                 return;
             }
 
-            const seleccionTipologia = Array.from(tipologiaSelector.selectedOptions).map(option => ({
-                tipologia: option.value,
-                percent: parseFloat(option.dataset.percent)
-            }));
+            // Validación de selección de riesgos (aunque no afecta el TFCPSI, es necesario para el LLM)
+            const tipologiaCheckboxes = document.querySelectorAll('input[name="tipologia"]:checked');
+            if (tipologiaCheckboxes.length === 0) {
+                 alert('Paso 2 requerido: Por favor, selecciona al menos una Tipología de Caso para el Análisis Pareto.');
+                return;
+            }
             
-            if (seleccionTipologia.length === 0) {
-                 alert('Por favor, selecciona al menos una Tipología de Caso para el Análisis Pareto.');
-                return;
-            }
-
             const tfcpsi = (nacpdsi * 1000000) / hht;
             const resultado = analizarTFCPSI(tfcpsi, stats);
             
             // Generar HTML de resultados
             let html = generarSeccionExplicacion();
             html += generarResultadoPrincipal(tfcpsi, resultado);
-            html += generarSeccionTipologia(seleccionTipologia); // NUEVA SECCIÓN
+            html += generarSeccionTipologia(Array.from(tipologiaCheckboxes).map(checkbox => ({
+                tipologia: checkbox.value,
+                percent: parseFloat(checkbox.dataset.percent)
+            })));
             html += generarSeccionPosicion(resultado);
             html += generarSeccionComparacion(tfcpsi, resultado);
             html += generarSeccionPrediccion(tfcpsi, hhtFuturas);
@@ -438,12 +605,10 @@ Calculadora de Accidentalidad CIER 2025
             resultadosDiv.classList.remove('hidden');
             resultadosDiv.classList.add('fade-in');
             resultadosDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-        
-        // Función para formatear números con separador de miles
-        function formatNumber(num) {
-            // Asegura que el número se formatee con el punto como separador de miles (estándar español/latino)
-            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            
+            // Asegurar que el panel LLM se muestre (aunque esté vacío) si ya tiene contenido
+            document.getElementById('gemini-results').classList.remove('hidden');
+            document.getElementById('gemini-output').innerHTML = '<div class="text-gray-500 p-4">Haga clic en "Generar Plan Estratégico (IA)" para obtener un plan personalizado.</div>';
         }
 
         // ============================================
@@ -451,12 +616,11 @@ Calculadora de Accidentalidad CIER 2025
         // ============================================
 
         function generarSeccionExplicacion() {
-            // Se utiliza una estructura apilada de DIVs para asegurar la responsividad en móvil (sin tablas).
             const filas = [
-                { class: 'bg-success-light border-success-dark', clasificacion: 'EXCELENTE', rango: 'Menor o igual al 25%', significado: 'Su TFCPSI es mejor que el 75% del sector (Líder).' },
-                { class: 'bg-gray-50 border-success-dark', clasificacion: 'BUENO', rango: 'Entre 25% y 50%', significado: 'Su desempeño está en la mitad superior, pero necesita mejorar para ser líder.' },
-                { class: 'bg-warning-light border-yellow-500', clasificacion: 'REGULAR', rango: 'Entre 50% y 75%', significado: 'Se encuentra en la mitad inferior del sector. La Mediana es su primera meta.' },
-                { class: 'bg-danger-light border-red-500', clasificacion: 'NECESITA MEJORAR', rango: 'Mayor al 75%', significado: 'Está en el cuartil de mayor riesgo. Se requieren acciones de mejora urgentes.' }
+                { class: 'bg-success-light border-success-dark', clasificacion: 'EXCELENTE', rango: 'Menor o igual al 25%', significado: 'Su TFCPSI es mejor que el 75% de las empresas del sector (Líder).' },
+                { class: 'bg-gray-50 border-success-dark', clasificacion: 'BUENO', rango: 'Entre 25% y 50%', significado: 'Su desempeño está en la mitad superior. Potencial de ascenso.' },
+                { class: 'bg-warning-light border-yellow-500', clasificacion: 'REGULAR', rango: 'Entre 50% y 75%', significado: 'Se encuentra en la mitad inferior. La Mediana es su primera meta.' },
+                { class: 'bg-danger-light border-red-500', clasificacion: 'NECESITA MEJORAR', rango: 'Mayor al 75%', significado: 'Está en el cuartil de mayor riesgo. Acción urgente.' }
             ];
 
             const contenidoFilas = filas.map(fila => `
@@ -498,8 +662,8 @@ Calculadora de Accidentalidad CIER 2025
                     <h2 class="text-3xl font-semibold mb-2">Tu Resultado de Accidentalidad</h2>
                     <div class="text-sm opacity-80 mb-6">Distribución & Integradas | Personal Propio | CIER 2025</div>
                     <div class="text-xl font-medium opacity-90">Tu Tasa de Frecuencia (TFCPSI)</div>
-                    <div class="text-6xl font-extrabold my-4 tracking-tight">${tfcpsi.toFixed(2)}</div>
-                    <div class="inline-block px-8 py-2 rounded-full text-xl font-bold uppercase shadow-lg text-white bg-${resultado.colorClase}">
+                    <div class="text-6xl font-extrabold my-4 tracking-tight tfcpsi-valor">${tfcpsi.toFixed(2)}</div>
+                    <div class="inline-block px-8 py-2 rounded-full text-xl font-bold uppercase shadow-lg text-white bg-${resultado.colorClase} clasificacion">
                         ${resultado.clasificacion}
                     </div>
                     <div class="text-lg mt-4 p-3 bg-white bg-opacity-20 rounded-lg">${resultado.interpretacion}</div>
@@ -559,7 +723,7 @@ Calculadora de Accidentalidad CIER 2025
                             <div class="text-sm text-gray-600 mb-4">
                                 Los porcentajes son la media de ocurrencia por tipología según la **muestra de empresas CIER**.
                                 <p class="font-bold mt-2 text-cier-blue">${coincidenciaTexto}</p>
-                                <p class="font-extrabold mt-2 text-xl text-green-700">Total Riesgo Seleccionado: ${totalPercent.toFixed(1)}%</p>
+                                <p class="font-extrabold mt-2 text-xl text-success-dark">Total Riesgo Seleccionado: ${totalPercent.toFixed(1)}%</p>
                             </div>
                             <div class="bg-white rounded-lg shadow-inner divide-y divide-gray-100">
                                 <!-- Encabezados de la tabla de Pareto -->
@@ -684,7 +848,7 @@ Calculadora de Accidentalidad CIER 2025
                 
                 return `
                     <div class="p-5 bg-white rounded-lg shadow-md border-l-4 border-gray-300 hover:border-cier-blue transition duration-300">
-                        <h3 class="text-lg font-semibold text-gray-700 mb-2 ${esOptimista ? 'text-cier-blue' : ''}">${title}</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 mb-2 ${esOptimista ? 'text-accent-blue' : ''}">${title}</h3>
                         <p class="text-sm text-gray-500">TFCPSI: **${tfcpsiRef.toFixed(2)}**</p>
                         <div class="text-4xl font-extrabold text-cier-blue my-2">${accidentes.toFixed(2)}</div>
                         <div class="mt-2 p-2 rounded-md font-medium text-sm ${difClase}">
@@ -852,8 +1016,8 @@ Calculadora de Accidentalidad CIER 2025
             html += `
                     </div>
                     
-                    <div class="bg-blue-50 border-l-4 border-cier-blue p-4 mt-6 text-sm text-gray-800 rounded-md">
-                        <strong class="text-cier-blue">Valor Económico:</strong> Cada accidente evitado representa ahorros significativos en costos médicos, indemnizaciones y pérdidas de productividad, justificando la inversión en seguridad.
+                    <div class="bg-blue-50 border-l-4 border-accent-blue p-4 mt-6 text-sm text-gray-800 rounded-md">
+                        <strong class="text-accent-blue">Valor Económico:</strong> Cada accidente evitado representa ahorros significativos en costos médicos, indemnizaciones y pérdidas de productividad, justificando la inversión en seguridad.
                     </div>
                 </section>
             `;

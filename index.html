@@ -1,12 +1,12 @@
 <!--
 Calculadora de Accidentalidad CIER 2025
-Versión final con:
+Versión para publicación en entornos web estáticos (GitHub Pages).
+SE ELIMINÓ LA FUNCIONALIDAD DE LA API DE GEMINI para evitar errores de conexión/API Key.
+Funcionalidades incluidas:
 1. Diseño profesional (Azul, Blanco, Verde).
 2. Lógica de clasificación TFCPSI basada en percentiles (cuartiles).
 3. Análisis de Tipología de Casos (Pareto) con checkboxes para selección móvil.
 4. Cuadro de criterios de clasificación optimizado para móvil.
-5. INTEGRACIÓN GEMINI API: Generador de Plan de Acción Estratégico.
-6. Corrección de secuencia de funciones para evitar ReferenceError.
 -->
 <html lang="es">
 <head>
@@ -299,8 +299,8 @@ Versión final con:
                     </div>
                 </section>
                 
-                <!-- NUEVA SECCIÓN DE HERRAMIENTAS LLM -->
-                <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-accent-blue">
+                <!-- SECCIÓN ELIMINADA (GEMINI API) -->
+                <!-- <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-accent-blue">
                     <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
                         <span class="text-accent-blue mr-2">🤖</span> Herramientas de Inteligencia Artificial (Gemini)
                     </h2>
@@ -313,17 +313,14 @@ Versión final con:
                     </div>
                 </section>
                 
-                <!-- ÁREA DE RESULTADOS LLM -->
                 <div id="gemini-results" class="mb-12 hidden">
                     <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
                         <span class="text-accent-blue mr-2">✨</span> Plan de Acción Generado por IA
                     </h2>
-                    <!-- Panel de carga y salida -->
                     <div id="gemini-loading" class="hidden"></div>
                     <div id="gemini-output" class="p-6 bg-white rounded-xl shadow-lg border-l-4 border-success-dark">
-                        <!-- El plan de acción aparecerá aquí -->
                     </div>
-                </div>
+                </div> -->
 
                 <!-- SECCIÓN DE RESULTADOS DINÁMICA -->
                 <div class="resultados hidden fade-in" id="resultados">
@@ -342,110 +339,12 @@ Versión final con:
 
     <script>
         // ============================================
-        // SETUP DE GEMINI Y UTILIDADES
+        // SETUP Y UTILIDADES
         // ============================================
         
-        const apiKey = ""; 
-        const apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent";
-        
-        function showLoading(elementId, show) {
-            const el = document.getElementById(elementId);
-            if (show) {
-                el.innerHTML = '<div class="flex items-center justify-center p-4"><svg class="animate-spin h-5 w-5 mr-3 text-cier-blue" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Generando Plan...</div>';
-                el.classList.remove('hidden');
-                document.getElementById('gemini-output').innerHTML = ''; // Limpia el resultado anterior
-            } else {
-                el.classList.add('hidden');
-            }
-        }
-        
-        async function callGeminiAPI(userQuery, systemPrompt, outputElementId, loadingElementId) {
-            showLoading(loadingElementId, true);
-            
-            const payload = {
-                contents: [{ parts: [{ text: userQuery }] }],
-                systemInstruction: { parts: [{ text: systemPrompt }] },
-            };
+        // Se elimina la clave de API y las funciones relacionadas con la API de Gemini
+        // La funcionalidad LLM ya no está disponible en esta versión para publicación estática.
 
-            try {
-                let response;
-                for (let attempt = 0; attempt < 3; attempt++) {
-                    response = await fetch(`${apiUrl}?key=${apiKey}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (response.ok) {
-                        break; 
-                    }
-                    if (attempt < 2) {
-                        await new Promise(resolve => setTimeout(resolve, Math.pow(2, attempt) * 1000)); 
-                    } else {
-                        throw new Error('Máximo de reintentos alcanzado.');
-                    }
-                }
-
-                if (!response.ok) {
-                    throw new Error(`Error en la API: ${response.status}`);
-                }
-
-                const result = await response.json();
-                const text = result.candidates?.[0]?.content?.parts?.[0]?.text || "No se pudo generar el plan. Intente nuevamente.";
-                
-                // Formateo del texto de salida (Markdown a HTML básico)
-                document.getElementById(outputElementId).innerHTML = `<div class="prose max-w-none p-4">${text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>')}</div>`;
-                document.getElementById('gemini-results').classList.remove('hidden');
-
-            } catch (error) {
-                console.error("Error al llamar a Gemini API:", error);
-                document.getElementById(outputElementId).innerHTML = `<div class="text-red-600 p-3 bg-danger-light rounded-lg">Error: No se pudo generar el plan. Verifique su conexión o intente con menos riesgos.</div>`;
-                document.getElementById('gemini-results').classList.remove('hidden');
-            } finally {
-                showLoading(loadingElementId, false); 
-            }
-        }
-
-        async function generarPlanEstrategicoLLM() {
-            // 1. Obtener clasificación de rendimiento (requiere que el análisis se haya corrido)
-            const resultadosDiv = document.getElementById('resultados');
-            const tfcpsiInputEl = resultadosDiv.querySelector('.tfcpsi-valor');
-
-            if (resultadosDiv.classList.contains('hidden') || !tfcpsiInputEl) {
-                alert('Paso 1 requerido: Por favor, ejecute el "Análisis y Comparación" primero.');
-                return;
-            }
-
-            const clasificacionEl = resultadosDiv.querySelector('.clasificacion');
-            const clasificacion = clasificacionEl ? clasificacionEl.textContent.trim() : 'Desconocida';
-            const tfcpsiValor = tfcpsiInputEl.textContent.trim();
-
-            // 2. Obtener los riesgos seleccionados
-            const tipologiaCheckboxes = document.querySelectorAll('input[name="tipologia"]:checked');
-            const riesgosSeleccionados = Array.from(tipologiaCheckboxes).map(checkbox => checkbox.value);
-            
-            if (riesgosSeleccionados.length === 0) {
-                alert('Paso 2 requerido: Por favor, seleccione las tipologías de riesgo en el formulario (Análisis Pareto).');
-                return;
-            }
-
-            const riesgosList = riesgosSeleccionados.join(', ');
-            const planObjetivo = `Reducir la tasa TFCPSI, que actualmente es ${tfcpsiValor}, con clasificación ${clasificacion}.`;
-
-            const userQuery = `Nuestra TFCPSI es ${tfcpsiValor}. La clasificación es "${clasificacion}". El objetivo es: ${planObjetivo}. Los riesgos clave que nos preocupan son: ${riesgosList}. Genera un plan de acción estratégico de 3 puntos (Máximo 2 líneas por punto). Estructura el plan con el formato: 1. [ACCION], 2. [ACCION], 3. [ACCION].`;
-            
-            const systemPrompt = "Eres un Consultor Senior en Seguridad y Salud Ocupacional (SSO), experto en el sector eléctrico de Latinoamérica. Genera un plan de acción conciso, priorizado y enfocado en mitigar los riesgos específicos y mejorar la clasificación de desempeño de la empresa. Usa lenguaje formal y directo. La salida solo debe contener los 3 puntos de acción.";
-
-            // Muestra el panel de resultados LLM
-            document.getElementById('gemini-results').classList.remove('hidden');
-
-            await callGeminiAPI(userQuery, systemPrompt, 'gemini-output', 'gemini-loading');
-        }
-
-
-        // ============================================
-        // DATOS CIER 2025 Y CÁLCULOS ESTADÍSTICOS
-        // ============================================
         
         const datosCIER = [
           6.494611421, 38.82800285, 6.796793308, 144.7876448, 1.828367487,
@@ -606,9 +505,8 @@ Versión final con:
             resultadosDiv.classList.add('fade-in');
             resultadosDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
             
-            // Asegurar que el panel LLM se muestre (aunque esté vacío) si ya tiene contenido
-            document.getElementById('gemini-results').classList.remove('hidden');
-            document.getElementById('gemini-output').innerHTML = '<div class="text-gray-500 p-4">Haga clic en "Generar Plan Estratégico (IA)" para obtener un plan personalizado.</div>';
+            // ELIMINACIÓN DE LA FUNCIONALIDAD LLM PARA PUBLICACIÓN ESTÁTICA
+            // Las secciones LLM y el botón fueron comentados o eliminados del HTML
         }
 
         // ============================================

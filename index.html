@@ -1,7 +1,10 @@
 <!--
 Calculadora de Accidentalidad CIER 2025
-Rediseño profesional con Tailwind CSS.
-Implementa paleta de color sobria: Azul, Blanco y Verde, y lógica de clasificación basada en percentiles (cuartiles).
+Última versión con:
+1. Diseño profesional (Azul, Blanco, Verde).
+2. Lógica de clasificación TFCPSI basada en percentiles (cuartiles).
+3. Análisis de Tipología de Casos (Pareto) con porcentajes claros y sugerencias proactivas.
+4. Cuadro de criterios de clasificación optimizado para móvil.
 -->
 <html lang="es">
 <head>
@@ -22,6 +25,7 @@ Implementa paleta de color sobria: Azul, Blanco y Verde, y lógica de clasificac
                         'success-light': '#D4EDDA', // Fondo verde claro
                         'warning-light': '#FFF3CD', // Fondo amarillo claro para advertencias
                         'danger-light': '#F8D7DA', // Fondo rojo claro para necesidad de mejora
+                        'accent-blue': '#4A90E2', // Azul intermedio para acentos
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -38,7 +42,7 @@ Implementa paleta de color sobria: Azul, Blanco y Verde, y lógica de clasificac
             background-color: #C8E6F0; 
             min-height: 100vh;
             display: flex;
-            align-items: flex-start;
+            align-items: flex-start; /* Alinea al inicio para que el encabezado no se recorte */
             justify-content: center;
             padding: 2rem;
         }
@@ -53,6 +57,11 @@ Implementa paleta de color sobria: Azul, Blanco y Verde, y lógica de clasificac
             -moz-appearance: textfield;
         }
 
+        /* Estilo para el selector múltiple */
+        #tipologia-selector {
+            height: 180px; /* Altura fija para mostrar varias opciones */
+        }
+        
         /* Animación para resultados */
         .fade-in {
             animation: fadeIn 0.5s ease-out;
@@ -63,7 +72,7 @@ Implementa paleta de color sobria: Azul, Blanco y Verde, y lógica de clasificac
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Gradientes y colores de clasificación basados en la paleta Azul/Blanco/Verde */
+        /* Colores de clasificación basados en la paleta Azul/Blanco/Verde */
         .bg-excelente { background-color: #38A169; } /* Verde Fuerte */
         .bg-bueno { background-color: #68D391; } /* Verde Medio */
         .bg-regular { background-color: #FFC107; } /* Amarillo */
@@ -74,6 +83,19 @@ Implementa paleta de color sobria: Azul, Blanco y Verde, y lógica de clasificac
             background-image: linear-gradient(90deg, #38A169 0%, #68D391 25%, #FFC107 50%, #ff9800 75%, #dc3545 100%);
             transition: width 0.8s ease;
         }
+
+        /* Estilo específico para las etiquetas en móvil */
+        .mobile-label {
+            display: block;
+            font-weight: 600;
+            color: #4B5563; /* Gris oscuro para las etiquetas */
+        }
+        /* Oculta las etiquetas en escritorio */
+        @media (min-width: 768px) {
+            .mobile-label {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body class="bg-cier-light-blue">
@@ -81,14 +103,14 @@ Implementa paleta de color sobria: Azul, Blanco y Verde, y lógica de clasificac
     <!-- CONTENEDOR PRINCIPAL Y DE LOGO -->
     <div class="relative mx-auto max-w-5xl">
         
-        <!-- LOGO - POSICIONADO ABSOLUTO (Logo.png debe estar en el mismo directorio) -->
+        <!-- LOGO - POSICIONADO ABSOLUTO -->
         <img src="Logo.png" alt="Logo CIER" class="absolute left-1/2 -translate-x-1/2 top-[-60px] w-[150px] z-20">
         
         <!-- Contenedor blanco/gris de la App -->
         <div class="container bg-white rounded-xl shadow-2xl overflow-hidden my-10">
             <!-- HEADER / BANNER - AZUL CORPORATIVO -->
             <div class="bg-cier-blue text-white p-10 text-center">
-                <h1 class="text-3xl font-extrabold mb-2">📊 Calculadora de Accidentalidad CIER para Personal Propio - 2025</h1>
+                <h1 class="text-3xl font-extrabold mb-2">📊 Calculadora de Accidentalidad CIER 2025</h1>
                 <p class="text-xl font-light opacity-90">Empresas de Distribución & Integradas con importante participación de la Distribución</p>
                 <div class="mt-4 inline-block bg-white bg-opacity-20 px-4 py-1 rounded-full text-sm font-medium">Personal Propio | 42 Empresas | 17 Países</div>
             </div>
@@ -117,7 +139,7 @@ Implementa paleta de color sobria: Azul, Blanco y Verde, y lógica de clasificac
                 <!-- ESTADÍSTICAS DEL SECTOR (CORREGIDAS) -->
                 <section class="mb-12">
                     <h2 class="text-2xl font-bold text-gray-800 mb-6">
-                        <span class="text-cier-blue">📊</span> Estadísticas del Sector para Personal Propio (TFCPSI)
+                        <span class="text-cier-blue">📊</span> Estadísticas del Sector (TFCPSI)
                     </h2>
                     <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
                         <div class="p-4 bg-gray-50 rounded-lg shadow-md border border-gray-200 text-center">
@@ -149,16 +171,16 @@ Implementa paleta de color sobria: Azul, Blanco y Verde, y lógica de clasificac
                 <!-- FORMULARIO DE INGRESO DE DATOS -->
                 <section class="mb-12">
                     <h2 class="text-2xl font-bold text-gray-800 mb-6">
-                        <span class="text-cier-blue">📝</span> Para compararse, ingrese los Datos de su Empresa para Personal Propio
+                        <span class="text-cier-blue">📝</span> Ingrese los Datos de su Empresa
                     </h2>
                     
-                    <!-- Entrada de Datos Personal Propio (Últimos 12 Meses) -->
+                    <!-- Entrada de Datos Pasados (Últimos 12 Meses) -->
                     <div class="p-6 bg-gray-100 rounded-lg border border-gray-200">
-                        <h3 class="text-xl font-semibold text-gray-700 mb-4">Datos Históricos Personal Propio (Últimos 12 disponible)</h3>
+                        <h3 class="text-xl font-semibold text-gray-700 mb-4">Datos Históricos (Últimos 12 Meses Pasados)</h3>
 
                         <div class="mb-6">
-                            <label for="nacpdsi" class="block text-gray-700 font-medium mb-2">NACPDSI - Número de Accidentados con Pérdida de Días sin In Itinere para Personal Propio:</label>
-                            <span class="block text-sm text-gray-500 mb-2">Cantidad de personal propio accidentados (sin *in itinere*) correspondientes a los **Últimos 12 Meses**.</span>
+                            <label for="nacpdsi" class="block text-gray-700 font-medium mb-2">NACPDSI - Número de Accidentados con Pérdida de Días:</label>
+                            <span class="block text-sm text-gray-500 mb-2">Cantidad de trabajadores accidentados (sin *in itinere*) correspondientes a los **Últimos 12 Meses Pasados**.</span>
                             <input type="number" id="nacpdsi" placeholder="Ejemplo: 3" min="0" step="1" oninput="calcularTFCPSI()" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-cier-blue">
                         </div>
 
@@ -175,13 +197,38 @@ Implementa paleta de color sobria: Azul, Blanco y Verde, y lógica de clasificac
                             <p class="text-lg text-green-900 mt-2">Tu TFCPSI = <strong id="tfcpsi-calculado" class="text-xl"> - </strong></p>
                         </div>
 
-                        <h3 class="text-xl font-semibold text-gray-700 mt-8 mb-4">Proyección Personal Propio (Próximos 12 Meses)</h3>
+                        <h3 class="text-xl font-semibold text-gray-700 mt-8 mb-4">Proyección (Próximos 12 Meses)</h3>
                         <div class="mb-6">
-                            <label for="hht-futuras" class="block text-gray-700 font-medium mb-2">HHT Proyectadas (para los próximos 12 Meses):</label>
-                            <span class="block text-sm text-gray-500 mb-2">Total de Horas Hombre Trabajadas Personal Propio esperadas para un **Período de 12 Meses**.</span>
+                            <label for="hht-futuras" class="block text-gray-700 font-medium mb-2">HHT Proyectadas (para el próximo período):</label>
+                            <span class="block text-sm text-gray-500 mb-2">Total de Horas Hombre Trabajadas esperadas para un **Período de 12 Meses Futuros**.</span>
                             <input type="number" id="hht-futuras" placeholder="Ejemplo: 550000" min="1" step="1" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-cier-blue">
                         </div>
                     </div>
+                    
+                    <!-- NUEVA SECCIÓN: ANÁLISIS DE CAUSAS RAÍZ -->
+                    <div class="p-6 bg-gray-100 rounded-lg border border-gray-200 mt-8">
+                        <h3 class="text-xl font-semibold text-gray-700 mb-4 flex items-center">
+                            <span class="text-accent-blue mr-2">🔎</span> Análisis de Causas Raíz (Pareto)
+                        </h3>
+                        <p class="block text-sm text-gray-500 mb-4">Seleccione las **3 a 5 tipologías de accidentes** que más le preocupan o que han afectado a su empresa en el último año. Usaremos estos datos para generar sugerencias específicas.</p>
+                        
+                        <label for="tipologia-selector" class="block text-gray-700 font-medium mb-2">Seleccione las tipologías (mantenga Ctrl/Cmd para seleccionar varias):</label>
+                        <select id="tipologia-selector" multiple class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-cier-blue bg-white">
+                            <!-- Opciones basadas en los datos de Pareto proporcionados -->
+                            <option value="Caídas de personas a Nivel y/o Altura" data-percent="18.4">1. Caídas de personas a Nivel y/o Altura (18.4%)</option>
+                            <option value="Golpes por objetos" data-percent="17.7">2. Golpes por objetos (17.7%)</option>
+                            <option value="Esfuerzos excesivos" data-percent="16.2">3. Esfuerzos excesivos (16.2%)</option>
+                            <option value="Otras formas de accidentes" data-percent="12.5">4. Otras formas de accidentes (12.5%)</option>
+                            <option value="Choques Vehículo" data-percent="7.7">5. Choques Vehículo (7.7%)</option>
+                            <option value="Malas pisadas" data-percent="6.1">6. Malas pisadas (6.1%)</option>
+                            <option value="Golpe por caídas de objetos" data-percent="4.7">7. Golpe por caídas de objetos (4.7%)</option>
+                            <option value="Atrapamiento por un objeto o entre objetos" data-percent="4.2">8. Atrapamiento por un objeto o entre objetos (4.2%)</option>
+                            <option value="Contacto con electricidad" data-percent="3.5">9. Contacto con electricidad (3.5%)</option>
+                            <option value="Picadura de insectos, otros" data-percent="2.5">10. Picadura de insectos, otros (2.5%)</option>
+                            <!-- Se pueden añadir más si es necesario, pero nos enfocamos en el Pareto principal -->
+                        </select>
+                    </div>
+
                     
                     <div class="text-center mt-8">
                         <button onclick="analizarYPredecir()" id="btn-analizar" class="bg-cier-blue text-white px-10 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition duration-300 ease-in-out hover:bg-opacity-90">
@@ -193,59 +240,13 @@ Implementa paleta de color sobria: Azul, Blanco y Verde, y lógica de clasificac
                 <!-- SECCIÓN DE RESULTADOS DINÁMICA -->
                 <div class="resultados hidden fade-in" id="resultados">
                     <!-- Contenido dinámico del resultado -->
-
-                    <!-- EXPLICACIÓN DIDÁCTICA DEL CRITERIO DE CLASIFICACIÓN (Percentiles) -->
-                    <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-success-dark">
-                        <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
-                            <span class="text-success-dark mr-2">⭐</span> Criterio de Clasificación: El Poder del Percentil
-                        </h2>
-                        <p class="text-gray-600 mb-6">La accidentalidad es asimétrica, por eso no usamos el promedio simple (que puede ser engañoso). Su clasificación se basa en su **Percentil**, que indica qué tan bien se desempeña su empresa comparada con las 42 empresas del sector.</p>
-
-                        <!-- CUADRO EXPLICATIVO DIDÁCTICO -->
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200 rounded-lg overflow-hidden">
-                                <thead class="bg-cier-blue text-white">
-                                    <tr>
-                                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Clasificación</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Rango de Percentil</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Significado Práctico</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
-                                    <tr class="bg-success-light">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-success-dark">EXCELENTE</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">Menor o igual al 25%</td>
-                                        <td class="px-6 py-4 text-sm text-gray-600">Su TFCPSI es mejor que el 75% del sector (Líder).</td>
-                                    </tr>
-                                    <tr class="bg-gray-50">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-700">BUENO</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">Entre 25% y 50%</td>
-                                        <td class="px-6 py-4 text-sm text-gray-600">Su desempeño está en la mitad superior, pero necesita mejorar para ser líder.</td>
-                                    </tr>
-                                    <tr class="bg-warning-light">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-yellow-800">REGULAR</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">Entre 50% y 75%</td>
-                                        <td class="px-6 py-4 text-sm text-gray-600">Se encuentra en la mitad inferior del sector. La Mediana es su primera meta.</td>
-                                    </tr>
-                                    <tr class="bg-danger-light">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-red-800">NECESITA MEJORAR</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">Mayor al 75%</td>
-                                        <td class="px-6 py-4 text-sm text-gray-600">Está en el cuartil de mayor riesgo. Se requieren acciones de mejora urgentes.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
-                    
-                    <!-- Aquí se insertan dinámicamente los demás resultados (Principal, Posición, Predicción, etc.) -->
-
                 </div>
             </div>
 
             <!-- FOOTER -->
             <footer class="bg-gray-100 p-6 text-center text-sm text-gray-600 border-t border-gray-200">
                 <p class="font-bold text-gray-800">Calculadora de Accidentalidad CIER 2025</p>
-                <p>Comisión de Integración Energética Regional - Coordinación Internacional del Área Corporativa y CTI Grupo de Trabajo SST CIER</p>
+                <p>Comisión de Integración Energética Regional</p>
                 <p class="mt-2 text-xs">Metodología: Distribución Gamma para análisis estadístico robusto.</p>
             </footer>
         </div>
@@ -259,7 +260,6 @@ Implementa paleta de color sobria: Azul, Blanco y Verde, y lógica de clasificac
         
         // ============================================
         // DATOS CIER 2025 - Distribución & Integradas
-        // Personal Propio (n=42) - DATOS CORREGIDOS
         // ============================================
         
         const datosCIER = [
@@ -272,6 +272,21 @@ Implementa paleta de color sobria: Azul, Blanco y Verde, y lógica de clasificac
           0.74718823, 0.903252409, 0.420180602, 2.105733069, 7.499521184,
           0, 3.971058923, 7.092869826, 9.731084718, 0
         ];
+
+        // Datos del Pareto CIER (Tipología de Casos)
+        const datosPareto = {
+            "Caídas de personas a Nivel y/o Altura": { percent: 18.4, riesgo: "Alto", sugerencias: ["Refuerzo en protocolos de trabajo en altura (arneses, líneas de vida).", "Inspección rigurosa de andamios, escaleras y plataformas.", "Capacitación específica en rescate en altura."]},
+            "Golpes por objetos": { percent: 17.7, riesgo: "Alto", sugerencias: ["Uso obligatorio y permanente de Equipo de Protección Personal (EPP) de cabeza y manos.", "Mejora del orden y limpieza en áreas de trabajo.", "Análisis de riesgo en manejo de herramientas y materiales."]},
+            "Esfuerzos excesivos": { percent: 16.2, riesgo: "Alto", sugerencias: ["Entrenamiento en ergonomía y técnicas correctas de levantamiento de cargas.", "Implementación de ayudas mecánicas para tareas repetitivas o pesadas.", "Rotación de tareas para prevenir fatiga muscular."]},
+            "Otras formas de accidentes": { percent: 12.5, riesgo: "Medio", sugerencias: ["Revisión profunda de los incidentes para identificar categorías no cubiertas.", "Fomentar el reporte de casi-accidentes para capturar riesgos diversos.", "Campaña de concientización sobre el riesgo residual."]},
+            "Choques Vehículo": { percent: 7.7, riesgo: "Medio", sugerencias: ["Capacitación obligatoria en conducción defensiva y manejo 4x4.", "Mantenimiento estricto de la flota y uso de tecnologías de monitoreo de velocidad.", "Reforzar el protocolo de descanso en rutas largas."]},
+            "Malas pisadas": { percent: 6.1, riesgo: "Medio", sugerencias: ["Mantenimiento de zonas de paso y señalización de desniveles.", "Uso de calzado de seguridad con agarre apropiado.", "Campaña de concientización sobre atención al camino."]},
+            "Golpe por caídas de objetos": { percent: 4.7, riesgo: "Bajo", sugerencias: ["Protocolos obligatorios para asegurar herramientas y materiales en altura.", "Uso de redes de seguridad o zonas de exclusión por debajo de trabajos elevados.", "Verificación de anclajes y sistemas de izado."]},
+            "Atrapamiento por un objeto o entre objetos": { percent: 4.2, riesgo: "Bajo", sugerencias: ["Implementación del protocolo LOTO (Lockout/Tagout) para energías peligrosas.", "Distanciamiento de seguridad en maquinaria en movimiento.", "Capacitación en riesgos mecánicos."]},
+            "Contacto con electricidad": { percent: 3.5, riesgo: "Bajo", sugerencias: ["Refuerzo en los 5 pasos de oro de seguridad eléctrica.", "Auditoría de EPP dieléctrico y herramientas aisladas.", "Campaña de concientización sobre líneas vivas o desenergizadas."]},
+            "Picadura de insectos, otros": { percent: 2.5, riesgo: "Bajo", sugerencias: ["Uso de repelentes y ropa adecuada para trabajos en campo.", "Inspección previa de áreas de trabajo boscosas/rurales.", "Protocolo claro de primeros auxilios para picaduras."]}
+        };
+
         
         // ============================================
         // CÁLCULO DE ESTADÍSTICAS DEL SECTOR (RUNTIME)
@@ -298,40 +313,25 @@ Implementa paleta de color sobria: Azul, Blanco y Verde, y lógica de clasificac
             const shapeK = Math.pow(promedio, 2) / varianza;
             const scaleTheta = varianza / promedio;
             
-            return { 
-                n, 
-                promedio, 
-                mediana, 
-                desviacion, 
-                minimo, 
-                maximo, 
-                datosOrdenados,
-                shapeK,
-                scaleTheta
-            };
+            return { n, promedio, mediana, desviacion, minimo, maximo, datosOrdenados, shapeK, scaleTheta };
         }
         
         const stats = calcularEstadisticas(datosCIER);
         
         // ============================================
-        // FUNCIÓN GAMMA - Percentiles (aproximación Wilson-Hilferty)
+        // FUNCIÓN GAMMA - Percentiles
         // ============================================
         
         function percentilGamma(p, shape, scale) {
             let z;
-            if (p === 0.10) z = -1.282;
-            else if (p === 0.25) z = -0.674;
-            else if (p === 0.50) z = 0;
-            else if (p === 0.75) z = 0.674;
-            else if (p === 0.90) z = 1.282;
-            else return 0;
+            if (p === 0.10) z = -1.282; else if (p === 0.25) z = -0.674; else if (p === 0.50) z = 0;
+            else if (p === 0.75) z = 0.674; else if (p === 0.90) z = 1.282; else return 0;
             
             const factor = 1 - 1/(9*shape) + z * Math.sqrt(1/(9*shape));
             const valor = shape * scale * Math.pow(factor, 3);
             return Math.max(0, valor);
         }
         
-        // Calcular percentiles Gamma de referencia usando las stats CORRECTAS
         const percentilesGamma = {
             p10: percentilGamma(0.10, stats.shapeK, stats.scaleTheta),
             p25: percentilGamma(0.25, stats.shapeK, stats.scaleTheta),
@@ -341,13 +341,12 @@ Implementa paleta de color sobria: Azul, Blanco y Verde, y lógica de clasificac
         };
         
         // ============================================
-        // CALCULAR TFCPSI EN TIEMPO REAL
+        // FUNCIONES DE ANÁLISIS
         // ============================================
         
         function calcularTFCPSI() {
             const nacpdsi = parseFloat(document.getElementById('nacpdsi').value);
             const hht = parseFloat(document.getElementById('hht').value);
-            
             const infoTfcpsiDiv = document.getElementById('info-tfcpsi');
             
             if (!isNaN(nacpdsi) && !isNaN(hht) && hht > 0) {
@@ -358,10 +357,6 @@ Implementa paleta de color sobria: Azul, Blanco y Verde, y lógica de clasificac
                 infoTfcpsiDiv.style.display = 'none';
             }
         }
-        
-        // ============================================
-        // ANALIZAR TFCPSI
-        // ============================================
         
         function analizarTFCPSI(tfcpsi, stats) {
             let posicion = 0;
@@ -379,7 +374,7 @@ Implementa paleta de color sobria: Azul, Blanco y Verde, y lógica de clasificac
             
             let clasificacion, colorClase, interpretacion;
             
-            // Lógica de clasificación revisada basada en percentiles
+            // Lógica de clasificación revisada basada en percentiles (cuartiles)
             if (percentil <= 25) { 
                 clasificacion = "EXCELENTE";
                 colorClase = "excelente";
@@ -398,48 +393,38 @@ Implementa paleta de color sobria: Azul, Blanco y Verde, y lógica de clasificac
                 interpretacion = "Tu desempeño está en el cuartil de mayor accidentalidad. Requiere acciones de mejora urgentes.";
             }
             
-            return { 
-                posicion, 
-                percentil, 
-                zScore, 
-                clasificacion, 
-                colorClase, 
-                interpretacion, 
-                diferenciaPorcentaje 
-            };
+            return { posicion, percentil, zScore, clasificacion, colorClase, interpretacion, diferenciaPorcentaje };
         }
-        
-        // ============================================
-        // FUNCIÓN PRINCIPAL - ANALIZAR Y PREDECIR
-        // ============================================
         
         function analizarYPredecir() {
             const nacpdsi = parseFloat(document.getElementById('nacpdsi').value);
             const hht = parseFloat(document.getElementById('hht').value);
             const hhtFuturas = parseFloat(document.getElementById('hht-futuras').value);
-            
-            // Validación
-            if (isNaN(nacpdsi) || isNaN(hht) || hht <= 0) {
-                // Usando un sistema de alerta simple, ya que no se permiten diálogos nativos.
-                alert('Por favor, ingresa NACPDSI y HHT válidos');
+            const tipologiaSelector = document.getElementById('tipologia-selector');
+
+            // Validación de datos TFCPSI
+            if (isNaN(nacpdsi) || isNaN(hht) || hht <= 0 || isNaN(hhtFuturas) || hhtFuturas <= 0) {
+                alert('Por favor, ingresa NACPDSI, HHT y HHT Proyectadas válidos.');
                 return;
             }
+
+            const seleccionTipologia = Array.from(tipologiaSelector.selectedOptions).map(option => ({
+                tipologia: option.value,
+                percent: parseFloat(option.dataset.percent)
+            }));
             
-            if (isNaN(hhtFuturas) || hhtFuturas <= 0) {
-                 alert('Por favor, ingresa HHT Proyectadas para la predicción');
+            if (seleccionTipologia.length === 0) {
+                 alert('Por favor, selecciona al menos una Tipología de Caso para el Análisis Pareto.');
                 return;
             }
-            
-            // Calcular TFCPSI
+
             const tfcpsi = (nacpdsi * 1000000) / hht;
             const resultado = analizarTFCPSI(tfcpsi, stats);
             
             // Generar HTML de resultados
-            // 1. Inicia con el cuadro explicativo
             let html = generarSeccionExplicacion();
-            
-            // 2. Continúa con el resultado principal y las demás secciones
             html += generarResultadoPrincipal(tfcpsi, resultado);
+            html += generarSeccionTipologia(seleccionTipologia); // NUEVA SECCIÓN
             html += generarSeccionPosicion(resultado);
             html += generarSeccionComparacion(tfcpsi, resultado);
             html += generarSeccionPrediccion(tfcpsi, hhtFuturas);
@@ -462,10 +447,27 @@ Implementa paleta de color sobria: Azul, Blanco y Verde, y lógica de clasificac
         }
 
         // ============================================
-        // GENERAR SECCIONES HTML (CON TAILWIND)
+        // GENERAR SECCIONES HTML
         // ============================================
 
         function generarSeccionExplicacion() {
+            // Se utiliza una estructura apilada de DIVs para asegurar la responsividad en móvil (sin tablas).
+            const filas = [
+                { class: 'bg-success-light border-success-dark', clasificacion: 'EXCELENTE', rango: 'Menor o igual al 25%', significado: 'Su TFCPSI es mejor que el 75% del sector (Líder).' },
+                { class: 'bg-gray-50 border-success-dark', clasificacion: 'BUENO', rango: 'Entre 25% y 50%', significado: 'Su desempeño está en la mitad superior, pero necesita mejorar para ser líder.' },
+                { class: 'bg-warning-light border-yellow-500', clasificacion: 'REGULAR', rango: 'Entre 50% y 75%', significado: 'Se encuentra en la mitad inferior del sector. La Mediana es su primera meta.' },
+                { class: 'bg-danger-light border-red-500', clasificacion: 'NECESITA MEJORAR', rango: 'Mayor al 75%', significado: 'Está en el cuartil de mayor riesgo. Se requieren acciones de mejora urgentes.' }
+            ];
+
+            const contenidoFilas = filas.map(fila => `
+                <div class="p-4 rounded-lg border-l-4 ${fila.class} grid grid-cols-1 md:grid-cols-3 gap-1 md:gap-3 items-center shadow-sm">
+                    <span class="text-sm font-bold md:col-span-1 text-gray-800">${fila.clasificacion}</span>
+                    <span class="text-sm text-gray-700 md:col-span-1"><span class="mobile-label">Percentil:</span> ${fila.rango}</span>
+                    <span class="text-sm text-gray-700 md:col-span-1"><span class="mobile-label">Significado:</span> ${fila.significado}</span>
+                </div>
+            `).join('');
+
+
             return `
                 <!-- EXPLICACIÓN DIDÁCTICA DEL CRITERIO DE CLASIFICACIÓN (Percentiles) -->
                 <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-success-dark">
@@ -474,44 +476,22 @@ Implementa paleta de color sobria: Azul, Blanco y Verde, y lógica de clasificac
                     </h2>
                     <p class="text-gray-600 mb-6">La accidentalidad es asimétrica, por eso no usamos el promedio simple (que puede ser engañoso). Su clasificación se basa en su **Percentil**, que indica qué tan bien se desempeña su empresa comparada con las 42 empresas del sector.</p>
 
-                    <!-- CUADRO EXPLICATIVO DIDÁCTICO -->
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200 rounded-lg overflow-hidden">
-                            <thead class="bg-cier-blue text-white">
-                                <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Clasificación</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Rango de Percentil</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Significado Práctico</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                <tr class="bg-success-light">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-success-dark">EXCELENTE</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">Menor o igual al 25%</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">Su TFCPSI es mejor que el 75% del sector (Líder).</td>
-                                </tr>
-                                <tr class="bg-gray-50">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-700">BUENO</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">Entre 25% y 50%</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">Su desempeño está en la mitad superior, pero necesita mejorar para ser líder.</td>
-                                </tr>
-                                <tr class="bg-warning-light">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-yellow-800">REGULAR</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">Entre 50% y 75%</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">Se encuentra en la mitad inferior del sector. La Mediana es su primera meta.</td>
-                                </tr>
-                                <tr class="bg-danger-light">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-red-800">NECESITA MEJORAR</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">Mayor al 75%</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">Está en el cuartil de mayor riesgo. Se requieren acciones de mejora urgentes.</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <!-- CUADRO EXPLICATIVO DIDÁCTICO RESPONSIVO -->
+                    <div class="space-y-3">
+                        <!-- Encabezado de la "Tabla" (Solo visible en escritorio) -->
+                        <div class="hidden md:grid md:grid-cols-3 gap-3 px-4 py-2 bg-cier-blue text-white rounded-lg text-xs font-medium uppercase">
+                            <span>Clasificación</span>
+                            <span>Rango de Percentil</span>
+                            <span>Significado Práctico</span>
+                        </div>
+                        
+                        ${contenidoFilas}
                     </div>
                 </section>
             `;
         }
-        
+
+
         function generarResultadoPrincipal(tfcpsi, resultado) {
             return `
                 <div class="p-8 text-white text-center rounded-xl mb-8 shadow-xl bg-cier-blue">
@@ -527,6 +507,83 @@ Implementa paleta de color sobria: Azul, Blanco y Verde, y lógica de clasificac
             `;
         }
         
+        function generarSeccionTipologia(seleccionTipologia) {
+            const totalPercent = seleccionTipologia.reduce((sum, item) => sum + item.percent, 0);
+
+            // Generar sugerencias únicas basadas en la selección
+            let sugerenciasUnicas = new Set();
+            seleccionTipologia.forEach(item => {
+                const data = datosPareto[item.tipologia];
+                if (data && data.sugerencias) {
+                    data.sugerencias.forEach(sug => sugerenciasUnicas.add(sug));
+                }
+            });
+
+            // Tomar las primeras 3 sugerencias únicas
+            const sugerenciasFinales = Array.from(sugerenciasUnicas).slice(0, 3);
+            
+            let tipologiaHtml = seleccionTipologia.map(item => `
+                <div class="grid grid-cols-2 py-2 px-4 border-b border-gray-100 last:border-b-0">
+                    <span class="text-gray-700 font-medium">${item.tipologia}</span>
+                    <span class="font-bold text-accent-blue text-right">${item.percent.toFixed(1)}%</span>
+                </div>
+            `).join('');
+
+            let sugerenciasHtml = sugerenciasFinales.map(sug => `
+                <li class="p-3 border-b last:border-b-0 text-gray-700 relative pl-6">
+                    <span class="absolute left-0 top-3 text-lg text-success-dark">✔</span> ${sug}
+                </li>
+            `).join('');
+
+            // Determinación simple de coincidencia didáctica
+            let coincidenciaTexto;
+            if (totalPercent > 50) {
+                coincidenciaTexto = "Alta coincidencia. Las áreas que le preocupan son los principales focos de riesgo del sector.";
+            } else if (totalPercent > 25) {
+                coincidenciaTexto = "Coincidencia moderada. Sus focos de riesgo se alinean con una parte significativa de los accidentes del sector.";
+            } else {
+                coincidenciaTexto = "Coincidencia baja. Si bien es importante, el sector tiene mayores desafíos en otras áreas.";
+            }
+
+
+            return `
+                <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-accent-blue">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                        <span class="text-accent-blue mr-2">🎯</span> Análisis Pareto y Sugerencias Proactivas
+                    </h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Panel de Pareto -->
+                        <div class="p-5 bg-gray-50 rounded-lg border border-gray-200">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-3">Tu Foco vs. Distribución CIER</h3>
+                            <div class="text-sm text-gray-600 mb-4">
+                                Los porcentajes son la media de ocurrencia por tipología según la **muestra de empresas CIER**.
+                                <p class="font-bold mt-2 text-cier-blue">${coincidenciaTexto}</p>
+                                <p class="font-extrabold mt-2 text-xl text-green-700">Total Riesgo Seleccionado: ${totalPercent.toFixed(1)}%</p>
+                            </div>
+                            <div class="bg-white rounded-lg shadow-inner divide-y divide-gray-100">
+                                <!-- Encabezados de la tabla de Pareto -->
+                                <div class="grid grid-cols-2 font-bold bg-gray-100 py-2 px-4 rounded-t-lg border-b border-gray-200">
+                                    <span>Tu Foco</span>
+                                    <span class="text-right">Distribución CIER (%)</span>
+                                </div>
+                                ${tipologiaHtml}
+                            </div>
+                        </div>
+
+                        <!-- Panel de Sugerencias -->
+                        <div class="p-5 bg-cier-light-blue rounded-lg border border-cier-blue">
+                            <h3 class="text-xl font-bold text-cier-blue mb-4">3 Sugerencias Clave para Mejorar (Ejemplos)</h3>
+                            <p class="text-sm text-gray-700 mb-4">Basado en la severidad de sus prioridades y las prácticas del sector:</p>
+                            <ul class="list-none space-y-2 bg-white p-3 rounded-lg shadow-sm">
+                                ${sugerenciasHtml}
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
         function generarSeccionPosicion(resultado) {
             return `
                 <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-cier-blue">
@@ -806,5 +863,3 @@ Implementa paleta de color sobria: Azul, Blanco y Verde, y lógica de clasificac
     </script>
 </body>
 </html>
-
-

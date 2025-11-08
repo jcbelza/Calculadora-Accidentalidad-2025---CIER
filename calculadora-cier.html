@@ -1,0 +1,693 @@
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora CIER 2025 - Distribución & Integradas</title>
+    <!-- Carga de Tailwind CSS CDN y configuración de colores -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cier-blue': '#667eea',
+                        'cier-purple': '#764ba2',
+                        'success-light': '#D4EDDA',
+                        'warning-light': '#FFF3CD',
+                        'danger-light': '#F8D7DA',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Estilos base del cuerpo */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            /* CAMBIO CLAVE: Alinea al inicio (flex-start) para que el encabezado no se recorte. */
+            align-items: flex-start;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        /* Estilo para los inputs de número (oculta las flechas en algunos navegadores) */
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        /* Animación para resultados */
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Gradientes para clasificación */
+        .bg-excelente { background-color: #28a745; }
+        .bg-bueno { background-color: #8BC34A; }
+        .bg-regular { background-color: #FFC107; }
+        .bg-mejorar { background-color: #DC3545; }
+        
+        .progreso-fill {
+            background-image: linear-gradient(90deg, #28a745 0%, #8BC34A 25%, #FFC107 50%, #ff9800 75%, #dc3545 100%);
+            transition: width 0.8s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto max-w-5xl bg-white rounded-xl shadow-2xl overflow-hidden my-10">
+        <!-- HEADER / BANNER -->
+        <div class="bg-gradient-to-br from-cier-blue to-cier-purple text-white p-10 text-center">
+            <h1 class="text-3xl font-extrabold mb-2">📊 Calculadora de Accidentalidad CIER 2025</h1>
+            <p class="text-xl font-light opacity-90">Empresas de Distribución & Integradas con importante participación de la Distribución</p>
+            <div class="mt-4 inline-block bg-white bg-opacity-20 px-4 py-1 rounded-full text-sm font-medium">Personal Propio | 42 Empresas | 17 Países</div>
+        </div>
+
+        <div class="p-8 md:p-12">
+            
+            <!-- INFORMACIÓN / CONTEXTO -->
+            <section class="mb-12 border-l-4 border-cier-blue bg-gray-50 p-6 rounded-lg shadow-inner">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-cier-blue mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14 10l-2 1m0 0l-2-1m2 1v6m-4 2a2 2 0 104 0m-4 0a2 2 0 114 0m-6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
+                    </svg>
+                    Contexto de la Herramienta
+                </h2>
+                <p class="text-gray-600 mb-4">Esta aplicación está diseñada específicamente para **empresas de Distribución o Integradas (múltiples negocios) con importante participación de la Distribución ** del sector eléctrico. Utiliza una base de datos real de CIER para comparar la accidentalidad de su **Personal Propio** (empleados directos).</p>
+                <div class="bg-blue-50 border-l-4 border-blue-400 text-blue-800 p-4 rounded-md">
+                    <h3 class="font-semibold text-blue-900 mb-2">✅ Base de Comparación (n=42):</h3>
+                    <ul class="list-none space-y-1 text-sm">
+                        <li>**Robustez:** 42 empresas de distribución e integradas.</li>
+                        <li>**Alcance:** Datos de 17 países de América Latina.</li>
+                        <li>**Metodología:** Análisis con Distribución Gamma para un *benchmarking* robusto.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- ESTADÍSTICAS DEL SECTOR (CORREGIDAS) -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                    <span class="text-cier-blue">📊</span> Estadísticas del Sector (TFCPSI)
+                </h2>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                    <div class="p-4 bg-gray-50 rounded-lg shadow-md border border-gray-200 text-center">
+                        <div class="text-sm text-gray-500 font-semibold uppercase">Empresas</div>
+                        <div class="text-3xl font-extrabold text-cier-purple mt-1">42</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg shadow-md border border-gray-200 text-center">
+                        <div class="text-sm text-gray-500 font-semibold uppercase">Promedio</div>
+                        <div class="text-3xl font-extrabold text-cier-blue mt-1">13.64</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg shadow-md border border-gray-200 text-center">
+                        <div class="text-sm text-gray-500 font-semibold uppercase">Mediana</div>
+                        <div class="text-3xl font-extrabold text-green-600 mt-1">6.54</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg shadow-md border border-gray-200 text-center">
+                        <div class="text-sm text-gray-500 font-semibold uppercase">Mínimo</div>
+                        <div class="text-3xl font-extrabold text-gray-700 mt-1">0.00</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg shadow-md border border-gray-200 text-center">
+                        <div class="text-sm text-gray-500 font-semibold uppercase">Máximo</div>
+                        <div class="text-3xl font-extrabold text-red-600 mt-1">144.79</div>
+                    </div>
+                </div>
+                <div class="bg-warning-light border-l-4 border-yellow-500 p-4 mt-6 text-sm text-yellow-800 rounded-md">
+                    <strong class="text-yellow-900">¿Qué es TFCPSI?</strong> La Tasa de Frecuencia de Accidentes con Pérdida de Días es el número de accidentados por cada millón de horas trabajadas. **Mientras más bajo, mejor.**
+                </div>
+            </section>
+
+            <!-- FORMULARIO DE INGRESO DE DATOS -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                    <span class="text-cier-blue">📝</span> Ingrese los Datos de su Empresa
+                </h2>
+                
+                <!-- Entrada de Datos Pasados (Últimos 12 Meses) -->
+                <div class="p-6 bg-gray-100 rounded-lg border border-gray-200">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-4">Datos Históricos (Últimos 12 Meses Pasados)</h3>
+
+                    <div class="mb-6">
+                        <label for="nacpdsi" class="block text-gray-700 font-medium mb-2">NACPDSI - Número de Accidentados con Pérdida de Días:</label>
+                        <span class="block text-sm text-gray-500 mb-2">Cantidad de trabajadores accidentados (sin *in itinere*) correspondientes a los **Últimos 12 Meses Pasados**.</span>
+                        <input type="number" id="nacpdsi" placeholder="Ejemplo: 3" min="0" step="1" oninput="calcularTFCPSI()" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-cier-blue">
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="hht" class="block text-gray-700 font-medium mb-2">HHT - Horas Hombre Trabajadas (Personal Propio):</label>
+                        <span class="block text-sm text-gray-500 mb-2">Total de horas trabajadas por su personal propio en el período de los **Últimos 12 Meses Pasados**.</span>
+                        <input type="number" id="hht" placeholder="Ejemplo: 500000" min="1" step="1" oninput="calcularTFCPSI()" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-cier-blue">
+                    </div>
+
+                    <!-- TFCPSI Calculado en tiempo real -->
+                    <div class="info-calculada mt-6 p-4 rounded-lg border-l-4 border-green-500 bg-success-light" id="info-tfcpsi" style="display: none;">
+                        <h3 class="text-lg font-bold text-green-800">📊 Tu TFCPSI Calculado:</h3>
+                        <p class="text-sm text-green-700">TFCPSI = (NACPDSI × 1,000,000) / HHT</p>
+                        <p class="text-lg text-green-900 mt-2">Tu TFCPSI = <strong id="tfcpsi-calculado" class="text-xl"> - </strong></p>
+                    </div>
+
+                    <h3 class="text-xl font-semibold text-gray-700 mt-8 mb-4">Proyección (Próximos 12 Meses)</h3>
+                    <div class="mb-6">
+                        <label for="hht-futuras" class="block text-gray-700 font-medium mb-2">HHT Proyectadas (para el próximo período):</label>
+                        <span class="block text-sm text-gray-500 mb-2">Total de Horas Hombre Trabajadas esperadas para un **Período de 12 Meses Futuros**.</span>
+                        <input type="number" id="hht-futuras" placeholder="Ejemplo: 550000" min="1" step="1" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-cier-blue">
+                    </div>
+                </div>
+                
+                <div class="text-center mt-8">
+                    <button onclick="analizarYPredecir()" id="btn-analizar" class="bg-gradient-to-r from-cier-blue to-cier-purple text-white px-10 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition duration-300 ease-in-out">
+                        🚀 Analizar y Comparar
+                    </button>
+                </div>
+            </section>
+
+            <!-- SECCIÓN DE RESULTADOS DINÁMICA -->
+            <div class="resultados hidden fade-in" id="resultados">
+                <!-- Los resultados se generarán dinámicamente con JavaScript -->
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="bg-gray-100 p-6 text-center text-sm text-gray-600 border-t border-gray-200">
+            <p class="font-bold text-gray-800">Calculadora de Accidentalidad CIER 2025</p>
+            <p>Comisión de Integración Energética Regional</p>
+            <p class="mt-2 text-xs">Metodología: Distribución Gamma para análisis estadístico robusto.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Ocultar resultados al cargar para una experiencia limpia
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('resultados').classList.add('hidden');
+        });
+        
+        // ============================================
+        // DATOS CIER 2025 - Distribución & Integradas
+        // Personal Propio (n=42) - DATOS CORREGIDOS
+        // ============================================
+        
+        const datosCIER = [
+          6.494611421, 38.82800285, 6.796793308, 144.7876448, 1.828367487,
+          1.119837131, 1.661937347, 0.485178288, 12.63178789, 1.030333004,
+          2.045010685, 8.233677545, 77.60721437, 8.99261167, 0.6816614,
+          5.212626284, 3.430539578, 0, 8.132196994, 11.24242682, 11.67365237,
+          3.85310879, 32.32200718, 14.16493193, 17.71975823, 23.32650032,
+          0, 24.09822436, 3.950807703, 37.37128026, 23.9092133, 6.592827004,
+          0.74718823, 0.903252409, 0.420180602, 2.105733069, 7.499521184,
+          0, 3.971058923, 7.092869826, 9.731084718, 0
+        ];
+        
+        // ============================================
+        // CÁLCULO DE ESTADÍSTICAS DEL SECTOR (RUNTIME)
+        // ============================================
+        
+        function calcularEstadisticas(datos) {
+            const n = datos.length;
+            const datosOrdenados = [...datos].sort((a, b) => a - b);
+            
+            const promedio = datos.reduce((a, b) => a + b, 0) / n;
+            
+            const mediana = n % 2 === 0 
+                ? (datosOrdenados[n/2 - 1] + datosOrdenados[n/2]) / 2 
+                : datosOrdenados[Math.floor(n/2)];
+            
+            // Cálculo de varianza de población (dividido por n)
+            const varianza = datos.reduce((sum, val) => sum + Math.pow(val - promedio, 2), 0) / n;
+            const desviacion = Math.sqrt(varianza);
+            
+            const minimo = Math.min(...datos);
+            const maximo = Math.max(...datos);
+            
+            // Parámetros Gamma
+            const shapeK = Math.pow(promedio, 2) / varianza;
+            const scaleTheta = varianza / promedio;
+            
+            return { 
+                n, 
+                promedio, 
+                mediana, 
+                desviacion, 
+                minimo, 
+                maximo, 
+                datosOrdenados,
+                shapeK,
+                scaleTheta
+            };
+        }
+        
+        const stats = calcularEstadisticas(datosCIER);
+        
+        // ============================================
+        // FUNCIÓN GAMMA - Percentiles (aproximación Wilson-Hilferty)
+        // ============================================
+        
+        function percentilGamma(p, shape, scale) {
+            let z;
+            if (p === 0.10) z = -1.282;
+            else if (p === 0.25) z = -0.674;
+            else if (p === 0.50) z = 0;
+            else if (p === 0.75) z = 0.674;
+            else if (p === 0.90) z = 1.282;
+            else return 0;
+            
+            const factor = 1 - 1/(9*shape) + z * Math.sqrt(1/(9*shape));
+            const valor = shape * scale * Math.pow(factor, 3);
+            return Math.max(0, valor);
+        }
+        
+        // Calcular percentiles Gamma de referencia usando las stats CORRECTAS
+        const percentilesGamma = {
+            p10: percentilGamma(0.10, stats.shapeK, stats.scaleTheta),
+            p25: percentilGamma(0.25, stats.shapeK, stats.scaleTheta),
+            p50: percentilGamma(0.50, stats.shapeK, stats.scaleTheta),
+            p75: percentilGamma(0.75, stats.shapeK, stats.scaleTheta),
+            p90: percentilGamma(0.90, stats.shapeK, stats.scaleTheta)
+        };
+        
+        // ============================================
+        // CALCULAR TFCPSI EN TIEMPO REAL
+        // ============================================
+        
+        function calcularTFCPSI() {
+            const nacpdsi = parseFloat(document.getElementById('nacpdsi').value);
+            const hht = parseFloat(document.getElementById('hht').value);
+            
+            const infoTfcpsiDiv = document.getElementById('info-tfcpsi');
+            
+            if (!isNaN(nacpdsi) && !isNaN(hht) && hht > 0) {
+                const tfcpsi = (nacpdsi * 1000000) / hht;
+                document.getElementById('tfcpsi-calculado').textContent = tfcpsi.toFixed(2);
+                infoTfcpsiDiv.style.display = 'block';
+            } else {
+                infoTfcpsiDiv.style.display = 'none';
+            }
+        }
+        
+        // ============================================
+        // ANALIZAR TFCPSI
+        // ============================================
+        
+        function analizarTFCPSI(tfcpsi, stats) {
+            let posicion = 0;
+            for (let i = 0; i < stats.datosOrdenados.length; i++) {
+                if (tfcpsi <= stats.datosOrdenados[i]) {
+                    posicion = i + 1;
+                    break;
+                }
+            }
+            if (posicion === 0) posicion = stats.datosOrdenados.length + 1;
+            
+            const percentil = (posicion / stats.n) * 100;
+            const zScore = (tfcpsi - stats.promedio) / stats.desviacion;
+            const diferenciaPorcentaje = ((tfcpsi - stats.promedio) / stats.promedio) * 100;
+            
+            let clasificacion, colorClase, interpretacion;
+            if (zScore <= -0.5) { 
+                clasificacion = "EXCELENTE";
+                colorClase = "excelente";
+                interpretacion = "Tu desempeño es significativamente mejor que el promedio del sector (TOP 30%)";
+            } else if (zScore <= 0.25) {
+                clasificacion = "BUENO";
+                colorClase = "bueno";
+                interpretacion = "Tu desempeño está por encima/cerca del promedio del sector";
+            } else if (zScore <= 1.0) {
+                clasificacion = "REGULAR";
+                colorClase = "regular";
+                interpretacion = "Tu desempeño está por encima del promedio y en el cuartil de mejora (P50 - P85)";
+            } else {
+                clasificacion = "NECESITA MEJORAR";
+                colorClase = "mejorar";
+                interpretacion = "Tu desempeño requiere acciones de mejora urgentes en seguridad (TOP 15% Peor)";
+            }
+            
+            return { 
+                posicion, 
+                percentil, 
+                zScore, 
+                clasificacion, 
+                colorClase, 
+                interpretacion, 
+                diferenciaPorcentaje 
+            };
+        }
+        
+        // ============================================
+        // FUNCIÓN PRINCIPAL - ANALIZAR Y PREDECIR
+        // ============================================
+        
+        function analizarYPredecir() {
+            const nacpdsi = parseFloat(document.getElementById('nacpdsi').value);
+            const hht = parseFloat(document.getElementById('hht').value);
+            const hhtFuturas = parseFloat(document.getElementById('hht-futuras').value);
+            
+            // Validación
+            if (isNaN(nacpdsi) || isNaN(hht) || hht <= 0) {
+                // Usando un sistema de alerta simple, ya que no se permiten diálogos nativos.
+                alert('Por favor, ingresa NACPDSI y HHT válidos');
+                return;
+            }
+            
+            if (isNaN(hhtFuturas) || hhtFuturas <= 0) {
+                 alert('Por favor, ingresa HHT Proyectadas para la predicción');
+                return;
+            }
+            
+            // Calcular TFCPSI
+            const tfcpsi = (nacpdsi * 1000000) / hht;
+            const resultado = analizarTFCPSI(tfcpsi, stats);
+            
+            // Generar HTML de resultados
+            let html = generarResultadoPrincipal(tfcpsi, resultado);
+            html += generarSeccionPosicion(resultado);
+            html += generarSeccionComparacion(tfcpsi, resultado);
+            html += generarSeccionPrediccion(tfcpsi, hhtFuturas);
+            html += generarSeccionPercentiles();
+            html += generarSeccionRecomendaciones(resultado, hhtFuturas, tfcpsi);
+            html += generarSeccionSensibilidad(tfcpsi, hhtFuturas);
+            
+            // Mostrar resultados
+            const resultadosDiv = document.getElementById('resultados');
+            resultadosDiv.innerHTML = html;
+            resultadosDiv.classList.remove('hidden');
+            resultadosDiv.classList.add('fade-in');
+            resultadosDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        
+        // Función para formatear números con separador de miles
+        function formatNumber(num) {
+            // Asegura que el número se formatee con el punto como separador de miles (estándar español/latino)
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        // ============================================
+        // GENERAR SECCIONES HTML (CON TAILWIND)
+        // ============================================
+        
+        function generarResultadoPrincipal(tfcpsi, resultado) {
+            return `
+                <div class="p-8 text-white text-center rounded-xl mb-8 shadow-xl bg-gradient-to-br from-cier-blue to-cier-purple">
+                    <h2 class="text-3xl font-semibold mb-2">Tu Resultado de Accidentalidad</h2>
+                    <div class="text-sm opacity-80 mb-6">Distribución & Integradas | Personal Propio | CIER 2025</div>
+                    <div class="text-xl font-medium opacity-90">Tu Tasa de Frecuencia (TFCPSI)</div>
+                    <div class="text-6xl font-extrabold my-4 tracking-tight">${tfcpsi.toFixed(2)}</div>
+                    <div class="inline-block px-8 py-2 rounded-full text-xl font-bold uppercase shadow-lg text-gray-900 bg-${resultado.colorClase} text-white">
+                        ${resultado.clasificacion}
+                    </div>
+                    <div class="text-lg mt-4 p-3 bg-white bg-opacity-20 rounded-lg">${resultado.interpretacion}</div>
+                </div>
+            `;
+        }
+        
+        function generarSeccionPosicion(resultado) {
+            return `
+                <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-cier-blue">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                        <span class="text-cier-blue mr-2">📍</span> Tu Posición en el Sector
+                    </h2>
+                    
+                    <div class="bg-warning-light border-l-4 border-yellow-500 p-3 mb-6 text-sm text-yellow-800 rounded-md">
+                        <strong class="text-yellow-900">Guía de Percentil:</strong> Un percentil más bajo significa mejor desempeño. El 40% indica que el 40% de las empresas tienen una tasa igual o menor a la tuya.
+                    </div>
+                    
+                    <div class="h-10 bg-gray-200 rounded-full overflow-hidden my-4 shadow-inner">
+                        <div class="progreso-fill h-full flex items-center justify-center text-white text-sm font-bold" style="width: ${resultado.percentil}%">
+                            Percentil ${resultado.percentil.toFixed(1)}%
+                        </div>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-3 gap-6 mt-6">
+                        <div class="p-5 border border-gray-200 rounded-lg shadow-sm">
+                            <h3 class="text-lg font-semibold text-cier-blue mb-2">Posición Actual</h3>
+                            <div class="text-3xl font-extrabold text-gray-800">${resultado.posicion} de ${stats.n}</div>
+                            <p class="text-sm text-gray-500 mt-2">${resultado.posicion <= 10 ? '✓ Entre las 10 mejores del sector' : resultado.posicion <= 21 ? 'En la mitad superior del sector' : resultado.posicion <= 31 ? 'En la mitad inferior del sector' : 'En el cuartil con mayor accidentalidad'}</p>
+                        </div>
+                        
+                        <div class="p-5 border border-gray-200 rounded-lg shadow-sm">
+                            <h3 class="text-lg font-semibold text-cier-blue mb-2">Tu Percentil</h3>
+                            <div class="text-3xl font-extrabold text-gray-800">${resultado.percentil.toFixed(1)}%</div>
+                            <p class="text-sm text-gray-500 mt-2">${resultado.percentil <= 50 ? 'Estás mejor que la mitad del sector.' : 'Tienes oportunidades de mejora en el cuartil inferior.'}</p>
+                        </div>
+
+                        <div class="p-5 border border-gray-200 rounded-lg shadow-sm">
+                            <h3 class="text-lg font-semibold text-cier-blue mb-2">Z-Score</h3>
+                            <div class="text-3xl font-extrabold text-gray-800">${resultado.zScore.toFixed(2)} σ</div>
+                            <p class="text-sm text-gray-500 mt-2">Mide qué tan lejos estás del promedio del sector en desviaciones estándar.</p>
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+        
+        function generarSeccionComparacion(tfcpsi, resultado) {
+            const difPromedio = tfcpsi - stats.promedio;
+            const porcDifPromedio = resultado.diferenciaPorcentaje;
+            const difMediana = tfcpsi - stats.mediana;
+            
+            return `
+                <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-cier-blue">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                        <span class="text-cier-blue mr-2">📈</span> Comparación de TFCPSI
+                    </h2>
+                    
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="p-5 border-l-4 ${difPromedio < 0 ? 'border-green-500 bg-success-light' : 'border-red-500 bg-danger-light'} rounded-r-lg shadow-md">
+                            <h3 class="text-lg font-semibold text-gray-700 mb-2">vs Promedio Sector</h3>
+                            <div class="text-2xl font-bold ${difPromedio < 0 ? 'text-green-700' : 'text-red-700'}">${difPromedio < 0 ? '✓ Mejor por' : '✗ Peor por'} ${Math.abs(difPromedio).toFixed(2)} pts</div>
+                            <p class="text-sm text-gray-600 mt-2">Promedio Sector: **${stats.promedio.toFixed(2)}**</p>
+                            <p class="text-sm font-semibold mt-1">${difPromedio < 0 ? `Estás **${Math.abs(porcDifPromedio).toFixed(1)}% MEJOR** que el promedio.` : `Estás **${porcDifPromedio.toFixed(1)}% por encima** del promedio.`}</p>
+                        </div>
+                        
+                        <div class="p-5 border-l-4 ${difMediana < 0 ? 'border-green-500 bg-success-light' : 'border-red-500 bg-danger-light'} rounded-r-lg shadow-md">
+                            <h3 class="text-lg font-semibold text-gray-700 mb-2">vs Mediana Sector</h3>
+                            <div class="text-2xl font-bold ${difMediana < 0 ? 'text-green-700' : 'text-red-700'}">${difMediana < 0 ? '✓ Superior' : '✗ Inferior'}</div>
+                            <p class="text-sm text-gray-600 mt-2">Mediana Sector: **${stats.mediana.toFixed(2)}**</p>
+                            <p class="text-sm font-semibold mt-1">${difMediana < 0 ? 'Estás en la mitad **SUPERIOR**.' : 'Estás en la mitad **INFERIOR**.'}</p>
+                        </div>
+                        
+                        <div class="p-5 border-l-4 ${tfcpsi <= percentilesGamma.p25 ? 'border-green-500 bg-success-light' : 'border-yellow-500 bg-warning-light'} rounded-r-lg shadow-md">
+                            <h3 class="text-lg font-semibold text-gray-700 mb-2">vs Top 25%</h3>
+                            <div class="text-2xl font-bold ${tfcpsi <= percentilesGamma.p25 ? 'text-green-700' : 'text-yellow-800'}">≤ ${percentilesGamma.p25.toFixed(2)}</div>
+                            <p class="text-sm text-gray-600 mt-2">Meta de excelencia para el cuartil superior.</p>
+                            <p class="text-sm font-semibold mt-1">${tfcpsi <= percentilesGamma.p25 ? '¡Felicitaciones! Perteneces a los líderes.' : `Necesitas reducir ${(tfcpsi - percentilesGamma.p25).toFixed(2)} puntos.`}</p>
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+        
+        function generarSeccionPrediccion(tfcpsi, hhtFuturas) {
+            const accidentesActual = (tfcpsi * hhtFuturas) / 1000000;
+            const accidentesPromedio = (stats.promedio * hhtFuturas) / 1000000;
+            const accidentesMediana = (stats.mediana * hhtFuturas) / 1000000;
+            const accidentesP25 = (percentilesGamma.p25 * hhtFuturas) / 1000000;
+            
+            const tfcpsiOptimista = Math.max(0, stats.promedio - (1.5 * stats.desviacion));
+            const accidentesOptimista = (tfcpsiOptimista * hhtFuturas) / 1000000;
+            
+            const difPromedio = accidentesActual - accidentesPromedio;
+            const difMediana = accidentesActual - accidentesMediana;
+            const difP25 = accidentesActual - accidentesP25;
+            
+            const hhtProyectadasFormateadas = formatNumber(hhtFuturas); // Usa el valor nominal y lo formatea
+
+            const escenarioBox = (title, tfcpsiRef, accidentes, diferencia, esOptimista = false) => {
+                const difClase = diferencia < 0 ? 'text-red-600 bg-danger-light' : 'text-green-600 bg-success-light';
+                const difTexto = diferencia < 0 
+                    ? `Tendrías ${Math.abs(diferencia).toFixed(2)} accidentes MÁS`
+                    : `Podrías EVITAR ${Math.abs(diferencia).toFixed(2)} accidentes`;
+                
+                return `
+                    <div class="p-5 bg-white rounded-lg shadow-md border-l-4 border-gray-300 hover:border-cier-blue transition duration-300">
+                        <h3 class="text-lg font-semibold text-gray-700 mb-2 ${esOptimista ? 'text-cier-purple' : ''}">${title}</h3>
+                        <p class="text-sm text-gray-500">TFCPSI: **${tfcpsiRef.toFixed(2)}**</p>
+                        <div class="text-4xl font-extrabold text-cier-blue my-2">${accidentes.toFixed(2)}</div>
+                        <div class="mt-2 p-2 rounded-md font-medium text-sm ${difClase}">
+                            ${esOptimista ? `→ Objetivo: EVITAR ${(accidentesActual - accidentes).toFixed(2)} accidentes` : (title.includes('Manteniendo') ? 'Tu proyección actual' : `→ ${difTexto}`)}
+                        </div>
+                    </div>
+                `;
+            };
+            
+            return `
+                <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-cier-blue">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                        <span class="text-cier-blue mr-2">🔮</span> Proyección de Accidentes (12 Meses Futuros)
+                    </h2>
+                    <p class="text-gray-600 mb-6">Proyectado sobre **${hhtProyectadasFormateadas}** Horas Hombre Trabajadas futuras.</p>
+                    
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        ${escenarioBox("1️⃣ Manteniendo tu TFCPSI actual", tfcpsi, accidentesActual, 0)}
+                        ${escenarioBox("2️⃣ Si alcanzas el PROMEDIO del sector", stats.promedio, accidentesPromedio, difPromedio)}
+                        ${escenarioBox("3️⃣ Si alcanzas la MEDIANA del sector", stats.mediana, accidentesMediana, difMediana)}
+                        ${escenarioBox("4️⃣ Si entras al TOP 25%", percentilesGamma.p25, accidentesP25, difP25)}
+                        ${escenarioBox("5️⃣ Escenario OPTIMISTA (Clase Mundial)", tfcpsiOptimista, accidentesOptimista, accidentesActual - accidentesOptimista, true)}
+                    </div>
+                </section>
+            `;
+        }
+        
+        function generarSeccionPercentiles() {
+            const percentilBox = (label, value, explanation, isTop) => `
+                <div class="p-5 bg-white rounded-lg shadow-md border-t-4 ${isTop ? 'border-green-500' : 'border-gray-300'} text-center transition hover:shadow-xl">
+                    <div class="text-sm text-gray-500 font-semibold uppercase">${label}</div>
+                    <div class="text-3xl font-extrabold text-cier-blue mt-1">${value}</div>
+                    <div class="text-xs text-gray-500 mt-2">${explanation}</div>
+                </div>
+            `;
+            
+            return `
+                <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-cier-blue">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                        <span class="text-cier-blue mr-2">🎯</span> Percentiles de Referencia (Gamma)
+                    </h2>
+                    <p class="text-gray-600 mb-6">Valores de TFCPSI suavizados por Distribución Gamma, ideales para establecer metas.</p>
+                    
+                    <div class="grid md:grid-cols-5 gap-4">
+                        ${percentilBox("Top 10%", `≤ ${percentilesGamma.p10.toFixed(2)}`, "Mejores tasas de frecuencia.", true)}
+                        ${percentilBox("Top 25%", `≤ ${percentilesGamma.p25.toFixed(2)}`, "Meta para entrar al cuartil superior.", true)}
+                        ${percentilBox("Mediana (50%)", `≤ ${percentilesGamma.p50.toFixed(2)}`, "El 50% de las empresas está por debajo.", false)}
+                        ${percentilBox("Percentil 75", `≤ ${percentilesGamma.p75.toFixed(2)}`, "El 75% del sector está por debajo.", false)}
+                        ${percentilBox("Percentil 90", `≤ ${percentilesGamma.p90.toFixed(2)}`, "Solo el 10% del sector está por encima.", false)}
+                    </div>
+                </section>
+            `;
+        }
+
+        function generarSeccionRecomendaciones(resultado, hhtFuturas, tfcpsi) {
+            const tfcpsiP25 = percentilesGamma.p25;
+            const tfcpsiP50 = percentilesGamma.p50;
+            const tfcpsiP75 = percentilesGamma.p75;
+            
+            const reduccionP25 = tfcpsi > tfcpsiP25 ? ((tfcpsi - tfcpsiP25) * hhtFuturas) / 1000000 : 0;
+            const reduccionP50 = tfcpsi > tfcpsiP50 ? ((tfcpsi - tfcpsiP50) * hhtFuturas) / 1000000 : 0;
+            const reduccionP75 = tfcpsi > tfcpsiP75 ? ((tfcpsi - tfcpsiP75) * hhtFuturas) / 1000000 : 0;
+            
+            let title, icon, bgColor, textColor, borderColor, recomendacionesList;
+
+            if (resultado.percentil <= 25) {
+                title = "EXCELENTE DESEMPEÑO - Mantén el liderazgo";
+                icon = "✨";
+                bgColor = 'bg-success-light';
+                textColor = 'text-green-800';
+                borderColor = 'border-green-500';
+                recomendacionesList = `
+                    <li>**Documenta:** Sistematiza tus mejores prácticas de seguridad para replicarlas y compartirlas.</li>
+                    <li>**Meta:** Mantenerte en el TOP 25% (≤ ${tfcpsiP25.toFixed(2)}) y buscar el **cero accidentes fatales**.</li>
+                    <li>**Innovación:** Invierte en ergonomía y tecnología predictiva (IoT, AI) para la mejora continua.</li>
+                `;
+            } else if (resultado.percentil <= 50) {
+                title = "BUEN DESEMPEÑO - Camino al top 25%";
+                icon = "👍";
+                bgColor = 'bg-success-light';
+                textColor = 'text-green-800';
+                borderColor = 'border-green-500';
+                recomendacionesList = `
+                    <li>**Meta realista:** Reducir TFCPSI a **${tfcpsiP25.toFixed(2)}** para entrar al TOP 25%.</li>
+                    <li>**Impacto:** Esto significa evitar aproximadamente **${reduccionP25.toFixed(1)} accidentes** en los próximos 12 meses.</li>
+                    <li>**Foco:** Refuerza capacitación en los puestos de mayor riesgo (trabajo en altura, conducción).</li>
+                `;
+            } else if (resultado.percentil <= 75) {
+                title = "DESEMPEÑO REGULAR - Plan de mejora necesario";
+                icon = "⚠️";
+                bgColor = 'bg-warning-light';
+                textColor = 'text-yellow-800';
+                borderColor = 'border-yellow-500';
+                recomendacionesList = `
+                    <li>**Prioridad:** Implementar un plan estructurado de mejora con métricas claras.</li>
+                    <li>**Meta a corto plazo:** Alcanzar la mediana del sector (**${tfcpsiP50.toFixed(2)}**), evitando **${reduccionP50.toFixed(1)} accidentes**.</li>
+                    <li>**Revisión:** Auditoría de cumplimiento de procedimientos y efectividad de capacitaciones.</li>
+                `;
+            } else {
+                title = "REQUIERE ATENCIÓN URGENTE - Acción inmediata";
+                icon = "🚨";
+                bgColor = 'bg-danger-light';
+                textColor = 'text-red-800';
+                borderColor = 'border-red-500';
+                recomendacionesList = `
+                    <li>**Liderazgo:** Implementar un programa integral de seguridad con **apoyo gerencial inmediato**.</li>
+                    <li>**Meta inmediata:** Reducir a percentil 75 (**${tfcpsiP75.toFixed(2)}**), evitando **${reduccionP75.toFixed(1)} accidentes**.</li>
+                    <li>**Asesoría:** Considerar una auditoría externa completa y asesoría especializada en S&SO.</li>
+                `;
+            }
+
+            return `
+                <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-cier-blue">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                        <span class="text-cier-blue mr-2">💡</span> Recomendaciones Personalizadas
+                    </h2>
+                    <div class="p-6 rounded-xl shadow-inner ${bgColor} ${borderColor} border-l-4">
+                        <h3 class="text-xl font-bold ${textColor} mb-4">${icon} ${title}</h3>
+                        <ul class="list-none space-y-3 ${textColor}">
+                            ${recomendacionesList}
+                        </ul>
+                    </div>
+                </section>
+            `;
+        }
+
+        function generarSeccionSensibilidad(tfcpsi, hhtFuturas) {
+            const accidentesActual = (tfcpsi * hhtFuturas) / 1000000;
+            const mejoras = [
+                { porcentaje: 10, factor: 0.90 },
+                { porcentaje: 20, factor: 0.80 },
+                { porcentaje: 30, factor: 0.70 },
+                { porcentaje: 50, factor: 0.50 }
+            ];
+            
+            let html = `
+                <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-cier-blue">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                        <span class="text-cier-blue mr-2">⚡</span> Análisis de Sensibilidad (ROI de la Seguridad)
+                    </h2>
+                    
+                    <p class="text-gray-600 mb-6">Proyecciones de accidentes evitados en el próximo período si logra reducir su TFCPSI.</p>
+                    
+                    <div class="space-y-4">
+            `;
+            
+            mejoras.forEach(mejora => {
+                const tfcpsiMejorado = tfcpsi * mejora.factor;
+                const accidentesMejorados = (tfcpsiMejorado * hhtFuturas) / 1000000;
+                const accidentesEvitados = accidentesActual - accidentesMejorados;
+                
+                html += `
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition duration-200 flex-wrap gap-2">
+                        <div class="flex flex-col md:flex-row md:items-center">
+                            <span class="font-bold text-lg text-cier-blue">Meta: Reducción del ${mejora.porcentaje}%</span>
+                            <span class="text-sm text-gray-500 md:ml-3">(Nuevo TFCPSI = ${tfcpsiMejorado.toFixed(2)})</span>
+                        </div>
+                        <div class="font-extrabold text-xl text-green-600">
+                            EVITARÍA ${accidentesEvitados.toFixed(2)} ACCIDENTES
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += `
+                    </div>
+                    
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mt-6 text-sm text-blue-800 rounded-md">
+                        <strong class="text-blue-900">Valor Económico:</strong> Cada accidente evitado representa ahorros significativos en costos médicos, indemnizaciones y pérdidas de productividad, justificando la inversión en seguridad.
+                    </div>
+                </section>
+            `;
+            
+            return html;
+        }
+    </script>
+</body>
+</html>

@@ -123,8 +123,8 @@ Funcionalidades incluidas:
         <div class="container bg-white rounded-xl shadow-2xl overflow-hidden my-10">
             <!-- HEADER / BANNER - AZUL CORPORATIVO -->
             <div class="bg-cier-blue text-white p-10 text-center">
-                <h1 class="text-3xl font-extrabold mb-2">📊 Calculadora de Accidentalidad CIER 2025</h1>
-                <p class="text-xl font-light opacity-90">Empresas de Distribución & Integradas con importante participación de la Distribución</p>
+                <h1 class="text-3xl font-extrabold mb-2">📊 Calculadora de Accidentalidad para el Personal Propio - CIER 2025</h1>
+                <p class="text-xl font-light opacity-90">Empresas de Distribución o Integradas (múltiples negocios D, G, T, C), esta última (Integrada) con importante participación de la Distribución</p>
                 <div class="mt-4 inline-block bg-white bg-opacity-20 px-4 py-1 rounded-full text-sm font-medium">Personal Propio | 42 Empresas | 17 Países</div>
             </div>
 
@@ -184,22 +184,22 @@ Funcionalidades incluidas:
                 <!-- FORMULARIO DE INGRESO DE DATOS -->
                 <section class="mb-12">
                     <h2 class="text-2xl font-bold text-gray-800 mb-6">
-                        <span class="text-cier-blue">📝</span> Ingrese los Datos de su Empresa
+                        <span class="text-cier-blue">📝</span> Ingrese los Datos de su Empresa para Personal Propio Sin incluir Accidentes in Itinere
                     </h2>
                     
                     <!-- Entrada de Datos Pasados (Últimos 12 Meses) -->
                     <div class="p-6 bg-gray-100 rounded-lg border border-gray-200">
-                        <h3 class="text-xl font-semibold text-gray-700 mb-4">Datos Históricos (Últimos 12 Meses Pasados)</h3>
+                        <h3 class="text-xl font-semibold text-gray-700 mb-4">Datos Históricos para Personal Propio (Últimos 12 Meses)</h3>
 
                         <div class="mb-6">
-                            <label for="nacpdsi" class="block text-gray-700 font-medium mb-2">NACPDSI - Número de Accidentados con Pérdida de Días:</label>
-                            <span class="block text-sm text-gray-500 mb-2">Cantidad de trabajadores accidentados (sin *in itinere*) correspondientes a los **Últimos 12 Meses Pasados**.</span>
+                            <label for="nacpdsi" class="block text-gray-700 font-medium mb-2">NACPDSI - Número de Accidentados con Pérdida de Días Sin In Itinere :</label>
+                            <span class="block text-sm text-gray-500 mb-2">Cantidad de trabajadores propios accidentados (sin *in itinere*) correspondientes a los **Últimos 12 Meses**.</span>
                             <input type="number" id="nacpdsi" placeholder="Ejemplo: 3" min="0" step="1" oninput="calcularTFCPSI()" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-cier-blue">
                         </div>
 
                         <div class="mb-6">
                             <label for="hht" class="block text-gray-700 font-medium mb-2">HHT - Horas Hombre Trabajadas (Personal Propio):</label>
-                            <span class="block text-sm text-gray-500 mb-2">Total de horas trabajadas por su personal propio en el período de los **Últimos 12 Meses Pasados**.</span>
+                            <span class="block text-sm text-gray-500 mb-2">Total de horas trabajadas por su personal propio en el período de los **Últimos 12 Meses**.</span>
                             <input type="number" id="hht" placeholder="Ejemplo: 500000" min="1" step="1" oninput="calcularTFCPSI()" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-cier-blue">
                         </div>
 
@@ -925,3 +925,4 @@ Funcionalidades incluidas:
     </script>
 </body>
 </html>
+

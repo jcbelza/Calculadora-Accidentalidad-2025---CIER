@@ -184,22 +184,22 @@ Funcionalidades incluidas:
                 <!-- FORMULARIO DE INGRESO DE DATOS -->
                 <section class="mb-12">
                     <h2 class="text-2xl font-bold text-gray-800 mb-6">
-                        <span class="text-cier-blue">📝</span> Si te quieres comparar con el sector de la región, ingrese los Datos de su Empresa
+                        <span class="text-cier-blue">📝</span> Si te quieres comparar con el sector de la región, ingrese los Datos de su Empresa para Personal Propio
                     </h2>
                     
                     <!-- Entrada de Datos Pasados (Últimos 12 Meses) -->
                     <div class="p-6 bg-gray-100 rounded-lg border border-gray-200">
-                        <h3 class="text-xl font-semibold text-gray-700 mb-4">Datos Históricos (Últimos 12 Meses Pasados)</h3>
+                        <h3 class="text-xl font-semibold text-gray-700 mb-4">Datos Históricos Personal Propio (Últimos 12 Meses Pasados)</h3>
 
                         <div class="mb-6">
-                            <label for="nacpdsi" class="block text-gray-700 font-medium mb-2">NACPDSI - Número de Accidentados con Pérdida de Días:</label>
+                            <label for="nacpdsi" class="block text-gray-700 font-medium mb-2">NACPDSI - Número de Accidentados con Pérdida de Días Sin In Itinere para Personal Propio:</label>
                             <span class="block text-sm text-gray-500 mb-2">Cantidad de trabajadores accidentados (sin *in itinere*) correspondientes a los **Últimos 12 Meses Pasados**.</span>
                             <input type="number" id="nacpdsi" placeholder="Ejemplo: 3" min="0" step="1" oninput="calcularTFCPSI()" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-cier-blue">
                         </div>
 
                         <div class="mb-6">
                             <label for="hht" class="block text-gray-700 font-medium mb-2">HHT - Horas Hombre Trabajadas (Personal Propio):</label>
-                            <span class="block text-sm text-gray-500 mb-2">Total de horas trabajadas por su personal propio en el período de los **Últimos 12 Meses Pasados**.</span>
+                            <span class="block text-sm text-gray-500 mb-2">Total de horas trabajadas por su personal propio en el período de los **Últimos 12 Meses**.</span>
                             <input type="number" id="hht" placeholder="Ejemplo: 500000" min="1" step="1" oninput="calcularTFCPSI()" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-cier-blue">
                         </div>
 
@@ -212,8 +212,8 @@ Funcionalidades incluidas:
 
                         <h3 class="text-xl font-semibold text-gray-700 mt-8 mb-4">Proyección (Próximos 12 Meses)</h3>
                         <div class="mb-6">
-                            <label for="hht-futuras" class="block text-gray-700 font-medium mb-2">HHT - Horas Hombre Trabajadas Proyectadas (para el próximo período):</label>
-                            <span class="block text-sm text-gray-500 mb-2">Total de Horas Hombre Trabajadas esperadas para un **Período de 12 Meses Futuros**.</span>
+                            <label for="hht-futuras" class="block text-gray-700 font-medium mb-2">HHT - Horas Hombre Trabajadas Proyectadas (para los próximos 12 Meses):</label>
+                            <span class="block text-sm text-gray-500 mb-2">Total de Horas Hombre Trabajadas esperadas para un **Próximos 12 Meses**.</span>
                             <input type="number" id="hht-futuras" placeholder="Ejemplo: 550000" min="1" step="1" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-cier-blue">
                         </div>
                     </div>
@@ -1259,4 +1259,5 @@ console.log("===============================================");
     </script>
 </body>
 </html>
+
 

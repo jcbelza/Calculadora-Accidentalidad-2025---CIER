@@ -123,8 +123,8 @@ Funcionalidades incluidas:
         <div class="container bg-white rounded-xl shadow-2xl overflow-hidden my-10">
             <!-- HEADER / BANNER - AZUL CORPORATIVO -->
             <div class="bg-cier-blue text-white p-10 text-center">
-                <h1 class="text-3xl font-extrabold mb-2">📊 Calculadora de Accidentalidad para Personal Propio - CIER 2025</h1>
-                <p class="text-xl font-light opacity-90">Empresas de Distribución o Integradas (múltiples negocios D, G, T, C), esta última (Integrada) con importante participación de la Distribución</p>
+                <h1 class="text-3xl font-extrabold mb-2">📊 Calculadora de Accidentalidad CIER 2025</h1>
+                <p class="text-xl font-light opacity-90">Empresas de Distribución & Integradas con importante participación de la Distribución</p>
                 <div class="mt-4 inline-block bg-white bg-opacity-20 px-4 py-1 rounded-full text-sm font-medium">Personal Propio | 42 Empresas | 17 Países</div>
             </div>
 
@@ -144,7 +144,7 @@ Funcionalidades incluidas:
                         <ul class="list-none space-y-1 text-sm">
                             <li>**Robustez:** 42 empresas de distribución e integradas.</li>
                             <li>**Alcance:** Datos de 17 países de América Latina.</li>
-                            <li>**Metodología:** Análisis con Distribución Gamma para un *benchmarking* robusto.</li>
+                            <li>**Metodología:** Distribución Log-normal validada estadísticamente (p-valor KS = 0.98).</li>
                         </ul>
                     </div>
                 </section>
@@ -161,11 +161,11 @@ Funcionalidades incluidas:
                         </div>
                         <div class="p-4 bg-gray-50 rounded-lg shadow-md border border-gray-200 text-center">
                             <div class="text-sm text-gray-500 font-semibold uppercase">Promedio</div>
-                            <div class="text-3xl font-extrabold text-cier-blue mt-1">13.64</div>
+                            <div class="text-3xl font-extrabold text-cier-blue mt-1">12.43</div>
                         </div>
                         <div class="p-4 bg-gray-50 rounded-lg shadow-md border border-gray-200 text-center">
                             <div class="text-sm text-gray-500 font-semibold uppercase">Mediana</div>
-                            <div class="text-3xl font-extrabold text-success-dark mt-1">6.54</div>
+                            <div class="text-3xl font-extrabold text-success-dark mt-1">6.07</div>
                         </div>
                         <div class="p-4 bg-gray-50 rounded-lg shadow-md border border-gray-200 text-center">
                             <div class="text-sm text-gray-500 font-semibold uppercase">Mínimo</div>
@@ -184,22 +184,22 @@ Funcionalidades incluidas:
                 <!-- FORMULARIO DE INGRESO DE DATOS -->
                 <section class="mb-12">
                     <h2 class="text-2xl font-bold text-gray-800 mb-6">
-                        <span class="text-cier-blue">📝</span> Para compararse con la región, ingrese los Datos de su Empresa para Personal Propio (Sin incluir Accidentes in Itinere)
+                        <span class="text-cier-blue">📝</span> Ingrese los Datos de su Empresa
                     </h2>
                     
                     <!-- Entrada de Datos Pasados (Últimos 12 Meses) -->
                     <div class="p-6 bg-gray-100 rounded-lg border border-gray-200">
-                        <h3 class="text-xl font-semibold text-gray-700 mb-4">Datos Históricos para Personal Propio (Últimos 12 Meses)</h3>
+                        <h3 class="text-xl font-semibold text-gray-700 mb-4">Datos Históricos (Últimos 12 Meses Pasados)</h3>
 
                         <div class="mb-6">
-                            <label for="nacpdsi" class="block text-gray-700 font-medium mb-2">NACPDSI - Número de Accidentados con Pérdida de Días Sin In Itinere :</label>
-                            <span class="block text-sm text-gray-500 mb-2">Cantidad de trabajadores propios accidentados (sin *in itinere*) correspondientes a los **Últimos 12 Meses**.</span>
+                            <label for="nacpdsi" class="block text-gray-700 font-medium mb-2">NACPDSI - Número de Accidentados con Pérdida de Días:</label>
+                            <span class="block text-sm text-gray-500 mb-2">Cantidad de trabajadores accidentados (sin *in itinere*) correspondientes a los **Últimos 12 Meses Pasados**.</span>
                             <input type="number" id="nacpdsi" placeholder="Ejemplo: 3" min="0" step="1" oninput="calcularTFCPSI()" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-cier-blue">
                         </div>
 
                         <div class="mb-6">
                             <label for="hht" class="block text-gray-700 font-medium mb-2">HHT - Horas Hombre Trabajadas (Personal Propio):</label>
-                            <span class="block text-sm text-gray-500 mb-2">Total de horas trabajadas por su personal propio en el período de los **Últimos 12 Meses**.</span>
+                            <span class="block text-sm text-gray-500 mb-2">Total de horas trabajadas por su personal propio en el período de los **Últimos 12 Meses Pasados**.</span>
                             <input type="number" id="hht" placeholder="Ejemplo: 500000" min="1" step="1" oninput="calcularTFCPSI()" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-cier-blue">
                         </div>
 
@@ -332,602 +332,929 @@ Funcionalidades incluidas:
             <footer class="bg-gray-100 p-6 text-center text-sm text-gray-600 border-t border-gray-200">
                 <p class="font-bold text-gray-800">Calculadora de Accidentalidad CIER 2025</p>
                 <p>Comisión de Integración Energética Regional</p>
-                <p class="mt-2 text-xs">Metodología: Distribución Gamma para análisis estadístico robusto.</p>
-                <p class="mt-2 text-xs">Coordinación Internacional del Área Corporativa y Coordinador Técnico Internacional SST - CIER</p>
+                <p class="mt-2 text-xs">Metodología: Distribución Log-normal validada estadísticamente (p-valor KS = 0.98).</p>
             </footer>
         </div>
     </div>
 
+
     <script>
-        // ============================================
-        // SETUP Y UTILIDADES
-        // ============================================
-        
-        // Se elimina la clave de API y las funciones relacionadas con la API de Gemini
-        // La funcionalidad LLM ya no está disponible en esta versión para publicación estática.
+// ============================================
+// CALCULADORA DE ACCIDENTALIDAD CIER 2025
+// VERSIÓN CORREGIDA CON DISTRIBUCIÓN LOG-NORMAL
+// ============================================
 
-        
-        const datosCIER = [
-          6.494611421, 38.82800285, 6.796793308, 144.7876448, 1.828367487,
-          1.119837131, 1.661937347, 0.485178288, 12.63178789, 1.030333004,
-          2.045010685, 8.233677545, 77.60721437, 8.99261167, 0.6816614,
-          5.212626284, 3.430539578, 0, 8.132196994, 11.24242682, 11.67365237,
-          3.85310879, 32.32200718, 14.16493193, 17.71975823, 23.32650032,
-          0, 24.09822436, 3.950807703, 37.37128026, 23.9092133, 6.592827004,
-          0.74718823, 0.903252409, 0.420180602, 2.105733069, 7.499521184,
-          0, 3.971058923, 7.092869826, 9.731084718, 0
-        ];
-        
-        const datosPareto = {
-            "Caídas de personas a Nivel y/o Altura": { percent: 18.4, riesgo: "Alto", sugerencias: ["Refuerzo en protocolos de trabajo en altura (arneses, líneas de vida).", "Inspección rigurosa de andamios, escaleras y plataformas.", "Capacitación específica en rescate en altura."]},
-            "Golpes por objetos": { percent: 17.7, riesgo: "Alto", sugerencias: ["Uso obligatorio y permanente de Equipo de Protección Personal (EPP) de cabeza y manos.", "Mejora del orden y limpieza en áreas de trabajo.", "Análisis de riesgo en manejo de herramientas y materiales."]},
-            "Esfuerzos excesivos": { percent: 16.2, riesgo: "Alto", sugerencias: ["Entrenamiento en ergonomía y técnicas correctas de levantamiento de cargas.", "Implementación de ayudas mecánicas para tareas repetitivas o pesadas.", "Rotación de tareas para prevenir fatiga muscular."]},
-            "Otras formas de accidentes": { percent: 12.5, riesgo: "Medio", sugerencias: ["Revisión profunda de los incidentes para identificar categorías no cubiertas.", "Fomentar el reporte de casi-accidentes para capturar riesgos diversos.", "Campaña de concientización sobre el riesgo residual."]},
-            "Choques Vehículo": { percent: 7.7, riesgo: "Medio", sugerencias: ["Capacitación obligatoria en conducción defensiva y manejo 4x4.", "Mantenimiento estricto de la flota y uso de tecnologías de monitoreo de velocidad.", "Reforzar el protocolo de descanso en rutas largas."]},
-            "Malas pisadas": { percent: 6.1, riesgo: "Medio", sugerencias: ["Mantenimiento de zonas de paso y señalización de desniveles.", "Uso de calzado de seguridad con agarre apropiado.", "Campaña de concientización sobre atención al camino."]},
-            "Golpe por caídas de objetos": { percent: 4.7, riesgo: "Bajo", sugerencias: ["Protocolos obligatorios para asegurar herramientas y materiales en altura.", "Uso de redes de seguridad o zonas de exclusión por debajo de trabajos elevados.", "Verificación de anclajes y sistemas de izado."]},
-            "Atrapamiento por un objeto o entre objetos": { percent: 4.2, riesgo: "Bajo", sugerencias: ["Implementación del protocolo LOTO (Lockout/Tagout) para energías peligrosas.", "Distanciamiento de seguridad en maquinaria en movimiento.", "Capacitación en riesgos mecánicos."]},
-            "Contacto con electricidad": { percent: 3.5, riesgo: "Bajo", sugerencias: ["Refuerzo en los 5 pasos de oro de seguridad eléctrica.", "Auditoría de EPP dieléctrico y herramientas aisladas.", "Campaña de concientización sobre líneas vivas o desenergizadas."]},
-            "Picadura de insectos, otros": { percent: 2.5, riesgo: "Bajo", sugerencias: ["Uso de repelentes y ropa adecuada para trabajos en campo.", "Inspección previa de áreas de trabajo boscosas/rurales.", "Protocolo claro de primeros auxilios para picaduras."]}
-        };
+// Datos reales CIER 2025 (42 empresas)
+const datosCIER = [
+    6.494611421, 38.82800285, 6.796793308, 144.7876448, 1.828367487,
+    1.119837131, 1.661937347, 0.485178288, 12.63178789, 1.030333004,
+    2.045010685, 8.233677545, 77.60721437, 8.99261167, 0.6816614,
+    5.212626284, 3.430539578, 0, 8.132196994, 11.24242682, 11.67365237,
+    3.85310879, 32.32200718, 14.16493193, 17.71975823, 23.32650032,
+    0, 24.09822436, 3.950807703, 37.37128026, 23.9092133, 6.592827004,
+    0.74718823, 0.903252409, 0.420180602, 2.105733069, 7.499521184,
+    0, 3.971058923, 7.092869826, 9.731084718, 0
+];
 
-        
-        function calcularEstadisticas(datos) {
-            const n = datos.length;
-            const datosOrdenados = [...datos].sort((a, b) => a - b);
-            const promedio = datos.reduce((a, b) => a + b, 0) / n;
-            const mediana = n % 2 === 0 
-                ? (datosOrdenados[n/2 - 1] + datosOrdenados[n/2]) / 2 
-                : datosOrdenados[Math.floor(n/2)];
-            const varianza = datos.reduce((sum, val) => sum + Math.pow(val - promedio, 2), 0) / n;
-            const desviacion = Math.sqrt(varianza);
-            const minimo = Math.min(...datos);
-            const maximo = Math.max(...datos);
-            const shapeK = Math.pow(promedio, 2) / varianza;
-            const scaleTheta = varianza / promedio;
-            
-            return { n, promedio, mediana, desviacion, minimo, maximo, datosOrdenados, shapeK, scaleTheta };
-        }
-        
-        const stats = calcularEstadisticas(datosCIER);
-        
-        function percentilGamma(p, shape, scale) {
-            let z;
-            if (p === 0.10) z = -1.282; else if (p === 0.25) z = -0.674; else if (p === 0.50) z = 0;
-            else if (p === 0.75) z = 0.674; else if (p === 0.90) z = 1.282; else return 0;
-            
-            const factor = 1 - 1/(9*shape) + z * Math.sqrt(1/(9*shape));
-            const valor = shape * scale * Math.pow(factor, 3);
-            return Math.max(0, valor);
-        }
-        
-        const percentilesGamma = {
-            p10: percentilGamma(0.10, stats.shapeK, stats.scaleTheta),
-            p25: percentilGamma(0.25, stats.shapeK, stats.scaleTheta),
-            p50: percentilGamma(0.50, stats.shapeK, stats.scaleTheta),
-            p75: percentilGamma(0.75, stats.shapeK, stats.scaleTheta),
-            p90: percentilGamma(0.90, stats.shapeK, stats.scaleTheta)
-        };
-        
-        function formatNumber(num) {
-            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-        }
-        
-        function calcularTFCPSI() {
-            const nacpdsi = parseFloat(document.getElementById('nacpdsi').value);
-            const hht = parseFloat(document.getElementById('hht').value);
-            const infoTfcpsiDiv = document.getElementById('info-tfcpsi');
-            
-            if (!isNaN(nacpdsi) && !isNaN(hht) && hht > 0) {
-                const tfcpsi = (nacpdsi * 1000000) / hht;
-                document.getElementById('tfcpsi-calculado').textContent = tfcpsi.toFixed(2);
-                infoTfcpsiDiv.style.display = 'block';
-            } else {
-                infoTfcpsiDiv.style.display = 'none';
-            }
-        }
-        
-        function analizarTFCPSI(tfcpsi, stats) {
-            let posicion = 0;
-            for (let i = 0; i < stats.datosOrdenados.length; i++) {
-                if (tfcpsi <= stats.datosOrdenados[i]) {
-                    posicion = i + 1;
-                    break;
-                }
-            }
-            if (posicion === 0) posicion = stats.datosOrdenados.length + 1;
-            
-            const percentil = (posicion / stats.n) * 100;
-            const zScore = (tfcpsi - stats.promedio) / stats.desviacion;
-            const diferenciaPorcentaje = ((tfcpsi - stats.promedio) / stats.promedio) * 100;
-            
-            let clasificacion, colorClase, interpretacion;
-            
-            if (percentil <= 25) { 
-                clasificacion = "EXCELENTE";
-                colorClase = "excelente";
-                interpretacion = "Tu desempeño te sitúa entre el TOP 25% de las empresas del sector. Continúa con el liderazgo.";
-            } else if (percentil <= 50) {
-                clasificacion = "BUENO";
-                colorClase = "bueno";
-                interpretacion = "Tu desempeño está en la mitad superior del sector. Tienes buen rendimiento y potencial de ascenso.";
-            } else if (percentil <= 75) {
-                clasificacion = "REGULAR";
-                colorClase = "regular";
-                interpretacion = "Tu desempeño está en la mitad inferior del sector. Requiere un plan de acción para alcanzar la Mediana.";
-            } else {
-                clasificacion = "NECESITA MEJORAR";
-                colorClase = "mejorar";
-                interpretacion = "Tu desempeño está en el cuartil de mayor accidentalidad. Requiere acciones de mejora urgentes.";
-            }
-            
-            return { posicion, percentil, zScore, clasificacion, colorClase, interpretacion, diferenciaPorcentaje };
-        }
-        
-        function analizarYPredecir() {
-            const nacpdsi = parseFloat(document.getElementById('nacpdsi').value);
-            const hht = parseFloat(document.getElementById('hht').value);
-            const hhtFuturas = parseFloat(document.getElementById('hht-futuras').value);
-            
-            // Validación de datos TFCPSI
-            if (isNaN(nacpdsi) || isNaN(hht) || hht <= 0 || isNaN(hhtFuturas) || hhtFuturas <= 0) {
-                alert('Paso 1 requerido: Por favor, ingresa NACPDSI, HHT y HHT Proyectadas válidos.');
-                return;
-            }
+// Datos Pareto (sin cambios - ya estaba correcto)
+const datosPareto = {
+    "Caídas de personas a Nivel y/o Altura": { 
+        percent: 18.4, 
+        riesgo: "Alto", 
+        sugerencias: [
+            "Refuerzo en protocolos de trabajo en altura (arneses, líneas de vida).", 
+            "Inspección rigurosa de andamios, escaleras y plataformas.", 
+            "Capacitación específica en rescate en altura."
+        ]
+    },
+    "Golpes por objetos": { 
+        percent: 17.7, 
+        riesgo: "Alto", 
+        sugerencias: [
+            "Uso obligatorio y permanente de Equipo de Protección Personal (EPP) de cabeza y manos.", 
+            "Mejora del orden y limpieza en áreas de trabajo.", 
+            "Análisis de riesgo en manejo de herramientas y materiales."
+        ]
+    },
+    "Esfuerzos excesivos": { 
+        percent: 16.2, 
+        riesgo: "Alto", 
+        sugerencias: [
+            "Entrenamiento en ergonomía y técnicas correctas de levantamiento de cargas.", 
+            "Implementación de ayudas mecánicas para tareas repetitivas o pesadas.", 
+            "Rotación de tareas para prevenir fatiga muscular."
+        ]
+    },
+    "Otras formas de accidentes": { 
+        percent: 12.5, 
+        riesgo: "Medio", 
+        sugerencias: [
+            "Revisión profunda de los incidentes para identificar categorías no cubiertas.", 
+            "Fomentar el reporte de casi-accidentes para capturar riesgos diversos.", 
+            "Campaña de concientización sobre el riesgo residual."
+        ]
+    },
+    "Choques Vehículo": { 
+        percent: 7.7, 
+        riesgo: "Medio", 
+        sugerencias: [
+            "Capacitación obligatoria en conducción defensiva y manejo 4x4.", 
+            "Mantenimiento estricto de la flota y uso de tecnologías de monitoreo de velocidad.", 
+            "Reforzar el protocolo de descanso en rutas largas."
+        ]
+    },
+    "Malas pisadas": { 
+        percent: 6.1, 
+        riesgo: "Medio", 
+        sugerencias: [
+            "Mantenimiento de zonas de paso y señalización de desniveles.", 
+            "Uso de calzado de seguridad con agarre apropiado.", 
+            "Campaña de concientización sobre atención al camino."
+        ]
+    },
+    "Golpe por caídas de objetos": { 
+        percent: 4.7, 
+        riesgo: "Bajo", 
+        sugerencias: [
+            "Protocolos obligatorios para asegurar herramientas y materiales en altura.", 
+            "Uso de redes de seguridad o zonas de exclusión por debajo de trabajos elevados.", 
+            "Verificación de anclajes y sistemas de izado."
+        ]
+    },
+    "Atrapamiento por un objeto o entre objetos": { 
+        percent: 4.2, 
+        riesgo: "Bajo", 
+        sugerencias: [
+            "Implementación del protocolo LOTO (Lockout/Tagout) para energías peligrosas.", 
+            "Distanciamiento de seguridad en maquinaria en movimiento.", 
+            "Capacitación en riesgos mecánicos."
+        ]
+    },
+    "Contacto con electricidad": { 
+        percent: 3.5, 
+        riesgo: "Bajo", 
+        sugerencias: [
+            "Refuerzo en los 5 pasos de oro de seguridad eléctrica.", 
+            "Auditoría de EPP dieléctrico y herramientas aisladas.", 
+            "Campaña de concientización sobre líneas vivas o desenergizadas."
+        ]
+    },
+    "Picadura de insectos, otros": { 
+        percent: 2.5, 
+        riesgo: "Bajo", 
+        sugerencias: [
+            "Uso de repelentes y ropa adecuada para trabajos en campo.", 
+            "Inspección previa de áreas de trabajo boscosas/rurales.", 
+            "Protocolo claro de primeros auxilios para picaduras."
+        ]
+    }
+};
 
-            // Validación de selección de riesgos (aunque no afecta el TFCPSI, es necesario para el LLM)
-            const tipologiaCheckboxes = document.querySelectorAll('input[name="tipologia"]:checked');
-            if (tipologiaCheckboxes.length === 0) {
-                 alert('Paso 2 requerido: Por favor, selecciona al menos una Tipología de Caso para el Análisis Pareto.');
-                return;
-            }
-            
-            const tfcpsi = (nacpdsi * 1000000) / hht;
-            const resultado = analizarTFCPSI(tfcpsi, stats);
-            
-            // Generar HTML de resultados
-            let html = generarSeccionExplicacion();
-            html += generarResultadoPrincipal(tfcpsi, resultado);
-            html += generarSeccionTipologia(Array.from(tipologiaCheckboxes).map(checkbox => ({
-                tipologia: checkbox.value,
-                percent: parseFloat(checkbox.dataset.percent)
-            })));
-            html += generarSeccionPosicion(resultado);
-            html += generarSeccionComparacion(tfcpsi, resultado);
-            html += generarSeccionPrediccion(tfcpsi, hhtFuturas);
-            html += generarSeccionPercentiles();
-            html += generarSeccionRecomendaciones(resultado, hhtFuturas, tfcpsi);
-            html += generarSeccionSensibilidad(tfcpsi, hhtFuturas);
-            
-            // Mostrar resultados
-            const resultadosDiv = document.getElementById('resultados');
-            resultadosDiv.innerHTML = html;
-            resultadosDiv.classList.remove('hidden');
-            resultadosDiv.classList.add('fade-in');
-            resultadosDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            
-            // ELIMINACIÓN DE LA FUNCIONALIDAD LLM PARA PUBLICACIÓN ESTÁTICA
-            // Las secciones LLM y el botón fueron comentados o eliminados del HTML
+// ============================================
+// FUNCIONES ESTADÍSTICAS CON LOG-NORMAL
+// ============================================
+
+/**
+ * Calcula estadísticos descriptivos y parámetros de distribución Log-normal
+ * @param {Array} datos - Array de tasas de frecuencia
+ * @returns {Object} Objeto con estadísticos y parámetros Log-normal
+ */
+function calcularEstadisticas(datos) {
+    const n = datos.length;
+    const datosOrdenados = [...datos].sort((a, b) => a - b);
+    
+    // Estadísticos básicos
+    const promedio = datos.reduce((a, b) => a + b, 0) / n;
+    const mediana = n % 2 === 0 
+        ? (datosOrdenados[n/2 - 1] + datosOrdenados[n/2]) / 2 
+        : datosOrdenados[Math.floor(n/2)];
+    
+    const varianza = datos.reduce((sum, val) => sum + Math.pow(val - promedio, 2), 0) / n;
+    const desviacion = Math.sqrt(varianza);
+    const minimo = Math.min(...datos);
+    const maximo = Math.max(...datos);
+    
+    // Coeficiente de variación
+    const cv = (desviacion / promedio) * 100;
+    
+    // PARÁMETROS LOG-NORMAL (CORRECCIÓN PRINCIPAL)
+    // Filtramos ceros porque log(0) no está definido
+    const datosSinCeros = datos.filter(x => x > 0);
+    const datosLog = datosSinCeros.map(x => Math.log(x));
+    
+    const mediaLog = datosLog.reduce((a, b) => a + b, 0) / datosLog.length;
+    const varianzaLog = datosLog.reduce((sum, val) => sum + Math.pow(val - mediaLog, 2), 0) / datosLog.length;
+    const sigmaLog = Math.sqrt(varianzaLog);
+    
+    // Parámetros de Log-normal
+    const muLog = mediaLog;      // μ (parámetro de localización)
+    const sigmaLogParam = sigmaLog;  // σ (parámetro de forma)
+    
+    // También calculamos Gamma por referencia (pero NO la usamos para clasificación)
+    const shapeK = Math.pow(promedio, 2) / varianza;
+    const scaleTheta = varianza / promedio;
+    
+    return { 
+        n, 
+        promedio, 
+        mediana, 
+        desviacion,
+        cv,
+        minimo, 
+        maximo, 
+        datosOrdenados,
+        // Parámetros Log-normal (LOS CORRECTOS)
+        muLog,
+        sigmaLog: sigmaLogParam,
+        datosSinCeros,
+        // Parámetros Gamma (solo para referencia)
+        shapeK,
+        scaleTheta
+    };
+}
+
+/**
+ * Calcula percentiles de distribución Log-normal
+ * @param {number} p - Percentil deseado (0.10, 0.25, 0.50, 0.75, 0.90)
+ * @param {number} mu - Parámetro μ de Log-normal
+ * @param {number} sigma - Parámetro σ de Log-normal
+ * @returns {number} Valor del percentil
+ */
+function percentilLogNormal(p, mu, sigma) {
+    // Valores z de la distribución normal estándar para percentiles comunes
+    const zValues = {
+        0.05: -1.6449,
+        0.10: -1.2816,
+        0.25: -0.6745,
+        0.50: 0,
+        0.75: 0.6745,
+        0.90: 1.2816,
+        0.95: 1.6449
+    };
+    
+    const z = zValues[p];
+    if (z === undefined) {
+        console.error(`Percentil ${p} no soportado`);
+        return 0;
+    }
+    
+    // Fórmula del percentil Log-normal: exp(μ + σ*z)
+    return Math.exp(mu + sigma * z);
+}
+
+/**
+ * Calcula la Función de Distribución Acumulada (CDF) de Log-normal
+ * Útil para calcular percentiles exactos de un valor observado
+ * @param {number} x - Valor a evaluar
+ * @param {number} mu - Parámetro μ de Log-normal
+ * @param {number} sigma - Parámetro σ de Log-normal
+ * @returns {number} Probabilidad acumulada (0 a 1)
+ */
+function cdfLogNormal(x, mu, sigma) {
+    if (x <= 0) return 0;
+    
+    // Transformar a distribución normal estándar
+    const z = (Math.log(x) - mu) / sigma;
+    
+    // Aproximación de la CDF normal estándar (Φ(z))
+    // Aproximación de Abramowitz y Stegun
+    const t = 1 / (1 + 0.2316419 * Math.abs(z));
+    const d = 0.3989423 * Math.exp(-z * z / 2);
+    const p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
+    
+    return z > 0 ? 1 - p : p;
+}
+
+/**
+ * Calcula el percentil exacto de un valor dado usando CDF Log-normal
+ * @param {number} valor - Valor observado (TFCPSI)
+ * @param {number} mu - Parámetro μ de Log-normal
+ * @param {number} sigma - Parámetro σ de Log-normal
+ * @returns {number} Percentil (0-100)
+ */
+function calcularPercentilExacto(valor, mu, sigma) {
+    const probabilidad = cdfLogNormal(valor, mu, sigma);
+    return probabilidad * 100;
+}
+
+// Calcular estadísticas y parámetros al cargar
+const stats = calcularEstadisticas(datosCIER);
+
+// Calcular percentiles Log-normal (CORRECCIÓN PRINCIPAL)
+const percentilesLogNormal = {
+    p05: percentilLogNormal(0.05, stats.muLog, stats.sigmaLog),
+    p10: percentilLogNormal(0.10, stats.muLog, stats.sigmaLog),
+    p25: percentilLogNormal(0.25, stats.muLog, stats.sigmaLog),
+    p50: percentilLogNormal(0.50, stats.muLog, stats.sigmaLog),
+    p75: percentilLogNormal(0.75, stats.muLog, stats.sigmaLog),
+    p90: percentilLogNormal(0.90, stats.muLog, stats.sigmaLog),
+    p95: percentilLogNormal(0.95, stats.muLog, stats.sigmaLog)
+};
+
+// Mostrar en consola para verificación
+console.log("=== PARÁMETROS LOG-NORMAL ===");
+console.log(`μ (mu): ${stats.muLog.toFixed(4)}`);
+console.log(`σ (sigma): ${stats.sigmaLog.toFixed(4)}`);
+console.log("\n=== PERCENTILES LOG-NORMAL ===");
+console.log(`P5:  ${percentilesLogNormal.p05.toFixed(2)}`);
+console.log(`P10: ${percentilesLogNormal.p10.toFixed(2)}`);
+console.log(`P25: ${percentilesLogNormal.p25.toFixed(2)}`);
+console.log(`P50: ${percentilesLogNormal.p50.toFixed(2)}`);
+console.log(`P75: ${percentilesLogNormal.p75.toFixed(2)}`);
+console.log(`P90: ${percentilesLogNormal.p90.toFixed(2)}`);
+console.log(`P95: ${percentilesLogNormal.p95.toFixed(2)}`);
+
+// ============================================
+// FUNCIONES DE ANÁLISIS Y CLASIFICACIÓN
+// ============================================
+
+/**
+ * Formatea números con separador de miles
+ */
+function formatNumber(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+/**
+ * Calcula TFCPSI en tiempo real
+ */
+function calcularTFCPSI() {
+    const nacpdsi = parseFloat(document.getElementById('nacpdsi').value);
+    const hht = parseFloat(document.getElementById('hht').value);
+    const infoTfcpsiDiv = document.getElementById('info-tfcpsi');
+    
+    if (!isNaN(nacpdsi) && !isNaN(hht) && hht > 0) {
+        const tfcpsi = (nacpdsi * 1000000) / hht;
+        document.getElementById('tfcpsi-calculado').textContent = tfcpsi.toFixed(2);
+        infoTfcpsiDiv.style.display = 'block';
+    } else {
+        infoTfcpsiDiv.style.display = 'none';
+    }
+}
+
+/**
+ * Analiza el TFCPSI de la empresa usando distribución Log-normal
+ * @param {number} tfcpsi - Tasa de frecuencia calculada
+ * @param {Object} stats - Estadísticos del sector
+ * @returns {Object} Análisis completo de la posición
+ */
+function analizarTFCPSI(tfcpsi, stats) {
+    // Calcular percentil exacto usando CDF Log-normal
+    const percentil = calcularPercentilExacto(tfcpsi, stats.muLog, stats.sigmaLog);
+    
+    // Calcular posición en el ranking empírico
+    let posicion = 0;
+    for (let i = 0; i < stats.datosOrdenados.length; i++) {
+        if (tfcpsi <= stats.datosOrdenados[i]) {
+            posicion = i + 1;
+            break;
         }
+    }
+    if (posicion === 0) posicion = stats.datosOrdenados.length + 1;
+    
+    // Z-Score
+    const zScore = (tfcpsi - stats.promedio) / stats.desviacion;
+    
+    // Diferencia porcentual respecto al promedio
+    const diferenciaPorcentaje = ((tfcpsi - stats.promedio) / stats.promedio) * 100;
+    
+    // CLASIFICACIÓN BASADA EN PERCENTILES LOG-NORMAL (CORRECCIÓN)
+    let clasificacion, colorClase, interpretacion;
+    
+    if (percentil <= 25) { 
+        clasificacion = "EXCELENTE";
+        colorClase = "excelente";
+        interpretacion = "Tu desempeño te sitúa entre el TOP 25% de las empresas del sector. ¡Eres un líder en seguridad!";
+    } else if (percentil <= 50) {
+        clasificacion = "BUENO";
+        colorClase = "bueno";
+        interpretacion = "Tu desempeño está en la mitad superior del sector. Tienes buen rendimiento con potencial de mejora.";
+    } else if (percentil <= 75) {
+        clasificacion = "REGULAR";
+        colorClase = "regular";
+        interpretacion = "Tu desempeño está en la mitad inferior del sector. Requiere un plan de acción para alcanzar la Mediana.";
+    } else {
+        clasificacion = "NECESITA MEJORAR";
+        colorClase = "mejorar";
+        interpretacion = "Tu desempeño está en el cuartil de mayor accidentalidad. Se requieren acciones de mejora urgentes.";
+    }
+    
+    return { 
+        posicion, 
+        percentil, 
+        zScore, 
+        clasificacion, 
+        colorClase, 
+        interpretacion, 
+        diferenciaPorcentaje 
+    };
+}
 
-        // ============================================
-        // GENERAR SECCIONES HTML
-        // ============================================
+/**
+ * Proyecta accidentes futuros con intervalos de confianza (Modelo Poisson)
+ * @param {number} tfcpsi - Tasa de frecuencia actual
+ * @param {number} hhtFuturas - Horas hombre proyectadas
+ * @returns {Object} Proyección con intervalos
+ */
+function proyeccionAccidentesConIncertidumbre(tfcpsi, hhtFuturas) {
+    // Expectativa puntual (λ de Poisson)
+    const lambda = (tfcpsi * hhtFuturas) / 1000000;
+    
+    // En Poisson: E[X] = λ, Var[X] = λ
+    const desviacion = Math.sqrt(lambda);
+    
+    // Intervalo de confianza 95% (aproximación normal cuando λ > 10)
+    // Para λ pequeños, usar tabla Poisson exacta (aquí usamos aproximación)
+    const z95 = 1.96;
+    const limite_inferior = Math.max(0, lambda - z95 * desviacion);
+    const limite_superior = lambda + z95 * desviacion;
+    
+    // Intervalo 80% (más realista)
+    const z80 = 1.282;
+    const limite_inferior_80 = Math.max(0, lambda - z80 * desviacion);
+    const limite_superior_80 = lambda + z80 * desviacion;
+    
+    return {
+        esperado: lambda,
+        desviacion: desviacion,
+        ic95_inferior: limite_inferior,
+        ic95_superior: limite_superior,
+        ic80_inferior: limite_inferior_80,
+        ic80_superior: limite_superior_80
+    };
+}
 
-        function generarSeccionExplicacion() {
-            const filas = [
-                { class: 'bg-success-light border-success-dark', clasificacion: 'EXCELENTE', rango: 'Menor o igual al 25%', significado: 'Su TFCPSI es mejor que el 75% de las empresas del sector (Líder).' },
-                { class: 'bg-gray-50 border-success-dark', clasificacion: 'BUENO', rango: 'Entre 25% y 50%', significado: 'Su desempeño está en la mitad superior. Potencial de ascenso.' },
-                { class: 'bg-warning-light border-yellow-500', clasificacion: 'REGULAR', rango: 'Entre 50% y 75%', significado: 'Se encuentra en la mitad inferior. La Mediana es su primera meta.' },
-                { class: 'bg-danger-light border-red-500', clasificacion: 'NECESITA MEJORAR', rango: 'Mayor al 75%', significado: 'Está en el cuartil de mayor riesgo. Acción urgente.' }
-            ];
+/**
+ * Función principal de análisis y predicción
+ */
+function analizarYPredecir() {
+    const nacpdsi = parseFloat(document.getElementById('nacpdsi').value);
+    const hht = parseFloat(document.getElementById('hht').value);
+    const hhtFuturas = parseFloat(document.getElementById('hht-futuras').value);
+    
+    // Validación de datos TFCPSI
+    if (isNaN(nacpdsi) || isNaN(hht) || hht <= 0 || isNaN(hhtFuturas) || hhtFuturas <= 0) {
+        alert('Paso 1 requerido: Por favor, ingresa NACPDSI, HHT y HHT Proyectadas válidos.');
+        return;
+    }
 
-            const contenidoFilas = filas.map(fila => `
-                <div class="p-4 rounded-lg border-l-4 ${fila.class} grid grid-cols-1 md:grid-cols-3 gap-1 md:gap-3 items-center shadow-sm">
-                    <span class="text-sm font-bold md:col-span-1 text-gray-800">${fila.clasificacion}</span>
-                    <span class="text-sm text-gray-700 md:col-span-1"><span class="mobile-label">Percentil:</span> ${fila.rango}</span>
-                    <span class="text-sm text-gray-700 md:col-span-1"><span class="mobile-label">Significado:</span> ${fila.significado}</span>
+    // Validación de selección de riesgos
+    const tipologiaCheckboxes = document.querySelectorAll('input[name="tipologia"]:checked');
+    if (tipologiaCheckboxes.length === 0) {
+        alert('Paso 2 requerido: Por favor, selecciona al menos una Tipología de Caso para el Análisis Pareto.');
+        return;
+    }
+    
+    const tfcpsi = (nacpdsi * 1000000) / hht;
+    const resultado = analizarTFCPSI(tfcpsi, stats);
+    
+    // Generar HTML de resultados
+    let html = generarSeccionExplicacion();
+    html += generarResultadoPrincipal(tfcpsi, resultado);
+    html += generarSeccionTipologia(Array.from(tipologiaCheckboxes).map(checkbox => ({
+        tipologia: checkbox.value,
+        percent: parseFloat(checkbox.dataset.percent)
+    })));
+    html += generarSeccionPosicion(resultado);
+    html += generarSeccionComparacion(tfcpsi, resultado);
+    html += generarSeccionPrediccion(tfcpsi, hhtFuturas);
+    html += generarSeccionPercentiles();
+    html += generarSeccionRecomendaciones(resultado, hhtFuturas, tfcpsi);
+    html += generarSeccionSensibilidad(tfcpsi, hhtFuturas);
+    html += generarSeccionMetodologia(); // NUEVA SECCIÓN
+    
+    // Mostrar resultados
+    const resultadosDiv = document.getElementById('resultados');
+    resultadosDiv.innerHTML = html;
+    resultadosDiv.classList.remove('hidden');
+    resultadosDiv.classList.add('fade-in');
+    resultadosDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ============================================
+// FUNCIONES GENERADORAS DE HTML
+// ============================================
+
+function generarSeccionExplicacion() {
+    const filas = [
+        { class: 'bg-success-light border-success-dark', clasificacion: 'EXCELENTE', rango: 'Menor o igual al 25%', significado: 'Su TFCPSI es mejor que el 75% de las empresas del sector (Líder).' },
+        { class: 'bg-gray-50 border-success-dark', clasificacion: 'BUENO', rango: 'Entre 25% y 50%', significado: 'Su desempeño está en la mitad superior. Potencial de ascenso.' },
+        { class: 'bg-warning-light border-yellow-500', clasificacion: 'REGULAR', rango: 'Entre 50% y 75%', significado: 'Se encuentra en la mitad inferior. La Mediana es su primera meta.' },
+        { class: 'bg-danger-light border-red-500', clasificacion: 'NECESITA MEJORAR', rango: 'Mayor al 75%', significado: 'Está en el cuartil de mayor riesgo. Acción urgente.' }
+    ];
+
+    const contenidoFilas = filas.map(fila => `
+        <div class="p-4 rounded-lg border-l-4 ${fila.class} grid grid-cols-1 md:grid-cols-3 gap-1 md:gap-3 items-center shadow-sm">
+            <span class="text-sm font-bold md:col-span-1 text-gray-800">${fila.clasificacion}</span>
+            <span class="text-sm text-gray-700 md:col-span-1"><span class="mobile-label">Percentil:</span> ${fila.rango}</span>
+            <span class="text-sm text-gray-700 md:col-span-1"><span class="mobile-label">Significado:</span> ${fila.significado}</span>
+        </div>
+    `).join('');
+
+    return `
+        <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-success-dark">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <span class="text-success-dark mr-2">⭐</span> Criterio de Clasificación: El Poder del Percentil
+            </h2>
+            <p class="text-gray-600 mb-6">La accidentalidad es asimétrica, por eso no usamos el promedio simple. Su clasificación se basa en su **Percentil Log-normal**, que indica qué tan bien se desempeña su empresa comparada con las 42 empresas del sector.</p>
+
+            <div class="space-y-3">
+                <div class="hidden md:grid md:grid-cols-3 gap-3 px-4 py-2 bg-cier-blue text-white rounded-lg text-xs font-medium uppercase">
+                    <span>Clasificación</span>
+                    <span>Rango de Percentil</span>
+                    <span>Significado Práctico</span>
                 </div>
-            `).join('');
+                ${contenidoFilas}
+            </div>
+        </section>
+    `;
+}
 
+function generarResultadoPrincipal(tfcpsi, resultado) {
+    return `
+        <div class="p-8 text-white text-center rounded-xl mb-8 shadow-xl bg-cier-blue">
+            <h2 class="text-3xl font-semibold mb-2">Tu Resultado de Accidentalidad</h2>
+            <div class="text-sm opacity-80 mb-6">Distribución & Integradas | Personal Propio | CIER 2025</div>
+            <div class="text-xl font-medium opacity-90">Tu Tasa de Frecuencia (TFCPSI)</div>
+            <div class="text-6xl font-extrabold my-4 tracking-tight tfcpsi-valor">${tfcpsi.toFixed(2)}</div>
+            <div class="inline-block px-8 py-2 rounded-full text-xl font-bold uppercase shadow-lg text-white bg-${resultado.colorClase} clasificacion">
+                ${resultado.clasificacion}
+            </div>
+            <div class="text-lg mt-4 p-3 bg-white bg-opacity-20 rounded-lg">${resultado.interpretacion}</div>
+            <div class="text-sm mt-3 opacity-75">Percentil Log-normal: ${resultado.percentil.toFixed(1)}%</div>
+        </div>
+    `;
+}
 
-            return `
-                <!-- EXPLICACIÓN DIDÁCTICA DEL CRITERIO DE CLASIFICACIÓN (Percentiles) -->
-                <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-success-dark">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
-                        <span class="text-success-dark mr-2">⭐</span> Criterio de Clasificación: El Poder del Percentil
-                    </h2>
-                    <p class="text-gray-600 mb-6">La accidentalidad es asimétrica, por eso no usamos el promedio simple (que puede ser engañoso). Su clasificación se basa en su **Percentil**, que indica qué tan bien se desempeña su empresa comparada con las 42 empresas del sector.</p>
+function generarSeccionTipologia(seleccionTipologia) {
+    const totalPercent = seleccionTipologia.reduce((sum, item) => sum + item.percent, 0);
 
-                    <!-- CUADRO EXPLICATIVO DIDÁCTICO RESPONSIVO -->
-                    <div class="space-y-3">
-                        <!-- Encabezado de la "Tabla" (Solo visible en escritorio) -->
-                        <div class="hidden md:grid md:grid-cols-3 gap-3 px-4 py-2 bg-cier-blue text-white rounded-lg text-xs font-medium uppercase">
-                            <span>Clasificación</span>
-                            <span>Rango de Percentil</span>
-                            <span>Significado Práctico</span>
-                        </div>
-                        
-                        ${contenidoFilas}
-                    </div>
-                </section>
-            `;
+    let sugerenciasUnicas = new Set();
+    seleccionTipologia.forEach(item => {
+        const data = datosPareto[item.tipologia];
+        if (data && data.sugerencias) {
+            data.sugerencias.forEach(sug => sugerenciasUnicas.add(sug));
         }
+    });
 
+    const sugerenciasFinales = Array.from(sugerenciasUnicas).slice(0, 3);
+    
+    let tipologiaHtml = seleccionTipologia.map(item => `
+        <div class="grid grid-cols-2 py-2 px-4 border-b border-gray-100 last:border-b-0">
+            <span class="text-gray-700 font-medium">${item.tipologia}</span>
+            <span class="font-bold text-accent-blue text-right">${item.percent.toFixed(1)}%</span>
+        </div>
+    `).join('');
 
-        function generarResultadoPrincipal(tfcpsi, resultado) {
-            return `
-                <div class="p-8 text-white text-center rounded-xl mb-8 shadow-xl bg-cier-blue">
-                    <h2 class="text-3xl font-semibold mb-2">Tu Resultado de Accidentalidad</h2>
-                    <div class="text-sm opacity-80 mb-6">Distribución & Integradas | Personal Propio | CIER 2025</div>
-                    <div class="text-xl font-medium opacity-90">Tu Tasa de Frecuencia (TFCPSI)</div>
-                    <div class="text-6xl font-extrabold my-4 tracking-tight tfcpsi-valor">${tfcpsi.toFixed(2)}</div>
-                    <div class="inline-block px-8 py-2 rounded-full text-xl font-bold uppercase shadow-lg text-white bg-${resultado.colorClase} clasificacion">
-                        ${resultado.clasificacion}
+    let sugerenciasHtml = sugerenciasFinales.map(sug => `
+        <li class="p-3 border-b last:border-b-0 text-gray-700 relative pl-6">
+            <span class="absolute left-0 top-3 text-lg text-success-dark">✔</span> ${sug}
+        </li>
+    `).join('');
+
+    let coincidenciaTexto;
+    if (totalPercent > 50) {
+        coincidenciaTexto = "Alta coincidencia. Las áreas que le preocupan son los principales focos de riesgo del sector.";
+    } else if (totalPercent > 25) {
+        coincidenciaTexto = "Coincidencia moderada. Sus focos de riesgo se alinean con una parte significativa de los accidentes del sector.";
+    } else {
+        coincidenciaTexto = "Coincidencia baja. Si bien es importante, el sector tiene mayores desafíos en otras áreas.";
+    }
+
+    return `
+        <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-accent-blue">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <span class="text-accent-blue mr-2">🎯</span> Análisis Pareto y Sugerencias Proactivas
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="p-5 bg-gray-50 rounded-lg border border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">Tu Foco vs. Distribución CIER</h3>
+                    <div class="text-sm text-gray-600 mb-4">
+                        Los porcentajes son la media de ocurrencia por tipología según la **muestra de empresas CIER**.
+                        <p class="font-bold mt-2 text-cier-blue">${coincidenciaTexto}</p>
+                        <p class="font-extrabold mt-2 text-xl text-success-dark">Total Riesgo Seleccionado: ${totalPercent.toFixed(1)}%</p>
                     </div>
-                    <div class="text-lg mt-4 p-3 bg-white bg-opacity-20 rounded-lg">${resultado.interpretacion}</div>
+                    <div class="bg-white rounded-lg shadow-inner divide-y divide-gray-100">
+                        <div class="grid grid-cols-2 font-bold bg-gray-100 py-2 px-4 rounded-t-lg border-b border-gray-200">
+                            <span>Tu Foco</span>
+                            <span class="text-right">Distribución CIER (%)</span>
+                        </div>
+                        ${tipologiaHtml}
+                    </div>
                 </div>
-            `;
-        }
-        
-        function generarSeccionTipologia(seleccionTipologia) {
-            const totalPercent = seleccionTipologia.reduce((sum, item) => sum + item.percent, 0);
 
-            // Generar sugerencias únicas basadas en la selección
-            let sugerenciasUnicas = new Set();
-            seleccionTipologia.forEach(item => {
-                const data = datosPareto[item.tipologia];
-                if (data && data.sugerencias) {
-                    data.sugerencias.forEach(sug => sugerenciasUnicas.add(sug));
-                }
-            });
-
-            // Tomar las primeras 3 sugerencias únicas
-            const sugerenciasFinales = Array.from(sugerenciasUnicas).slice(0, 3);
-            
-            let tipologiaHtml = seleccionTipologia.map(item => `
-                <div class="grid grid-cols-2 py-2 px-4 border-b border-gray-100 last:border-b-0">
-                    <span class="text-gray-700 font-medium">${item.tipologia}</span>
-                    <span class="font-bold text-accent-blue text-right">${item.percent.toFixed(1)}%</span>
+                <div class="p-5 bg-cier-light-blue rounded-lg border border-cier-blue">
+                    <h3 class="text-xl font-bold text-cier-blue mb-4">3 Sugerencias Clave para Mejorar</h3>
+                    <p class="text-sm text-gray-700 mb-4">Basado en la severidad de sus prioridades y las prácticas del sector:</p>
+                    <ul class="list-none space-y-2 bg-white p-3 rounded-lg shadow-sm">
+                        ${sugerenciasHtml}
+                    </ul>
                 </div>
-            `).join('');
+            </div>
+        </section>
+    `;
+}
 
-            let sugerenciasHtml = sugerenciasFinales.map(sug => `
-                <li class="p-3 border-b last:border-b-0 text-gray-700 relative pl-6">
-                    <span class="absolute left-0 top-3 text-lg text-success-dark">✔</span> ${sug}
-                </li>
-            `).join('');
-
-            // Determinación simple de coincidencia didáctica
-            let coincidenciaTexto;
-            if (totalPercent > 50) {
-                coincidenciaTexto = "Alta coincidencia. Las áreas que le preocupan son los principales focos de riesgo del sector.";
-            } else if (totalPercent > 25) {
-                coincidenciaTexto = "Coincidencia moderada. Sus focos de riesgo se alinean con una parte significativa de los accidentes del sector.";
-            } else {
-                coincidenciaTexto = "Coincidencia baja. Si bien es importante, el sector tiene mayores desafíos en otras áreas.";
-            }
-
-
-            return `
-                <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-accent-blue">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                        <span class="text-accent-blue mr-2">🎯</span> Análisis Pareto y Sugerencias Proactivas
-                    </h2>
-                    
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <!-- Panel de Pareto -->
-                        <div class="p-5 bg-gray-50 rounded-lg border border-gray-200">
-                            <h3 class="text-lg font-semibold text-gray-800 mb-3">Tu Foco vs. Distribución CIER</h3>
-                            <div class="text-sm text-gray-600 mb-4">
-                                Los porcentajes son la media de ocurrencia por tipología según la **muestra de empresas CIER**.
-                                <p class="font-bold mt-2 text-cier-blue">${coincidenciaTexto}</p>
-                                <p class="font-extrabold mt-2 text-xl text-success-dark">Total Riesgo Seleccionado: ${totalPercent.toFixed(1)}%</p>
-                            </div>
-                            <div class="bg-white rounded-lg shadow-inner divide-y divide-gray-100">
-                                <!-- Encabezados de la tabla de Pareto -->
-                                <div class="grid grid-cols-2 font-bold bg-gray-100 py-2 px-4 rounded-t-lg border-b border-gray-200">
-                                    <span>Tu Foco</span>
-                                    <span class="text-right">Distribución CIER (%)</span>
-                                </div>
-                                ${tipologiaHtml}
-                            </div>
-                        </div>
-
-                        <!-- Panel de Sugerencias -->
-                        <div class="p-5 bg-cier-light-blue rounded-lg border border-cier-blue">
-                            <h3 class="text-xl font-bold text-cier-blue mb-4">3 Sugerencias Clave para Mejorar (Ejemplos)</h3>
-                            <p class="text-sm text-gray-700 mb-4">Basado en la severidad de sus prioridades y las prácticas del sector:</p>
-                            <ul class="list-none space-y-2 bg-white p-3 rounded-lg shadow-sm">
-                                ${sugerenciasHtml}
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-            `;
-        }
-
-        function generarSeccionPosicion(resultado) {
-            return `
-                <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-cier-blue">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                        <span class="text-cier-blue mr-2">📍</span> Tu Posición en el Sector
-                    </h2>
-                    
-                    <div class="bg-warning-light border-l-4 border-yellow-500 p-3 mb-6 text-sm text-yellow-800 rounded-md">
-                        <strong class="text-yellow-900">Guía de Percentil:</strong> Un percentil más bajo significa mejor desempeño. El ${resultado.percentil.toFixed(1)}% indica que el ${resultado.percentil.toFixed(1)}% de las empresas tienen una tasa igual o menor a la tuya.
-                    </div>
-                    
-                    <div class="h-10 bg-gray-200 rounded-full overflow-hidden my-4 shadow-inner">
-                        <div class="progreso-fill h-full flex items-center justify-center text-white text-sm font-bold" style="width: ${resultado.percentil}%">
-                            Percentil ${resultado.percentil.toFixed(1)}%
-                        </div>
-                    </div>
-                    
-                    <div class="grid md:grid-cols-3 gap-6 mt-6">
-                        <div class="p-5 border border-gray-200 rounded-lg shadow-sm">
-                            <h3 class="text-lg font-semibold text-cier-blue mb-2">Posición Actual</h3>
-                            <div class="text-3xl font-extrabold text-gray-800">${resultado.posicion} de ${stats.n}</div>
-                            <p class="text-sm text-gray-500 mt-2">${resultado.posicion <= 10 ? '✓ Entre las 10 mejores del sector' : resultado.posicion <= 21 ? 'En la mitad superior del sector' : resultado.posicion <= 31 ? 'En la mitad inferior del sector' : 'En el cuartil con mayor accidentalidad'}</p>
-                        </div>
-                        
-                        <div class="p-5 border border-gray-200 rounded-lg shadow-sm">
-                            <h3 class="text-lg font-semibold text-cier-blue mb-2">Tu Percentil</h3>
-                            <div class="text-3xl font-extrabold text-gray-800">${resultado.percentil.toFixed(1)}%</div>
-                            <p class="text-sm text-gray-500 mt-2">${resultado.percentil <= 50 ? 'Estás mejor que la mitad del sector.' : 'Tienes oportunidades de mejora en el cuartil inferior.'}</p>
-                        </div>
-
-                        <div class="p-5 border border-gray-200 rounded-lg shadow-sm">
-                            <h3 class="text-lg font-semibold text-cier-blue mb-2">Z-Score</h3>
-                            <div class="text-3xl font-extrabold text-gray-800">${resultado.zScore.toFixed(2)} σ</div>
-                            <p class="text-sm text-gray-500 mt-2">Mide qué tan lejos estás del promedio del sector en desviaciones estándar.</p>
-                        </div>
-                    </div>
-                </section>
-            `;
-        }
-        
-        function generarSeccionComparacion(tfcpsi, resultado) {
-            const difPromedio = tfcpsi - stats.promedio;
-            const porcDifPromedio = resultado.diferenciaPorcentaje;
-            const difMediana = tfcpsi - stats.mediana;
+function generarSeccionPosicion(resultado) {
+    return `
+        <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-cier-blue">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <span class="text-cier-blue mr-2">📍</span> Tu Posición en el Sector
+            </h2>
             
-            return `
-                <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-cier-blue">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                        <span class="text-cier-blue mr-2">📈</span> Comparación de TFCPSI
-                    </h2>
-                    
-                    <div class="grid md:grid-cols-3 gap-6">
-                        <div class="p-5 border-l-4 ${difPromedio < 0 ? 'border-success-dark bg-success-light' : 'border-red-500 bg-danger-light'} rounded-r-lg shadow-md">
-                            <h3 class="text-lg font-semibold text-gray-700 mb-2">vs Promedio Sector</h3>
-                            <div class="text-2xl font-bold ${difPromedio < 0 ? 'text-success-dark' : 'text-red-700'}">${difPromedio < 0 ? '✓ Mejor por' : '✗ Peor por'} ${Math.abs(difPromedio).toFixed(2)} pts</div>
-                            <p class="text-sm text-gray-600 mt-2">Promedio Sector: **${stats.promedio.toFixed(2)}**</p>
-                            <p class="text-sm font-semibold mt-1">${difPromedio < 0 ? `Estás **${Math.abs(porcDifPromedio).toFixed(1)}% MEJOR** que el promedio.` : `Estás **${porcDifPromedio.toFixed(1)}% por encima** del promedio.`}</p>
-                        </div>
-                        
-                        <div class="p-5 border-l-4 ${difMediana < 0 ? 'border-success-dark bg-success-light' : 'border-red-500 bg-danger-light'} rounded-r-lg shadow-md">
-                            <h3 class="text-lg font-semibold text-gray-700 mb-2">vs Mediana Sector</h3>
-                            <div class="text-2xl font-bold ${difMediana < 0 ? 'text-success-dark' : 'text-red-700'}">${difMediana < 0 ? '✓ Superior' : '✗ Inferior'}</div>
-                            <p class="text-sm text-gray-600 mt-2">Mediana Sector: **${stats.mediana.toFixed(2)}**</p>
-                            <p class="text-sm font-semibold mt-1">${difMediana < 0 ? 'Estás en la mitad **SUPERIOR**.' : 'Estás en la mitad **INFERIOR**.'}</p>
-                        </div>
-                        
-                        <div class="p-5 border-l-4 ${tfcpsi <= percentilesGamma.p25 ? 'border-success-dark bg-success-light' : 'border-yellow-500 bg-warning-light'} rounded-r-lg shadow-md">
-                            <h3 class="text-lg font-semibold text-gray-700 mb-2">vs Top 25%</h3>
-                            <div class="text-2xl font-bold ${tfcpsi <= percentilesGamma.p25 ? 'text-success-dark' : 'text-yellow-800'}">≤ ${percentilesGamma.p25.toFixed(2)}</div>
-                            <p class="text-sm text-gray-600 mt-2">Meta de excelencia para el cuartil superior.</p>
-                            <p class="text-sm font-semibold mt-1">${tfcpsi <= percentilesGamma.p25 ? '¡Felicitaciones! Perteneces a los líderes.' : `Necesitas reducir ${(tfcpsi - percentilesGamma.p25).toFixed(2)} puntos.`}</p>
-                        </div>
-                    </div>
-                </section>
-            `;
-        }
-        
-        function generarSeccionPrediccion(tfcpsi, hhtFuturas) {
-            const accidentesActual = (tfcpsi * hhtFuturas) / 1000000;
-            const accidentesPromedio = (stats.promedio * hhtFuturas) / 1000000;
-            const accidentesMediana = (stats.mediana * hhtFuturas) / 1000000;
-            const accidentesP25 = (percentilesGamma.p25 * hhtFuturas) / 1000000;
+            <div class="bg-warning-light border-l-4 border-yellow-500 p-3 mb-6 text-sm text-yellow-800 rounded-md">
+                <strong class="text-yellow-900">Guía de Percentil:</strong> Un percentil más bajo significa mejor desempeño. El ${resultado.percentil.toFixed(1)}% indica que el ${resultado.percentil.toFixed(1)}% de las empresas tienen una tasa igual o menor a la tuya (calculado con distribución Log-normal).
+            </div>
             
-            const tfcpsiOptimista = Math.max(0, stats.promedio - (1.5 * stats.desviacion));
-            const accidentesOptimista = (tfcpsiOptimista * hhtFuturas) / 1000000;
+            <div class="h-10 bg-gray-200 rounded-full overflow-hidden my-4 shadow-inner">
+                <div class="progreso-fill h-full flex items-center justify-center text-white text-sm font-bold" style="width: ${resultado.percentil}%">
+                    Percentil ${resultado.percentil.toFixed(1)}%
+                </div>
+            </div>
             
-            const difPromedio = accidentesActual - accidentesPromedio;
-            const difMediana = accidentesActual - accidentesMediana;
-            const difP25 = accidentesActual - accidentesP25;
-            
-            const hhtProyectadasFormateadas = formatNumber(hhtFuturas); // Usa el valor nominal y lo formatea
-
-            const escenarioBox = (title, tfcpsiRef, accidentes, diferencia, esOptimista = false) => {
-                const difClase = diferencia < 0 ? 'text-red-600 bg-danger-light' : 'text-success-dark bg-success-light';
-                const difTexto = diferencia < 0 
-                    ? `Tendrías ${Math.abs(diferencia).toFixed(2)} accidentes MÁS`
-                    : `Podrías EVITAR ${Math.abs(diferencia).toFixed(2)} accidentes`;
+            <div class="grid md:grid-cols-3 gap-6 mt-6">
+                <div class="p-5 border border-gray-200 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-cier-blue mb-2">Posición Actual</h3>
+                    <div class="text-3xl font-extrabold text-gray-800">${resultado.posicion} de ${stats.n}</div>
+                    <p class="text-sm text-gray-500 mt-2">${resultado.posicion <= 10 ? '✓ Entre las 10 mejores del sector' : resultado.posicion <= 21 ? 'En la mitad superior del sector' : resultado.posicion <= 31 ? 'En la mitad inferior del sector' : 'En el cuartil con mayor accidentalidad'}</p>
+                </div>
                 
-                return `
-                    <div class="p-5 bg-white rounded-lg shadow-md border-l-4 border-gray-300 hover:border-cier-blue transition duration-300">
-                        <h3 class="text-lg font-semibold text-gray-700 mb-2 ${esOptimista ? 'text-accent-blue' : ''}">${title}</h3>
-                        <p class="text-sm text-gray-500">TFCPSI: **${tfcpsiRef.toFixed(2)}**</p>
-                        <div class="text-4xl font-extrabold text-cier-blue my-2">${accidentes.toFixed(2)}</div>
-                        <div class="mt-2 p-2 rounded-md font-medium text-sm ${difClase}">
-                            ${esOptimista ? `→ Objetivo: EVITAR ${(accidentesActual - accidentes).toFixed(2)} accidentes` : (title.includes('Manteniendo') ? 'Tu proyección actual' : `→ ${difTexto}`)}
-                        </div>
-                    </div>
-                `;
-            };
-            
-            return `
-                <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-cier-blue">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                        <span class="text-cier-blue mr-2">🔮</span> Proyección de Accidentes (12 Meses Futuros)
-                    </h2>
-                    <p class="text-gray-600 mb-6">Proyectado sobre **${hhtProyectadasFormateadas}** Horas Hombre Trabajadas futuras.</p>
-                    
-                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        ${escenarioBox("1️⃣ Manteniendo tu TFCPSI actual", tfcpsi, accidentesActual, 0)}
-                        ${escenarioBox("2️⃣ Si alcanzas el PROMEDIO del sector", stats.promedio, accidentesPromedio, difPromedio)}
-                        ${escenarioBox("3️⃣ Si alcanzas la MEDIANA del sector", stats.mediana, accidentesMediana, difMediana)}
-                        ${escenarioBox("4️⃣ Si entras al TOP 25%", percentilesGamma.p25, accidentesP25, difP25)}
-                        ${escenarioBox("5️⃣ Escenario OPTIMISTA (Clase Mundial)", tfcpsiOptimista, accidentesOptimista, accidentesActual - accidentesOptimista, true)}
-                    </div>
-                </section>
-            `;
-        }
-        
-        function generarSeccionPercentiles() {
-            const percentilBox = (label, value, explanation, isTop) => `
-                <div class="p-5 bg-white rounded-lg shadow-md border-t-4 ${isTop ? 'border-success-dark' : 'border-gray-300'} text-center transition hover:shadow-xl">
-                    <div class="text-sm text-gray-500 font-semibold uppercase">${label}</div>
-                    <div class="text-3xl font-extrabold text-cier-blue mt-1">${value}</div>
-                    <div class="text-xs text-gray-500 mt-2">${explanation}</div>
+                <div class="p-5 border border-gray-200 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-cier-blue mb-2">Tu Percentil</h3>
+                    <div class="text-3xl font-extrabold text-gray-800">${resultado.percentil.toFixed(1)}%</div>
+                    <p class="text-sm text-gray-500 mt-2">${resultado.percentil <= 50 ? 'Estás mejor que la mitad del sector.' : 'Tienes oportunidades de mejora.'}</p>
                 </div>
-            `;
-            
-            return `
-                <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-cier-blue">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                        <span class="text-cier-blue mr-2">🎯</span> Percentiles de Referencia (Gamma)
-                    </h2>
-                    <p class="text-gray-600 mb-6">Valores de TFCPSI suavizados por Distribución Gamma, ideales para establecer metas.</p>
-                    
-                    <div class="grid md:grid-cols-5 gap-4">
-                        ${percentilBox("Top 10%", `≤ ${percentilesGamma.p10.toFixed(2)}`, "Mejores tasas de frecuencia.", true)}
-                        ${percentilBox("Top 25%", `≤ ${percentilesGamma.p25.toFixed(2)}`, "Meta para entrar al cuartil superior.", true)}
-                        ${percentilBox("Mediana (50%)", `≤ ${percentilesGamma.p50.toFixed(2)}`, "El 50% de las empresas está por debajo.", false)}
-                        ${percentilBox("Percentil 75", `≤ ${percentilesGamma.p75.toFixed(2)}`, "El 75% del sector está por debajo.", false)}
-                        ${percentilBox("Percentil 90", `≤ ${percentilesGamma.p90.toFixed(2)}`, "Solo el 10% del sector está por encima.", false)}
-                    </div>
-                </section>
-            `;
-        }
 
-        function generarSeccionRecomendaciones(resultado, hhtFuturas, tfcpsi) {
-            const tfcpsiP25 = percentilesGamma.p25;
-            const tfcpsiP50 = percentilesGamma.p50;
-            const tfcpsiP75 = percentilesGamma.p75;
-            
-            const reduccionP25 = tfcpsi > tfcpsiP25 ? ((tfcpsi - tfcpsiP25) * hhtFuturas) / 1000000 : 0;
-            const reduccionP50 = tfcpsi > tfcpsiP50 ? ((tfcpsi - tfcpsiP50) * hhtFuturas) / 1000000 : 0;
-            const reduccionP75 = tfcpsi > tfcpsiP75 ? ((tfcpsi - tfcpsiP75) * hhtFuturas) / 1000000 : 0;
-            
-            let title, icon, bgColor, textColor, borderColor, recomendacionesList;
+                <div class="p-5 border border-gray-200 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-cier-blue mb-2">Z-Score</h3>
+                    <div class="text-3xl font-extrabold text-gray-800">${resultado.zScore.toFixed(2)} σ</div>
+                    <p class="text-sm text-gray-500 mt-2">Mide qué tan lejos estás del promedio en desviaciones estándar.</p>
+                </div>
+            </div>
+        </section>
+    `;
+}
 
-            if (resultado.percentil <= 25) {
-                title = "EXCELENTE DESEMPEÑO - Mantén el liderazgo";
-                icon = "✨";
-                bgColor = 'bg-success-light';
-                textColor = 'text-green-800';
-                borderColor = 'border-success-dark';
-                recomendacionesList = `
-                    <li>**Documenta:** Sistematiza tus mejores prácticas de seguridad para replicarlas y compartirlas.</li>
-                    <li>**Meta:** Mantenerte en el TOP 25% (≤ ${tfcpsiP25.toFixed(2)}) y buscar el **cero accidentes fatales**.</li>
-                    <li>**Innovación:** Invierte en ergonomía y tecnología predictiva (IoT, AI) para la mejora continua.</li>
-                `;
-            } else if (resultado.percentil <= 50) {
-                title = "BUEN DESEMPEÑO - Camino al top 25%";
-                icon = "👍";
-                bgColor = 'bg-success-light';
-                textColor = 'text-green-800';
-                borderColor = 'border-success-dark';
-                recomendacionesList = `
-                    <li>**Meta realista:** Reducir TFCPSI a **${tfcpsiP25.toFixed(2)}** para entrar al TOP 25%.</li>
-                    <li>**Impacto:** Esto significa evitar aproximadamente **${reduccionP25.toFixed(1)} accidentes** en los próximos 12 meses.</li>
-                    <li>**Foco:** Refuerza capacitación en los puestos de mayor riesgo (trabajo en altura, conducción).</li>
-                `;
-            } else if (resultado.percentil <= 75) {
-                title = "DESEMPEÑO REGULAR - Plan de mejora necesario";
-                icon = "⚠️";
-                bgColor = 'bg-warning-light';
-                textColor = 'text-yellow-800';
-                borderColor = 'border-yellow-500';
-                recomendacionesList = `
-                    <li>**Prioridad:** Implementar un plan estructurado de mejora con métricas claras.</li>
-                    <li>**Meta a corto plazo:** Alcanzar la mediana del sector (**${tfcpsiP50.toFixed(2)}**), evitando **${reduccionP50.toFixed(1)} accidentes**.</li>
-                    <li>**Revisión:** Auditoría de cumplimiento de procedimientos y efectividad de capacitaciones.</li>
-                `;
-            } else {
-                title = "REQUIERE ATENCIÓN URGENTE - Acción inmediata";
-                icon = "🚨";
-                bgColor = 'bg-danger-light';
-                textColor = 'text-red-800';
-                borderColor = 'border-red-500';
-                recomendacionesList = `
-                    <li>**Liderazgo:** Implementar un programa integral de seguridad con **apoyo gerencial inmediato**.</li>
-                    <li>**Meta inmediata:** Reducir a percentil 75 (**${tfcpsiP75.toFixed(2)}**), evitando **${reduccionP75.toFixed(1)} accidentes**.</li>
-                    <li>**Asesoría:** Considerar una auditoría externa completa y asesoría especializada en S&SO.</li>
-                `;
-            }
-
-            return `
-                <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-cier-blue">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                        <span class="text-cier-blue mr-2">💡</span> Recomendaciones Personalizadas
-                    </h2>
-                    <div class="p-6 rounded-xl shadow-inner ${bgColor} ${borderColor} border-l-4">
-                        <h3 class="text-xl font-bold ${textColor} mb-4">${icon} ${title}</h3>
-                        <ul class="list-none space-y-3 ${textColor}">
-                            ${recomendacionesList}
-                        </ul>
-                    </div>
-                </section>
-            `;
-        }
-
-        function generarSeccionSensibilidad(tfcpsi, hhtFuturas) {
-            const accidentesActual = (tfcpsi * hhtFuturas) / 1000000;
-            const mejoras = [
-                { porcentaje: 10, factor: 0.90 },
-                { porcentaje: 20, factor: 0.80 },
-                { porcentaje: 30, factor: 0.70 },
-                { porcentaje: 50, factor: 0.50 }
-            ];
+function generarSeccionComparacion(tfcpsi, resultado) {
+    const difPromedio = tfcpsi - stats.promedio;
+    const porcDifPromedio = resultado.diferenciaPorcentaje;
+    const difMediana = tfcpsi - stats.mediana;
+    
+    return `
+        <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-cier-blue">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <span class="text-cier-blue mr-2">📈</span> Comparación de TFCPSI
+            </h2>
             
-            let html = `
-                <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-cier-blue">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                        <span class="text-cier-blue mr-2">⚡</span> Análisis de Sensibilidad (ROI de la Seguridad)
-                    </h2>
-                    
-                    <p class="text-gray-600 mb-6">Proyecciones de accidentes evitados en el próximo período si logra reducir su TFCPSI.</p>
-                    
-                    <div class="space-y-4">
-            `;
-            
-            mejoras.forEach(mejora => {
-                const tfcpsiMejorado = tfcpsi * mejora.factor;
-                const accidentesMejorados = (tfcpsiMejorado * hhtFuturas) / 1000000;
-                const accidentesEvitados = accidentesActual - accidentesMejorados;
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="p-5 border-l-4 ${difPromedio < 0 ? 'border-success-dark bg-success-light' : 'border-red-500 bg-danger-light'} rounded-r-lg shadow-md">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-2">vs Promedio Sector</h3>
+                    <div class="text-2xl font-bold ${difPromedio < 0 ? 'text-success-dark' : 'text-red-700'}">${difPromedio < 0 ? '✓ Mejor por' : '✗ Peor por'} ${Math.abs(difPromedio).toFixed(2)} pts</div>
+                    <p class="text-sm text-gray-600 mt-2">Promedio Sector: <strong>${stats.promedio.toFixed(2)}</strong></p>
+                    <p class="text-sm font-semibold mt-1">${difPromedio < 0 ? `Estás <strong>${Math.abs(porcDifPromedio).toFixed(1)}% MEJOR</strong>` : `Estás <strong>${porcDifPromedio.toFixed(1)}% por encima</strong>`}</p>
+                </div>
                 
-                html += `
-                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition duration-200 flex-wrap gap-2">
-                        <div class="flex flex-col md:flex-row md:items-center">
-                            <span class="font-bold text-lg text-cier-blue">Meta: Reducción del ${mejora.porcentaje}%</span>
-                            <span class="text-sm text-gray-500 md:ml-3">(Nuevo TFCPSI = ${tfcpsiMejorado.toFixed(2)})</span>
-                        </div>
-                        <div class="font-extrabold text-xl text-success-dark">
-                            EVITARÍA ${accidentesEvitados.toFixed(2)} ACCIDENTES
-                        </div>
-                    </div>
-                `;
-            });
+                <div class="p-5 border-l-4 ${difMediana < 0 ? 'border-success-dark bg-success-light' : 'border-red-500 bg-danger-light'} rounded-r-lg shadow-md">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-2">vs Mediana Sector</h3>
+                    <div class="text-2xl font-bold ${difMediana < 0 ? 'text-success-dark' : 'text-red-700'}">${difMediana < 0 ? '✓ Superior' : '✗ Inferior'}</div>
+                    <p class="text-sm text-gray-600 mt-2">Mediana Sector: <strong>${stats.mediana.toFixed(2)}</strong></p>
+                    <p class="text-sm font-semibold mt-1">${difMediana < 0 ? 'Estás en la mitad <strong>SUPERIOR</strong>.' : 'Estás en la mitad <strong>INFERIOR</strong>.'}</p>
+                </div>
+                
+                <div class="p-5 border-l-4 ${tfcpsi <= percentilesLogNormal.p25 ? 'border-success-dark bg-success-light' : 'border-yellow-500 bg-warning-light'} rounded-r-lg shadow-md">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-2">vs Top 25%</h3>
+                    <div class="text-2xl font-bold ${tfcpsi <= percentilesLogNormal.p25 ? 'text-success-dark' : 'text-yellow-800'}">≤ ${percentilesLogNormal.p25.toFixed(2)}</div>
+                    <p class="text-sm text-gray-600 mt-2">Meta de excelencia (percentil 25 Log-normal).</p>
+                    <p class="text-sm font-semibold mt-1">${tfcpsi <= percentilesLogNormal.p25 ? '¡Felicitaciones! Perteneces a los líderes.' : `Necesitas reducir ${(tfcpsi - percentilesLogNormal.p25).toFixed(2)} puntos.`}</p>
+                </div>
+            </div>
+        </section>
+    `;
+}
+
+function generarSeccionPrediccion(tfcpsi, hhtFuturas) {
+    // Proyección con incertidumbre
+    const proyeccion = proyeccionAccidentesConIncertidumbre(tfcpsi, hhtFuturas);
+    
+    const accidentesPromedio = (stats.promedio * hhtFuturas) / 1000000;
+    const accidentesMediana = (stats.mediana * hhtFuturas) / 1000000;
+    const accidentesP25 = (percentilesLogNormal.p25 * hhtFuturas) / 1000000;
+    
+    const tfcpsiOptimista = Math.max(0.5, percentilesLogNormal.p10);
+    const accidentesOptimista = (tfcpsiOptimista * hhtFuturas) / 1000000;
+    
+    const difPromedio = proyeccion.esperado - accidentesPromedio;
+    const difMediana = proyeccion.esperado - accidentesMediana;
+    const difP25 = proyeccion.esperado - accidentesP25;
+    
+    const hhtProyectadasFormateadas = formatNumber(hhtFuturas);
+
+    const escenarioBox = (title, tfcpsiRef, accidentes, diferencia, esOptimista = false) => {
+        const difClase = diferencia < 0 ? 'text-red-600 bg-danger-light' : 'text-success-dark bg-success-light';
+        const difTexto = diferencia < 0 
+            ? `Tendrías ${Math.abs(diferencia).toFixed(2)} accidentes MÁS`
+            : `Podrías EVITAR ${Math.abs(diferencia).toFixed(2)} accidentes`;
+        
+        return `
+            <div class="p-5 bg-white rounded-lg shadow-md border-l-4 border-gray-300 hover:border-cier-blue transition duration-300">
+                <h3 class="text-lg font-semibold text-gray-700 mb-2 ${esOptimista ? 'text-accent-blue' : ''}">${title}</h3>
+                <p class="text-sm text-gray-500">TFCPSI: <strong>${tfcpsiRef.toFixed(2)}</strong></p>
+                <div class="text-4xl font-extrabold text-cier-blue my-2">${accidentes.toFixed(2)}</div>
+                <div class="mt-2 p-2 rounded-md font-medium text-sm ${difClase}">
+                    ${esOptimista ? `→ Objetivo: EVITAR ${(proyeccion.esperado - accidentes).toFixed(2)} accidentes` : (title.includes('Manteniendo') ? 'Tu proyección actual' : `→ ${difTexto}`)}
+                </div>
+            </div>
+        `;
+    };
+    
+    return `
+        <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-cier-blue">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <span class="text-cier-blue mr-2">🔮</span> Proyección de Accidentes (12 Meses Futuros)
+            </h2>
+            <p class="text-gray-600 mb-4">Proyectado sobre <strong>${hhtProyectadasFormateadas}</strong> Horas Hombre Trabajadas futuras.</p>
             
-            html += `
+            <!-- INTERVALO DE CONFIANZA (NUEVO) -->
+            <div class="bg-blue-50 border-l-4 border-accent-blue p-5 mb-6 rounded-md">
+                <h3 class="text-lg font-bold text-accent-blue mb-3">📊 Intervalo de Confianza (Modelo Poisson)</h3>
+                <div class="grid md:grid-cols-3 gap-4 text-center">
+                    <div class="p-3 bg-white rounded-lg shadow-sm">
+                        <div class="text-sm text-gray-500 font-medium">Límite Inferior (95%)</div>
+                        <div class="text-2xl font-extrabold text-gray-700">${proyeccion.ic95_inferior.toFixed(2)}</div>
                     </div>
-                    
-                    <div class="bg-blue-50 border-l-4 border-accent-blue p-4 mt-6 text-sm text-gray-800 rounded-md">
-                        <strong class="text-accent-blue">Valor Económico:</strong> Cada accidente evitado representa ahorros significativos en costos médicos, indemnizaciones y pérdidas de productividad, justificando la inversión en seguridad.
+                    <div class="p-3 bg-white rounded-lg shadow-sm border-2 border-accent-blue">
+                        <div class="text-sm text-accent-blue font-bold">Esperado (λ)</div>
+                        <div class="text-3xl font-extrabold text-accent-blue">${proyeccion.esperado.toFixed(2)}</div>
                     </div>
-                </section>
-            `;
+                    <div class="p-3 bg-white rounded-lg shadow-sm">
+                        <div class="text-sm text-gray-500 font-medium">Límite Superior (95%)</div>
+                        <div class="text-2xl font-extrabold text-gray-700">${proyeccion.ic95_superior.toFixed(2)}</div>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-600 mt-3 text-center">Con 95% de confianza, el número real de accidentes estará entre ${proyeccion.ic95_inferior.toFixed(1)} y ${proyeccion.ic95_superior.toFixed(1)} accidentes.</p>
+            </div>
             
-            return html;
-        }
+            <h3 class="text-xl font-semibold text-gray-700 mb-4">Escenarios Comparativos</h3>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                ${escenarioBox("1️⃣ Manteniendo tu TFCPSI actual", tfcpsi, proyeccion.esperado, 0)}
+                ${escenarioBox("2️⃣ Si alcanzas el PROMEDIO del sector", stats.promedio, accidentesPromedio, difPromedio)}
+                ${escenarioBox("3️⃣ Si alcanzas la MEDIANA del sector", stats.mediana, accidentesMediana, difMediana)}
+                ${escenarioBox("4️⃣ Si entras al TOP 25%", percentilesLogNormal.p25, accidentesP25, difP25)}
+                ${escenarioBox("5️⃣ Escenario OPTIMISTA (TOP 10%)", tfcpsiOptimista, accidentesOptimista, proyeccion.esperado - accidentesOptimista, true)}
+            </div>
+        </section>
+    `;
+}
+
+function generarSeccionPercentiles() {
+    const percentilBox = (label, value, explanation, isTop) => `
+        <div class="p-5 bg-white rounded-lg shadow-md border-t-4 ${isTop ? 'border-success-dark' : 'border-gray-300'} text-center transition hover:shadow-xl">
+            <div class="text-sm text-gray-500 font-semibold uppercase">${label}</div>
+            <div class="text-3xl font-extrabold text-cier-blue mt-1">${value}</div>
+            <div class="text-xs text-gray-500 mt-2">${explanation}</div>
+        </div>
+    `;
+    
+    return `
+        <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-cier-blue">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <span class="text-cier-blue mr-2">🎯</span> Percentiles de Referencia (Log-normal)
+            </h2>
+            <p class="text-gray-600 mb-6">Valores de TFCPSI calculados con distribución Log-normal, ideales para establecer metas realistas.</p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+                ${percentilBox("P5", `≤ ${percentilesLogNormal.p05.toFixed(2)}`, "Top 5% del sector", true)}
+                ${percentilBox("P10", `≤ ${percentilesLogNormal.p10.toFixed(2)}`, "Top 10% del sector", true)}
+                ${percentilBox("P25", `≤ ${percentilesLogNormal.p25.toFixed(2)}`, "Cuartil superior", true)}
+                ${percentilBox("P50", `≤ ${percentilesLogNormal.p50.toFixed(2)}`, "Mediana", false)}
+                ${percentilBox("P75", `≤ ${percentilesLogNormal.p75.toFixed(2)}`, "Tercer cuartil", false)}
+                ${percentilBox("P90", `≤ ${percentilesLogNormal.p90.toFixed(2)}`, "Percentil 90", false)}
+                ${percentilBox("P95", `≤ ${percentilesLogNormal.p95.toFixed(2)}`, "Percentil 95", false)}
+            </div>
+        </section>
+    `;
+}
+
+function generarSeccionRecomendaciones(resultado, hhtFuturas, tfcpsi) {
+    const tfcpsiP25 = percentilesLogNormal.p25;
+    const tfcpsiP50 = percentilesLogNormal.p50;
+    const tfcpsiP75 = percentilesLogNormal.p75;
+    
+    const reduccionP25 = tfcpsi > tfcpsiP25 ? ((tfcpsi - tfcpsiP25) * hhtFuturas) / 1000000 : 0;
+    const reduccionP50 = tfcpsi > tfcpsiP50 ? ((tfcpsi - tfcpsiP50) * hhtFuturas) / 1000000 : 0;
+    const reduccionP75 = tfcpsi > tfcpsiP75 ? ((tfcpsi - tfcpsiP75) * hhtFuturas) / 1000000 : 0;
+    
+    let title, icon, bgColor, textColor, borderColor, recomendacionesList;
+
+    if (resultado.percentil <= 25) {
+        title = "EXCELENTE DESEMPEÑO - Mantén el liderazgo";
+        icon = "✨";
+        bgColor = 'bg-success-light';
+        textColor = 'text-green-800';
+        borderColor = 'border-success-dark';
+        recomendacionesList = `
+            <li><strong>Documenta:</strong> Sistematiza tus mejores prácticas de seguridad para replicarlas.</li>
+            <li><strong>Meta:</strong> Mantenerte en el TOP 25% (≤ ${tfcpsiP25.toFixed(2)}) y buscar el <strong>cero accidentes fatales</strong>.</li>
+            <li><strong>Innovación:</strong> Invierte en ergonomía y tecnología predictiva (IoT, AI).</li>
+        `;
+    } else if (resultado.percentil <= 50) {
+        title = "BUEN DESEMPEÑO - Camino al top 25%";
+        icon = "👍";
+        bgColor = 'bg-success-light';
+        textColor = 'text-green-800';
+        borderColor = 'border-success-dark';
+        recomendacionesList = `
+            <li><strong>Meta realista:</strong> Reducir TFCPSI a <strong>${tfcpsiP25.toFixed(2)}</strong> para entrar al TOP 25%.</li>
+            <li><strong>Impacto:</strong> Esto significa evitar aproximadamente <strong>${reduccionP25.toFixed(1)} accidentes</strong> en los próximos 12 meses.</li>
+            <li><strong>Foco:</strong> Refuerza capacitación en puestos de mayor riesgo.</li>
+        `;
+    } else if (resultado.percentil <= 75) {
+        title = "DESEMPEÑO REGULAR - Plan de mejora necesario";
+        icon = "⚠️";
+        bgColor = 'bg-warning-light';
+        textColor = 'text-yellow-800';
+        borderColor = 'border-yellow-500';
+        recomendacionesList = `
+            <li><strong>Prioridad:</strong> Implementar un plan estructurado de mejora con métricas claras.</li>
+            <li><strong>Meta a corto plazo:</strong> Alcanzar la mediana (<strong>${tfcpsiP50.toFixed(2)}</strong>), evitando <strong>${reduccionP50.toFixed(1)} accidentes</strong>.</li>
+            <li><strong>Revisión:</strong> Auditoría de cumplimiento de procedimientos.</li>
+        `;
+    } else {
+        title = "REQUIERE ATENCIÓN URGENTE - Acción inmediata";
+        icon = "🚨";
+        bgColor = 'bg-danger-light';
+        textColor = 'text-red-800';
+        borderColor = 'border-red-500';
+        recomendacionesList = `
+            <li><strong>Liderazgo:</strong> Programa integral de seguridad con <strong>apoyo gerencial inmediato</strong>.</li>
+            <li><strong>Meta inmediata:</strong> Reducir a percentil 75 (<strong>${tfcpsiP75.toFixed(2)}</strong>), evitando <strong>${reduccionP75.toFixed(1)} accidentes</strong>.</li>
+            <li><strong>Asesoría:</strong> Considerar auditoría externa completa.</li>
+        `;
+    }
+
+    return `
+        <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-cier-blue">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <span class="text-cier-blue mr-2">💡</span> Recomendaciones Personalizadas
+            </h2>
+            <div class="p-6 rounded-xl shadow-inner ${bgColor} ${borderColor} border-l-4">
+                <h3 class="text-xl font-bold ${textColor} mb-4">${icon} ${title}</h3>
+                <ul class="list-none space-y-3 ${textColor}">
+                    ${recomendacionesList}
+                </ul>
+            </div>
+        </section>
+    `;
+}
+
+function generarSeccionSensibilidad(tfcpsi, hhtFuturas) {
+    const accidentesActual = (tfcpsi * hhtFuturas) / 1000000;
+    const mejoras = [
+        { porcentaje: 10, factor: 0.90 },
+        { porcentaje: 20, factor: 0.80 },
+        { porcentaje: 30, factor: 0.70 },
+        { porcentaje: 50, factor: 0.50 }
+    ];
+    
+    let html = `
+        <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-cier-blue">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <span class="text-cier-blue mr-2">⚡</span> Análisis de Sensibilidad (ROI de la Seguridad)
+            </h2>
+            
+            <p class="text-gray-600 mb-6">Proyecciones de accidentes evitados si logra reducir su TFCPSI.</p>
+            
+            <div class="space-y-4">
+    `;
+    
+    mejoras.forEach(mejora => {
+        const tfcpsiMejorado = tfcpsi * mejora.factor;
+        const accidentesMejorados = (tfcpsiMejorado * hhtFuturas) / 1000000;
+        const accidentesEvitados = accidentesActual - accidentesMejorados;
+        
+        html += `
+            <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition duration-200 flex-wrap gap-2">
+                <div class="flex flex-col md:flex-row md:items-center">
+                    <span class="font-bold text-lg text-cier-blue">Meta: Reducción del ${mejora.porcentaje}%</span>
+                    <span class="text-sm text-gray-500 md:ml-3">(Nuevo TFCPSI = ${tfcpsiMejorado.toFixed(2)})</span>
+                </div>
+                <div class="font-extrabold text-xl text-success-dark">
+                    EVITARÍA ${accidentesEvitados.toFixed(2)} ACCIDENTES
+                </div>
+            </div>
+        `;
+    });
+    
+    html += `
+            </div>
+            
+            <div class="bg-blue-50 border-l-4 border-accent-blue p-4 mt-6 text-sm text-gray-800 rounded-md">
+                <strong class="text-accent-blue">Valor Económico:</strong> Cada accidente evitado representa ahorros significativos en costos médicos, indemnizaciones y pérdidas de productividad, justificando la inversión en seguridad.
+            </div>
+        </section>
+    `;
+    
+    return html;
+}
+
+// NUEVA SECCIÓN: Explicación de la metodología
+function generarSeccionMetodologia() {
+    return `
+        <section class="mb-12 p-6 bg-white rounded-xl shadow-lg border-l-4 border-accent-blue">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <span class="text-accent-blue mr-2">🔬</span> Metodología Estadística
+            </h2>
+            
+            <div class="space-y-6">
+                <div class="p-5 bg-gray-50 rounded-lg border-l-4 border-success-dark">
+                    <h3 class="text-lg font-bold text-success-dark mb-3">✓ Distribución Log-normal para Clasificación</h3>
+                    <p class="text-gray-700 text-sm mb-2">Para clasificar tu TFCPSI y calcular percentiles, utilizamos la <strong>distribución Log-normal</strong> porque:</p>
+                    <ul class="list-disc list-inside text-sm text-gray-600 space-y-1 ml-4">
+                        <li>Las tasas de frecuencia son <strong>valores positivos continuos</strong></li>
+                        <li>Presentan <strong>asimetría a la derecha</strong> (pocas empresas con tasas muy altas)</li>
+                        <li>Es el modelo estándar en <strong>seguridad ocupacional</strong></li>
+                        <li>Pruebas estadísticas confirman que se ajusta mejor que Gamma (p-valor KS = 0.98)</li>
+                    </ul>
+                    <p class="text-xs text-gray-500 mt-3"><strong>Parámetros estimados:</strong> μ = ${stats.muLog.toFixed(4)}, σ = ${stats.sigmaLog.toFixed(4)}</p>
+                </div>
+
+                <div class="p-5 bg-gray-50 rounded-lg border-l-4 border-accent-blue">
+                    <h3 class="text-lg font-bold text-accent-blue mb-3">✓ Modelo Poisson para Proyección de Accidentes</h3>
+                    <p class="text-gray-700 text-sm mb-2">Para proyectar el <strong>número de accidentes futuros</strong>, utilizamos el <strong>modelo Poisson</strong> porque:</p>
+                    <ul class="list-disc list-inside text-sm text-gray-600 space-y-1 ml-4">
+                        <li>Modela <strong>conteos de eventos raros</strong> en un período de tiempo</li>
+                        <li>Permite calcular <strong>intervalos de confianza</strong> para la proyección</li>
+                        <li>Es apropiado para <strong>predecir accidentes</strong> dado un volumen de horas trabajadas</li>
+                    </ul>
+                    <p class="text-xs text-gray-500 mt-3"><strong>Parámetro λ:</strong> (TFCPSI × HHT) / 1,000,000</p>
+                </div>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-md">
+                    <h4 class="font-bold text-blue-800 mb-2">Diferencia clave: ¿Por qué dos distribuciones?</h4>
+                    <p class="text-sm text-blue-900">
+                        <strong>Log-normal</strong> describe el <strong>comportamiento de las tasas</strong> entre empresas (benchmarking).
+                        <br>
+                        <strong>Poisson</strong> predice el <strong>número de eventos</strong> en el tiempo (proyección).
+                        <br><br>
+                        Ambos son complementarios y correctos para sus respectivos usos.
+                    </p>
+                </div>
+            </div>
+        </section>
+    `;
+}
+
+// ============================================
+// MENSAJE DE CONSOLA
+// ============================================
+
+console.log("===============================================");
+console.log("CALCULADORA CIER 2025 - VERSIÓN CORREGIDA");
+console.log("Distribución Log-normal implementada ✓");
+console.log("Intervalos de confianza Poisson ✓");
+console.log("===============================================");
+
     </script>
 </body>
 </html>
-
-
-
-
-

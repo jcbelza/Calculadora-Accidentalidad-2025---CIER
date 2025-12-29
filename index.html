@@ -224,7 +224,7 @@ Funcionalidades incluidas:
                         <h3 class="text-xl font-semibold text-gray-700 mb-4 flex items-center">
                             <span class="text-accent-blue mr-2">🔎</span> Tipología de Accidentes - Análisis de Causas Raíz (Pareto)
                         </h3>
-                        <p class="block text-sm text-gray-500 mb-4">Seleccione las **tipologías de accidentes** que más le preocupan o que han afectado a su empresa. (Toque para seleccionar/deseleccionar)</p>
+                        <p class="block text-sm text-gray-500 mb-4">Seleccione las **tipologías de accidentes** que han afectado a su empresa en los últimos 12 meses. (Toque para seleccionar/deseleccionar)</p>
                         
                         <div id="tipologia-selector-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-96 overflow-y-auto pr-2">
                             <!-- Opciones generadas dinámicamente o añadidas aquí -->
@@ -856,11 +856,11 @@ function generarSeccionTipologia(seleccionTipologia) {
 
     let coincidenciaTexto;
     if (totalPercent > 50) {
-        coincidenciaTexto = "Alta coincidencia. Las áreas que le preocupan son los principales focos de riesgo del sector.";
+        coincidenciaTexto = "Alta coincidencia. Los accidentes que le preocupan en su empresa son los principales accidentes del sector eléctrico en la región CIER.";
     } else if (totalPercent > 25) {
-        coincidenciaTexto = "Coincidencia moderada. Sus focos de riesgo se alinean con una parte significativa de los accidentes del sector.";
+        coincidenciaTexto = "Coincidencia moderada. Los accidentes que le preocupan se alinean con una parte significativa de los accidentes del sector eléctrico en la región CIER.";
     } else {
-        coincidenciaTexto = "Coincidencia baja. Si bien es importante, el sector tiene mayores desafíos en otras áreas.";
+        coincidenciaTexto = "Coincidencia baja. Si bien son accidentes importantes en su empresa, el sector eléctrico de la región CIER tiene otro tipo de accidentes que preocupan."  
     }
 
     return `
@@ -1260,6 +1260,7 @@ console.log("===============================================");
     </script>
 </body>
 </html>
+
 
 
 
